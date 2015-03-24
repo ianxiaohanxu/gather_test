@@ -1,9 +1,6 @@
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
-HK_NURSE                    =   'alex+hk+n@gatherhealth.com'
 INDIA_DOCTOR                =   'alex+in@gatherhealth.com'
-INDIA_NURSE                 =   'alex+in+n@gatherhealth.com'
 US_DOCTOR                   =   'alex+us@gatherhealth.com'
-US_NURSE                    =   'alex+us+n@gatherhealth.com'
 PASSWORD                    =   '123456'
 
 Stag0                       =   'http://stag0.gatherhealth.com/provider/'
@@ -19,11 +16,7 @@ HKID_CHECK                  =   'A'
 ADD_PATIENT                 =   u'ADD PATIENT'
 
 # Locator
-PR_NAV_FEED                                 =   '.feed a'
-PR_NAV_ADD_PATIENT                          =   '.normal .add a'
-PR_NAV_OPTION_MENU                          =   '.dropdown-toggle .avatar'
-PR_NAV_OPTION_MENU_LOGOUT                   =   '[href="/provider/logout?next=/provider/"]'
-
+PR_ADD_PATIENT_BUTTON                       =   '.normal .add a'
 PR_ADD_PATIENT_SURNAME                      =   'input[name="last_name"]'
 PR_ADD_PATIENT_GIVENAME                     =   'input[name="first_name"]'
 PR_ADD_PATIENT_P_COUNTRY_CODE               =   'select[name="phone1_country"]'
@@ -44,17 +37,3 @@ PR_ADD_PATIENT_TITLE                        =   '.heading h1'
 PR_PATIENT_RECORD_ID                        =   '.id span'
 
 PR_DIRECTORY_REMOVE_CONFIRM                 =   '.cleared .right.submit'
-
-PR_INFO_NAME                                =   'h1.name'
-PR_INFO_PATIENT_DATA                        =   '.patient-data li'
-PR_INFO_COMORBIDITIES                       =   '.patient-data li.chiclet'
-PR_INFO_OTHER_MED                           =   '.other li.chiclet'
-PR_INFO_NOTE                                =   '.dummy'
-PR_INFO_EMAIL                               =   '.email div'
-PR_INFO_NUMBER                              =   '.cell div'
-
-PR_LOGIN_USERNAME                           =   'id_username'
-PR_LOGIN_PASSWORD                           =   'id_password'
-PR_LOGIN_SUBMIT                             =   'input[name="submit"]'
-PR_LOGIN_FORGOT_PASSWORD                    =   '.forgotpw'
-
