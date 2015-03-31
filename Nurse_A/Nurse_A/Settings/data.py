@@ -1,7 +1,9 @@
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
 HK_NURSE                    =   'alex+hk+n@gatherhealth.com'
 INDIA_DOCTOR                =   'alex+in@gatherhealth.com'
-INDIA_NURSE                 =   'alex+in+n@gatherhealth.com'
+INDIA_NURSE                 =   'alex+innurse@gatherhealth.com'
+DOCTOR_FREE                 =   'alex+free@gatherhealth.com'
+NURSE_FREE                  =   'alex+freenurse@gatherhealth.com'
 US_DOCTOR                   =   'alex+us@gatherhealth.com'
 US_NURSE                    =   'alex+us+n@gatherhealth.com'
 PASSWORD                    =   '123456'
@@ -10,13 +12,22 @@ Stag0                       =   'http://stag0.gatherhealth.com/provider/'
 Stag1                       =   'https://stag1.gatherhealth.com/provider'
 Stag2                       =   'https://stag2.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
-SERVER                      =   Stag2
+SERVER                      =   Stag1
 DIRECTORY_PATH              =   SERVER+'/directory'
 
 PR_LOGIN_TITLE              =   u'Gather \u22c5 Login'
 HKID                        =   'X356888'
 HKID_CHECK                  =   'A'
 ADD_PATIENT                 =   u'ADD PATIENT'
+
+MED_GOALS                   =   [['G1', 0, 0, [5, 0], [6, 0], [5, 0], [5, 0], [5, 0, '09:00:00']],
+                                 ['G2', 1, 1, [200, 5], [200, 5], [200, 5], [200, 5], [200, 5, '20:00:00']],
+                                ]
+
+WEEKDAY                     =   ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+MEAL                        =   ['brk', 'lun', 'din']
+NIGHT                       =   'night'
+PRE_POST                    =   ['pre', 'post']
 
 # Locator
 PR_NAV_FEED                                 =   '.feed a'
@@ -40,8 +51,76 @@ PR_ADD_PATIENT_PREMIUM_TRIAL                =   '#premium_trial_subscription'
 PR_ADD_PATIENT_INVITE_BUTTON                =   'input.full_width'
 PR_ADD_PATIENT_FINAL_BUTTON                 =   'button.final'
 PR_ADD_PATIENT_TITLE                        =   '.heading h1'
+PR_ADD_PATIENT_BILL_TIME                    =   'subscription.months'
+PR_ADD_PATIENT_BILL_RATE                    =   'subscription.price'
+PR_ADD_PATIENT_PATIENT_TYPE                 =   'patient_type'
+PR_ADD_PATIENT_PATIENT_YEAR                 =   'diagnosis_year'
+PR_ADD_PATIENT_PATIENT_COMORBIDITIES        =   'textarea.comos'
+PR_ADD_PATIENT_PATIENT_NOTES                =   'patient_notes'
+PR_ADD_PATIENT_PRE_LOWER_LIMIT              =   'pre_lower_limit'
+PR_ADD_PATIENT_PRE_UPPER_LIMIT              =   'pre_upper_limit'
+PR_ADD_PATIENT_POST_LOWER_LIMIT             =   'post_lower_limit'
+PR_ADD_PATIENT_POST_UPPER_LIMET             =   'post_upper_limit'
+PR_ADD_PATIENT_EVERY_PRE_BRK                =   'every_pre_brk'
+PR_ADD_PATIENT_EVERY_POST_BRK               =   'every_post_brk'
+PR_ADD_PATIENT_EVERY_PRE_LUN                =   'every_pre_lun'
+PR_ADD_PATIENT_EVERY_POST_LUN               =   'every_post_lun'
+PR_ADD_PATIENT_EVERY_PRE_DIN                =   'every_pre_din'
+PR_ADD_PATIENT_EVERY_POST_DIN               =   'every_post_din'
+PR_ADD_PATIENT_EVERY_NIGHT                  =   'every_night'
+PR_ADD_PATIENT_EVERY                        =   [PR_ADD_PATIENT_EVERY_PRE_BRK, PR_ADD_PATIENT_EVERY_POST_BRK,
+                                                 PR_ADD_PATIENT_EVERY_PRE_LUN, PR_ADD_PATIENT_EVERY_POST_LUN,
+                                                 PR_ADD_PATIENT_EVERY_PRE_DIN, PR_ADD_PATIENT_EVERY_POST_DIN,
+                                                 PR_ADD_PATIENT_EVERY_NIGHT,]
+PR_ADD_PATIENT_OTHER_MED                    =   '.other_meds'                                                 
+PR_ADD_PATIENT_MED_GOALS_BUTTON             =   '.med button'
+PR_ADD_PATIENT_HEIGHT                       =   'input[name="height"]'
+PR_ADD_PATIENT_WEIGHT                       =   'weight'
+PR_ADD_PATIENT_WAIST                        =   'waist'
+PR_ADD_PATIENT_A1C                          =   'a1c'
+PR_ADD_PATIENT_BP_SYS                       =   'bp_sys'
+PR_ADD_PATIENT_BP_DIA                       =   'bp_dia'
+
+PR_MED_GOALS_TITLE                          =   '.med-goals h3'
+PR_MED_GOALS_FORM                           =   '.med-goals form'
+PR_MED_GOALS_FORM_NAME                      =   '.med_name' 
+PR_MED_GOALS_FORM_ORAL                      =   '.oral'
+PR_MED_GOALS_FORM_INSULIN                   =   '.insulin'
+PR_MED_GOALS_FORM_PRE                       =   '.pre'
+PR_MED_GOALS_FORM_POST                      =   '.post'
+PR_MED_GOALS_FORM_BRK_DOSAGE                =   '.breakfast .dosage'
+PR_MED_GOALS_FORM_BRK_AMOUNT                =   '.breakfast .amount'
+PR_MED_GOALS_FORM_LUN_DOSAGE                =   '.lunch .dosage'
+PR_MED_GOALS_FORM_LUN_AMOUNT                =   '.lunch .amount'
+PR_MED_GOALS_FORM_DIN_DOSAGE                =   '.dinner .dosage'
+PR_MED_GOALS_FORM_DIN_AMOUNT                =   '.dinner .amount'
+PR_MED_GOALS_FORM_NIGHT_DOSAGE              =   '.night .dosage'
+PR_MED_GOALS_FORM_NIGHT_AMOUNT              =   '.night .amount'
+PR_MED_GOALS_FORM_FREEFORM_DOSAGE           =   '.freeform .dosage'
+PR_MED_GOALS_FORM_FREEFORM_AMOUNT           =   '.freeform .amount'
+PR_MED_GOALS_FORM_FREEFORM_SELECT           =   '.freeform select'
+PR_MED_GOALS_NEW_BUTTON                     =   '.med-goals .button'
+PR_MED_GOALS_SUBMIT_BUTTON                  =   '.med-goals .submit'
+PR_MED_GOALS_CLOSE_BUTTON                   =   '.med-goals .close'
+
+PR_MED_GOALS_CONFIRM_TITLE                  =   '.med-conf h3'
+PR_MED_GOALS_CONFIRM_BACK_BUTTON            =   '.med-conf .revert'
+PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON          =   '.med-conf .submit'
+    
+PR_BG_GOALS_CLOSE_BUTTON                    =   '.smbg_goals .close'
 
 PR_PATIENT_RECORD_ID                        =   '.id span'
+PR_PATIENT_RECORD_INFO                      =   '.indicator li.status'
+PR_PATIENT_RECORD_CHAT                      =   '.indicator li.messaging'
+PR_PATIENT_RECORD_SMBG                      =   '.smbg'
+PR_PATIENT_RECORD_SMBG_TITLE                =   '.smbg_goals h3'
+PR_PATIENT_RECORD_MED_GOALS                 =   '.meds_schedule'
+PR_PATIENT_RECORD_PRE_MEAL_RANGE            =   '.pre_meal'
+PR_PATIENT_RECORD_POST_MEAL_RANGE           =   '.post_meal'
+PR_PATIENT_RECORD_BILLING                   =   'billing_tab_select'
+PR_PATIENT_RECORD_BILLING_OVERVIEW          =   '#billing .overview'
+PR_PATIENT_RECORD_BILLING_FIRST_M           =   '#billing table tr td:nth-child(3)'
+PR_PATIENT_RECORD_BILLING_FIRST_R           =   '#billing table tr td:nth-child(4)'
 
 PR_DIRECTORY_REMOVE_CONFIRM                 =   '.cleared .right.submit'
 

@@ -12,18 +12,10 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
-from time import sleep, time
+from time import sleep, time, localtime
 from Nurse_A.Platform.web import Web
 from Nurse_A.Settings import data
 
-# SERVER = {
-#     "Stag0" : "http://stag0.gatherhealth.com/provider/",
-#     "Stag1" : "https://stag1.gatherhealth.com/provider",
-#     "Stag2" : "https://stag2.gatherhealth.com/provider",
-#     "Production" : "https://www.gatherhealth.com/provider",
-# }
-
-# LOGIN_TITLE = u'Gather \u22c5 Login'
 
 class WEB(Web):
     
@@ -58,10 +50,10 @@ class WEB(Web):
     def login(self, ACCOUNT, PASSWORD):
         # Log in with the account and password
         if self.title == data.PR_LOGIN_TITLE:
-            self.enter(ACCOUNT, 'id_username')
-            self.enter(PASSWORD, 'id_password')
-            self.click('input[name="submit"]')
-            self.verify('.feed')
+            self.enter(ACCOUNT, data.PR_LOGIN_USERNAME)
+            self.enter(PASSWORD, data.PR_LOGIN_PASSWORD)
+            self.click(data.PR_LOGIN_SUBMIT)
+            self.verify(data.PR_NAV_FEED)
         
     def logout(self):
         # Log out
@@ -72,9 +64,9 @@ class WEB(Web):
                 Alert(self.driver).accept()
             except:
                 pass
-            self.click('.dropdown-toggle .avatar')
-            self.click('[href="/provider/logout?next=/provider/"]')
-            self.verify('.forgotpw')
+            self.click(data.PR_NAV_OPTION_MENU)
+            self.click(data.PR_NAV_OPTION_MENU_LOGOUT)
+            self.verify(data.PR_LOGIN_FORGOT_PASSWORD)
 
     def create_new_patient(self):
         # Create a new patient
@@ -84,21 +76,22 @@ class WEB(Web):
             Alert(self.driver).accept()
         except:
             pass
-        self.click('.normal .add a')
+        self.click(data.PR_NAV_ADD_PATIENT)
         INFO = self.generate_info()
-        self.enter(INFO['surname'], 'input[name="last_name"]')
-        self.enter(INFO['givename'], 'input[name="first_name"]')
-        self.select('United States (+1)', 'select[name="phone1_country"]')
-        self.enter(INFO['us_cell'], 'input[name="phone1"]')
-        self.enter(INFO['email'], 'input[name="email"]')
-        self.select('English', 'select[name="language"]')
-        self.click('input[name="sex"]')
-        self.click('#premium_trial_subscription')
-        self.click('input.full_width')
-        self.verify('button.final')
-        self.click('button.final')
-        self.verify('.id')
-        return EMAIL
+        self.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
+        self.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
+        self.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
+        self.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
+        self.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
+        self.select('en', data.PR_ADD_PATIENT_LANGUAGE)
+        self.click(data.PR_ADD_PATIENT_GENDER_MALE)
+        if self.is_element_present(data.PR_ADD_PATIENT_PREMIUM_TRIAL):
+            self.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
+        self.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
+        self.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)
+        self.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
+        self.verify(data.PR_PATIENT_RECORD_ID)
+        return INFO['email']
         
     def delete_patient(self, id):
         # Delete a patient by id
@@ -106,4 +99,237 @@ class WEB(Web):
         self.click('//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a' %id)
         self.verify(data.PR_DIRECTORY_REMOVE_CONFIRM)
         self.click(data.PR_DIRECTORY_REMOVE_CONFIRM)
+        
+    def get_surname(self):
+        # Return patient surname from PR page
+        name = self.text(data.PR_INFO_NAME)
+        surname = name.split()[1]
+        return surname
+        
+    def get_givename(self):
+        # Return patient givename from PR page
+        name = self.text(data.PR_INFO_NAME)
+        givename = name.split()[0]
+        return givename
+        
+    def get_gender(self):
+        # Return patient gender from PR page
+        data_str = self.text(data.PR_INFO_PATIENT_DATA)
+        gender = data_str.split(',')[0]
+        return gender
+        
+    def get_type(self):
+        # Return patient diabetes type
+        data_str = self.text(data.PR_INFO_PATIENT_DATA)
+        dia_type = data_str.split(',')[-1].split('of')[0].strip()
+        return dia_type
+        
+    def get_year(self):
+        # Return the year when patient got diabetes
+        data_str = self.text(data.PR_INFO_PATIENT_DATA)
+        interval = int(data_str.split(',')[-1].split('of')[-1].split()[0])
+        year = str(localtime().tm_year - interval)
+        return year
+        
+    def get_comorbidities(self):
+        # Return patient comorbidities
+        elements = self.find(data.PR_INFO_COMORBIDITIES)
+        return [i.text for i in elements]
+        
+    def get_other_med(self):
+        # Return patient's other meds
+        elements = self.find(data.PR_INFO_OTHER_MED)
+        return [i.text for i in elements]
+        
+    def get_notes(self):
+        # Return patient's notes
+        notes = self.text(data.PR_INFO_NOTE)
+        return notes
+        
+    def get_email(self):
+        # Return patient's email address
+        address = self.text(data.PR_INFO_EMAIL)
+        return address
+        
+    def get_country_code(self):
+        # Return patient's country code
+        number = self.text(data.PR_INFO_NUMBER)
+        return number.split()[0]
+        
+    def get_number(self):
+        # Return patient's number
+        number = self.text(data.PR_INFO_NUMBER)
+        return number.split()[1]
+        
+    def get_billing(self):
+        # Return billing time and rate
+        self.click(data.PR_PATIENT_RECORD_BILLING)
+        self.verify(data.PR_PATIENT_RECORD_BILLING_OVERVIEW)
+        month = self.text(data.PR_PATIENT_RECORD_BILLING_FIRST_M)
+        rate = self.text(data.PR_PATIENT_RECORD_BILLING_FIRST_R)[1:]
+        return [month, rate]
+        
+    def get_bg_range(self):
+        # Return BG range
+        pre = self.text(data.PR_PATIENT_RECORD_PRE_MEAL_RANGE).split(' - ')
+        post = self.text(data.PR_PATIENT_RECORD_POST_MEAL_RANGE).split(' - ')
+        return pre + post
+        
+    def get_bg_goals(self):
+        # Return BG goals
+        goals = []
+        self.click(data.PR_PATIENT_RECORD_SMBG)
+        self.verify(data.PR_PATIENT_RECORD_SMBG_TITLE)
+        for day in data.WEEKDAY:
+            for mealtime in data.MEAL:
+                for pre_post in data.PRE_POST:
+                    where = day + '_' + pre_post + '_' + mealtime
+                    if self.is_selected(where):
+                        goals.append(1)
+                    else:
+                        goals.append(0)
+            where = day + '_' + data.NIGHT
+            if self.is_selected(where):
+                goals.append(1)
+            else:
+                goals.append(0)
+        self.click(data.PR_BG_GOALS_CLOSE_BUTTON)
+        return goals
+        
+    def get_med_goals(self):
+        # Return MED goals
+        goals = []
+        self.click(data.PR_PATIENT_RECORD_MED_GOALS)
+        self.verify(data.PR_MED_GOALS_TITLE)
+        forms = self.find(data.PR_MED_GOALS_FORM)
+        for form in forms:
+            goal = []
+            name = form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NAME).get_attribute('value')
+            oral_insulin = form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_ORAL).is_selected()
+            pre_post = form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_PRE).is_selected()
+            goal.append(name)
+            if oral_insulin:
+                goal.append(1)
+            else:
+                goal.append(0)
+            if pre_post:
+                goal.append(0)
+            else:
+                goal.append(1)
+            breakfast = []
+            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_BRK_DOSAGE).get_attribute('value') == '':
+                breakfast.extend([0,0])                
+            else:
+                breakfast.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_BRK_DOSAGE).get_attribute('value')))
+                if oral_insulin:
+                    breakfast.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_BRK_AMOUNT).get_attribute('value')))
+                else:
+                    breakfast.append(0)
+            lunch = []
+            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_LUN_DOSAGE).get_attribute('value') == '':
+                lunch.extend([0,0])                
+            else:
+                lunch.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_LUN_DOSAGE).get_attribute('value')))
+                if oral_insulin:
+                    lunch.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_LUN_AMOUNT).get_attribute('value')))
+                else:
+                    lunch.append(0)
+            dinner = []
+            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_DIN_DOSAGE).get_attribute('value') == '':
+                dinner.extend([0,0])                
+            else:
+                dinner.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_DIN_DOSAGE).get_attribute('value')))
+                if oral_insulin:
+                    dinner.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_DIN_AMOUNT).get_attribute('value')))
+                else:
+                    dinner.append(0)        
+            night = []
+            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NIGHT_DOSAGE).get_attribute('value') == '':
+                night.extend([0,0])                
+            else:
+                night.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NIGHT_DOSAGE).get_attribute('value')))
+                if oral_insulin:
+                    night.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NIGHT_AMOUNT).get_attribute('value')))
+                else:
+                    night.append(0)
+            freetime = []
+            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_DOSAGE).get_attribute('value') == '':
+                freetime.extend([0,0,0])
+            else:
+                freetime.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_DOSAGE).get_attribute('value')))
+                if oral_insulin:
+                    freetime.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_AMOUNT).get_attribute('value')))
+                else:
+                    freetime.append(0)
+                freetime.append(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_SELECT).get_attribute('value'))
+            goal.extend([breakfast, lunch, dinner, night, freetime])
+            goals.append(goal)
+        self.click(data.PR_MED_GOALS_CLOSE_BUTTON)
+        return goals    
+            
+    def get_data(self):
+        data = []
+        data.append(self.get_surname())
+        data.append(self.get_givename())
+        data.append(self.get_country_code())
+        data.append(self.get_number())
+        data.append(self.get_email())
+        data.append(self.get_gender())
+        data.extend(self.get_billing())
+        data.append(self.get_type())
+        data.append(self.get_year())
+        data.append(self.get_comorbidities())
+        data.append(self.get_notes())
+        data.extend(self.get_bg_range())
+        data.append(self.get_bg_goals())
+        data.append(self.get_med_goals())
+        data.append(self.get_other_med())
+        return data        
+        
+        
+    def fill_dosage(self, value, where, element = None):
+        # Fill 'value' into 'where', if the 'value' is not equal to 0.
+        if element is None:
+            if value != 0:
+                self.enter(value, where)
+        else:
+            if value != 0:
+                element.find_element_by_css_selector(where).send_keys(value)
+            
+    def add_med_goals(self, goals):
+        # Add med goals with list 'goals'
+        for goal in goals:
+            index = goals.index(goal)
+            form = self.find(data.PR_MED_GOALS_FORM)[index]
+            form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NAME).send_keys(goal[0])
+            if goal[1] == 0:
+                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_INSULIN).click()
+            else:
+                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_ORAL).click()
+            if goal[2] == 0:
+                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_PRE).click()
+            else:
+                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_POST).click()
+            self.fill_dosage(goal[3][0], data.PR_MED_GOALS_FORM_BRK_DOSAGE, form)
+            self.fill_dosage(goal[4][0], data.PR_MED_GOALS_FORM_LUN_DOSAGE, form)
+            self.fill_dosage(goal[5][0], data.PR_MED_GOALS_FORM_DIN_DOSAGE, form)
+            self.fill_dosage(goal[6][0], data.PR_MED_GOALS_FORM_NIGHT_DOSAGE, form)
+            self.fill_dosage(goal[7][0], data.PR_MED_GOALS_FORM_FREEFORM_DOSAGE, form)
+            if goal[1] ==1:
+                self.fill_dosage(goal[3][1], data.PR_MED_GOALS_FORM_BRK_AMOUNT, form)
+                self.fill_dosage(goal[4][1], data.PR_MED_GOALS_FORM_LUN_AMOUNT, form)
+                self.fill_dosage(goal[5][1], data.PR_MED_GOALS_FORM_DIN_AMOUNT, form)
+                self.fill_dosage(goal[6][1], data.PR_MED_GOALS_FORM_NIGHT_AMOUNT, form)
+                self.fill_dosage(goal[7][1], data.PR_MED_GOALS_FORM_FREEFORM_AMOUNT, form)
+            if goal[7][0] != 0:
+                Select(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_SELECT)).select_by_value(goal[7][2])
+            if index < (len(goals)-1):
+                self.click(data.PR_MED_GOALS_NEW_BUTTON)
+        self.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
+        self.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
+        self.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
+                
+        
+        
+        
         

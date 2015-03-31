@@ -4,7 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import StaleElementReferenceException
@@ -14,33 +13,11 @@ from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 from Nurse_A.Settings import keycode, constant
 
-# SERVER = {
-#     "Stag0" : "http://stag0.gatherhealth.com/provider/",
-#     "Stag1" : "https://stag1.gatherhealth.com/provider",
-#     "Stag2" : "https://stag2.gatherhealth.com/provider",
-#     "Production" : "https://www.gatherhealth.com/provider",
-# }
-
 
 class Web(object):
     """
     Include common web actions with wrapping selenium methods
-    """
-    
-    # def __init__(self, browser = "Firefox", server = "Stag0"):
-    #     # Create a session with different Browser
-    #     if browser == 'Firefox':
-    #         self.driver = webdriver.Firefox(timeout = 3000)
-    #     elif browser == 'Chrome':
-    #         self.driver = webdriver.Chrome(timeout = 3000)
-    #     elif browser == 'Safari':
-    #         self.driver = webdriver.Safari(timeout = 3000)
-    #     elif browser == 'IE':
-    #         self.driver = webdriver.Ie(timeout = 3000)
-    #     # Open the webpage
-    #     self.HOMEPAGE = SERVER[server]
-    #     self.driver.get(self.HOMEPAGE)
-        
+    """ 
     def teardown(self, DRIVER_QUIT = True, HOMEPAGE = True):
         # Close the session, or just go to homepage, or keep the current page
         if DRIVER_QUIT == True:
@@ -131,7 +108,7 @@ class Web(object):
     def select(self, what, where):
         # Select from drop down list
         element = self.focus(where)
-        Select(element).select_by_visible_text(what)
+        Select(element).select_by_value(what)
         
     def verify(self, what, WAITTIME = 10):
         # Verify element is shown on page
@@ -159,6 +136,11 @@ class Web(object):
         # Title of the page
         return self.driver.title
         
+    def is_selected(self, where):
+        # Check ridio box or check box selected or not
+        element = self.focus(where)
+        return element.is_selected()
+        
     def back(self):
         # Go back
         self.driver.back()
@@ -173,7 +155,10 @@ class Web(object):
                    
     def is_element_present(self, what):
         # Make a judgement, if the element is present or not
-        element = self.focus(what)
+        try:
+            element = self.focus(what)
+        except NoSuchElementException:
+            return False
         try:
             assert element.is_displayed()
             return True
