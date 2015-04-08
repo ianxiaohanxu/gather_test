@@ -34,6 +34,9 @@ EM_PR_ACCOUNT_PASSWORD_LENGH                =   'Password must be between 6 and 
 EM_PR_ACCOUNT_PASSWORD_MATCH                =   'Value must match.'
 EM_PR_ACCOUNT_PASSWROD_STRENGTH_WEAK        =   'weak'
 EM_PR_ACCOUNT_PASSWROD_STRENGTH_TOO_WEAK    =   'too weak'
+EM_PR_ACCOUNT_CELL_NUM_IN_US                =   'Phone number must be 10 digits, numbers only.'
+EM_PR_ACCOUNT_CELL_NUM_HK                   =   'Phone number must be 8 digits, numbers only.'
+EM_PR_ACCOUNT_CELL_NUM_CH                   =   'Phone number must be 11 digits, numbers only.'
 
 # Locator
 PR_NAV_FEED                                 =   '.feed a'
@@ -147,6 +150,10 @@ PR_ACCOUNT_CONFIRM_PASSWORD                 =   'password2'
 PR_ACCOUNT_PASSWORD_ERROR                   =   '.validation_errors'
 PR_ACCOUNT_PASSWORD_STRENGTH                =   '.password_strength span'
 PR_ACCOUNT_SAVE_ALL_BUTTON                  =   'next'
+PR_ACCOUNT_COUNTRY_CODE                     =   '.phone_country'
+PR_ACCOUNT_CELL_NUMBER                      =   '.phone_number'
+PR_ACCOUNT_SEND_SMS_BUTTON                  =   '.send_confirmation'
+PR_ACCOUNT_CELL_ERROR                       =   '.halves .validation_errors'
 
 PR_LOGIN_USERNAME                           =   'id_username'
 PR_LOGIN_PASSWORD                           =   'id_password'
