@@ -29,11 +29,19 @@ MEAL                        =   ['brk', 'lun', 'din']
 NIGHT                       =   'night'
 PRE_POST                    =   ['pre', 'post']
 
+# Error messages
+EM_PR_ACCOUNT_PASSWORD_LENGH                =   'Password must be between 6 and 64 characters.'
+EM_PR_ACCOUNT_PASSWORD_MATCH                =   'Value must match.'
+EM_PR_ACCOUNT_PASSWROD_STRENGTH_WEAK        =   'weak'
+EM_PR_ACCOUNT_PASSWROD_STRENGTH_TOO_WEAK    =   'too weak'
+
 # Locator
 PR_NAV_FEED                                 =   '.feed a'
 PR_NAV_ADD_PATIENT                          =   '.normal .add a'
 PR_NAV_OPTION_MENU                          =   '.dropdown-toggle .avatar'
-PR_NAV_OPTION_MENU_LOGOUT                   =   '[href="/provider/logout?next=/provider/"]'
+PR_NAV_OPTION_MENU_LOGOUT                   =   '.user .dropdown-menu li:nth-child(3) a'
+PR_NAV_OPTION_MENU_ACCOUNT                  =   '.user .dropdown-menu li:nth-child(1) a'
+PR_NAV_OPTION_MENU_MANAGE_PRACTICE          =   '.user .dropdown-menu li:nth-child(2) a'
 
 PR_ADD_PATIENT_SURNAME                      =   'input[name="last_name"]'
 PR_ADD_PATIENT_GIVENAME                     =   'input[name="first_name"]'
@@ -123,6 +131,7 @@ PR_PATIENT_RECORD_BILLING_FIRST_M           =   '#billing table tr td:nth-child(
 PR_PATIENT_RECORD_BILLING_FIRST_R           =   '#billing table tr td:nth-child(4)'
 
 PR_DIRECTORY_REMOVE_CONFIRM                 =   '.cleared .right.submit'
+PR_DIRECTORY_TITLE                          =   '.directory-content h3'
 
 PR_INFO_NAME                                =   'h1.name'
 PR_INFO_PATIENT_DATA                        =   '.patient-data li'
@@ -131,6 +140,13 @@ PR_INFO_OTHER_MED                           =   '.other li.chiclet'
 PR_INFO_NOTE                                =   '.dummy'
 PR_INFO_EMAIL                               =   '.email div'
 PR_INFO_NUMBER                              =   '.cell div'
+
+PR_ACCOUNT_TITLE                            =   '.heading h1'
+PR_ACCOUNT_NEW_PASSWORD                     =   'password1'
+PR_ACCOUNT_CONFIRM_PASSWORD                 =   'password2'
+PR_ACCOUNT_PASSWORD_ERROR                   =   '.validation_errors'
+PR_ACCOUNT_PASSWORD_STRENGTH                =   '.password_strength span'
+PR_ACCOUNT_SAVE_ALL_BUTTON                  =   'next'
 
 PR_LOGIN_USERNAME                           =   'id_username'
 PR_LOGIN_PASSWORD                           =   'id_password'

@@ -133,7 +133,7 @@ class Add_new_patient(unittest.TestCase):
         ID = self.pr.text(data.PR_PATIENT_RECORD_ID)
         # Delete the patient
         self.pr.delete_patient(ID)
-
+    
     def test_add_patient_with_full_info(self):
         # This test is for '101005 Invite a patient and full fill info'
         #                  '101002 Invite a patient with billing'
