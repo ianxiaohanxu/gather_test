@@ -12,7 +12,7 @@ Stag0                       =   'http://stag0.gatherhealth.com/provider/'
 Stag1                       =   'https://stag1.gatherhealth.com/provider'
 Stag2                       =   'https://stag2.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
-SERVER                      =   Stag1
+SERVER                      =   Stag2
 DIRECTORY_PATH              =   SERVER+'/directory'
 
 PR_LOGIN_TITLE              =   u'Gather \u22c5 Login'
@@ -28,6 +28,9 @@ WEEKDAY                     =   ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'
 MEAL                        =   ['brk', 'lun', 'din']
 NIGHT                       =   'night'
 PRE_POST                    =   ['pre', 'post']
+
+# Message content
+MES_CONTENT_BIGGEST_SUCCESS                 =   "It appears you're lagging on your blood sugar measurements, so I wanted to help you make a plan to fit them into your life. When in the past have you been successful in making a change in your life and how did you do it?"
 
 # Error messages
 EM_PR_ACCOUNT_PASSWORD_LENGH                =   'Password must be between 6 and 64 characters.'
@@ -123,6 +126,14 @@ PR_BG_GOALS_CLOSE_BUTTON                    =   '.smbg_goals .close'
 PR_PATIENT_RECORD_ID                        =   '.id span'
 PR_PATIENT_RECORD_INFO                      =   '.indicator li.status'
 PR_PATIENT_RECORD_CHAT                      =   '.indicator li.messaging'
+PR_PATIENT_RECORD_CHAT_QUICK_BUTTON         =   'quick_msg'
+PR_PATIENT_RECORD_QUICK_MES_TITLE           =   '.quick_msg_modal h3'
+PR_PATIENT_RECORD_QUICK_MES_BIG_SUCCESS     =   'dl.open dd:nth-child(6)'
+PR_PATIENT_RECORD_QUICK_MES_SEND            =   '.msg_input .btn'
+PR_PATIENT_RECORD_CHAT_TEXTAREA             =   '.patientdetail-msg-compose'
+PR_PATIENT_RECORD_CHAT_SEND_BUTTON          =   '#patientdetail-msg-form input[type="submit"]'
+PR_PATIENT_RECORD_CHAT_SECOND_MES           =   '.scroller-content li:nth-child(2) div.text'
+PR_PATIENT_RECORD_CHAT_LATEST_MES           =   '.scroller-content li:nth-last-child(3) div.text'
 PR_PATIENT_RECORD_SMBG                      =   '.smbg'
 PR_PATIENT_RECORD_SMBG_TITLE                =   '.smbg_goals h3'
 PR_PATIENT_RECORD_MED_GOALS                 =   '.meds_schedule'

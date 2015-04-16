@@ -90,8 +90,9 @@ class WEB(Web):
         self.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
         self.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)
         self.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
-        self.verify(data.PR_PATIENT_RECORD_ID)
-        return INFO['email']
+        self.verify(data.PR_PATIENT_RECORD_ID, 20)
+        ID = self.text(data.PR_PATIENT_RECORD_ID)
+        return INFO['email'], ID
         
     def delete_patient(self, id):
         # Delete a patient by id
@@ -100,6 +101,9 @@ class WEB(Web):
         self.click('//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a' %id)
         self.verify(data.PR_DIRECTORY_REMOVE_CONFIRM)
         self.click(data.PR_DIRECTORY_REMOVE_CONFIRM)
+        assert not self.is_element_present(data.PR_DIRECTORY_REMOVE_CONFIRM)
+            
+
         
     def get_surname(self):
         # Return patient surname from PR page
