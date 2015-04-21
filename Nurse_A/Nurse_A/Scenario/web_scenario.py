@@ -64,9 +64,14 @@ class WEB(Web):
                 Alert(self.driver).accept()
             except:
                 pass
+            self.verify(data.PR_NAV_OPTION_MENU)
             self.click(data.PR_NAV_OPTION_MENU)
             self.click(data.PR_NAV_OPTION_MENU_LOGOUT)
-            self.verify(data.PR_LOGIN_FORGOT_PASSWORD)
+            try:
+                Alert(self.driver).accept()
+            except:
+                pass
+            self.verify(data.PR_LOGIN_FORGOT_PASSWORD, 20)
 
     def create_new_patient(self):
         # Create a new patient
@@ -80,11 +85,12 @@ class WEB(Web):
         INFO = self.generate_info()
         self.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
         self.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
+        self.click(data.PR_ADD_PATIENT_GENDER_MALE)
         self.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
         self.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
+        self.click(data.PR_ADD_PATIENT_APP_PATIENT)
         self.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
         self.select('en', data.PR_ADD_PATIENT_LANGUAGE)
-        self.click(data.PR_ADD_PATIENT_GENDER_MALE)
         if self.is_element_present(data.PR_ADD_PATIENT_PREMIUM_TRIAL):
             self.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
         self.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
@@ -101,10 +107,8 @@ class WEB(Web):
         self.click('//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a' %id)
         self.verify(data.PR_DIRECTORY_REMOVE_CONFIRM)
         self.click(data.PR_DIRECTORY_REMOVE_CONFIRM)
-        assert not self.is_element_present(data.PR_DIRECTORY_REMOVE_CONFIRM)
-            
-
-        
+        self.wait_until_not('a[href="/provider/patient/%s"]' %id)
+                    
     def get_surname(self):
         # Return patient surname from PR page
         name = self.text(data.PR_INFO_NAME)

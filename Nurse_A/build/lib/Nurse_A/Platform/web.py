@@ -164,3 +164,27 @@ class Web(object):
             return True
         except AssertionError:
             return False
+            
+    def wait_until(self, what, WAITTIME = 10):
+        # Wait until element is present.
+        TIME = time() + WAITTIME
+        while(time() < TIME):
+            try:
+                element = self.focus(what)
+                if element.is_displayed():
+                    return
+            except NoSuchElementException:
+                pass
+        raise TimeoutException
+        
+    def wait_until_not(self, what, WAITTIME = 10):
+        # Wait until element is not present.
+        TIME = time() + WAITTIME
+        while(time() < TIME):
+            try:
+                element = self.focus(what)
+                pass
+            except NoSuchElementException:
+                return
+        raise TimeoutException
+            

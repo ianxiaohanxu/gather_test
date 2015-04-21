@@ -73,6 +73,7 @@ class Account_settings(unittest.TestCase):
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         # Validation check for short password
+        self.pr.click(data.PR_ACCOUNT_NEW_PASSWORD)
         self.pr.enter(LESS_PASSWORD, data.PR_ACCOUNT_NEW_PASSWORD)
         self.pr.click(data.PR_ACCOUNT_CONFIRM_PASSWORD)
         self.assertEqual(self.pr.focus(data.PR_ACCOUNT_NEW_PASSWORD).get_attribute('class'), 'invalid')
@@ -94,7 +95,7 @@ class Account_settings(unittest.TestCase):
         self.pr.enter(PASSWORD, data.PR_ACCOUNT_CONFIRM_PASSWORD)
         self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
-        
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.logout()
         self.pr.login(data.INDIA_DOCTOR, PASSWORD)
         # Resume password
@@ -105,6 +106,7 @@ class Account_settings(unittest.TestCase):
         self.pr.enter(data.PASSWORD, data.PR_ACCOUNT_CONFIRM_PASSWORD)
         self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
         
     def test_update_cell_number(self):
         # This test is for '107007 Change cell phone'
