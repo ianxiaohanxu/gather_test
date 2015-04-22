@@ -100,6 +100,27 @@ class WEB(Web):
         ID = self.text(data.PR_PATIENT_RECORD_ID)
         return INFO['email'], ID
         
+    def create_new_EHR_patient(self):
+        # Create a new EHR patient
+        self.driver.get(self.HOMEPAGE)
+        # If an alert pops up, accept it.
+        try:
+            Alert(self.driver).accept()
+        except:
+            pass
+        self.click(data.PR_NAV_ADD_PATIENT)
+        INFO = self.generate_info()
+        self.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
+        self.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
+        self.click(data.PR_ADD_PATIENT_GENDER_MALE)
+        self.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
+        self.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
+        self.click(data.PR_ADD_PATIENT_NORMAL_PATIENT)
+        self.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
+        self.verify(data.PR_PATIENT_RECORD_ID, 20)
+        ID = self.text(data.PR_PATIENT_RECORD_ID)
+        return ID
+        
     def delete_patient(self, id):
         # Delete a patient by id
         self.driver.get(data.DIRECTORY_PATH)
@@ -280,10 +301,10 @@ class WEB(Web):
         data = []
         data.append(self.get_surname())
         data.append(self.get_givename())
+        data.append(self.get_gender())
         data.append(self.get_country_code())
         data.append(self.get_number())
-        data.append(self.get_email())
-        data.append(self.get_gender())
+        data.append(self.get_email())        
         data.extend(self.get_billing())
         data.append(self.get_type())
         data.append(self.get_year())

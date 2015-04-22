@@ -12,7 +12,7 @@ Stag0                       =   'http://stag0.gatherhealth.com/provider/'
 Stag1                       =   'https://stag1.gatherhealth.com/provider'
 Stag2                       =   'https://stag2.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
-SERVER                      =   Stag2
+SERVER                      =   Stag1
 DIRECTORY_PATH              =   SERVER+'/directory'
 
 PR_LOGIN_TITLE              =   u'Gather \u22c5 Login'
@@ -45,7 +45,7 @@ EM_PR_ACCOUNT_CELL_NUM_CH                   =   'Phone number must be 11 digits,
 PR_NAV_FEED                                 =   '.feed a'
 PR_NAV_ADD_PATIENT                          =   '.normal .add a'
 PR_NAV_OPTION_MENU                          =   '.dropdown-toggle .avatar'
-PR_NAV_OPTION_MENU_LOGOUT                   =   '.user .dropdown-menu li:nth-child(3) a'
+PR_NAV_OPTION_MENU_LOGOUT                   =   '.user .dropdown-menu li:nth-last-child(1) a'
 PR_NAV_OPTION_MENU_ACCOUNT                  =   '.user .dropdown-menu li:nth-child(1) a'
 PR_NAV_OPTION_MENU_MANAGE_PRACTICE          =   '.user .dropdown-menu li:nth-child(2) a'
 

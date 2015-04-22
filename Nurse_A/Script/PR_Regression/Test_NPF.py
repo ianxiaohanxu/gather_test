@@ -25,8 +25,7 @@ class Add_new_patient(unittest.TestCase):
         self.pr.teardown()
         
     def add_patient_with_full_info(self, account):
-        # This test is for '101005 Invite a patient and full fill info'
-        #                  '101002 Invite a patient with billing' 
+        # This test is for '101103 Invite a app patient with billing'
         self.pr.login(account, data.PASSWORD)
         self.pr.click(data.PR_NAV_ADD_PATIENT)
         self.assertEqual(self.pr.text(data.PR_ADD_PATIENT_TITLE), data.ADD_PATIENT)
@@ -36,15 +35,16 @@ class Add_new_patient(unittest.TestCase):
         PUSH.append(INFO['surname'])
         self.pr.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
         PUSH.append(INFO['givename'])
+        self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
+        PUSH.append('Male')
         self.pr.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
         PUSH.append('+1')
         self.pr.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
         PUSH.append(INFO['us_cell'])
+        self.pr.click(data.PR_ADD_PATIENT_APP_PATIENT)
         self.pr.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
         PUSH.append(INFO['email'])
-        self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)
-        self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
-        PUSH.append('Male')
+        self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)    
         self.pr.select('3', data.PR_ADD_PATIENT_BILL_TIME)
         PUSH.append('3')
         self.pr.clear(data.PR_ADD_PATIENT_BILL_RATE)
@@ -79,12 +79,12 @@ class Add_new_patient(unittest.TestCase):
         self.pr.enter('ccc\n', data.PR_ADD_PATIENT_OTHER_MED)
         self.pr.enter('ddd\n', data.PR_ADD_PATIENT_OTHER_MED)
         PUSH.append(['ccc', 'ddd'])
-        self.pr.enter('180', data.PR_ADD_PATIENT_HEIGHT)
-        self.pr.enter('75', data.PR_ADD_PATIENT_WEIGHT)
-        self.pr.enter('100', data.PR_ADD_PATIENT_WAIST)
-        self.pr.enter('120', data.PR_ADD_PATIENT_BP_SYS)
-        self.pr.enter('80', data.PR_ADD_PATIENT_BP_DIA)
-        self.pr.enter('5', data.PR_ADD_PATIENT_A1C)
+        # self.pr.enter('180', data.PR_ADD_PATIENT_HEIGHT)
+        # self.pr.enter('75', data.PR_ADD_PATIENT_WEIGHT)
+        # self.pr.enter('100', data.PR_ADD_PATIENT_WAIST)
+        # self.pr.enter('120', data.PR_ADD_PATIENT_BP_SYS)
+        # self.pr.enter('80', data.PR_ADD_PATIENT_BP_DIA)
+        # self.pr.enter('5', data.PR_ADD_PATIENT_A1C)
         self.pr.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_ID)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
@@ -116,11 +116,12 @@ class Add_new_patient(unittest.TestCase):
         INFO = self.pr.generate_info()
         self.pr.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
         self.pr.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
+        self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
         self.pr.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
         self.pr.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
+        self.pr.click(data.PR_ADD_PATIENT_APP_PATIENT)
         self.pr.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
-        self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)
-        self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
+        self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)  
         self.pr.click(data.PR_ADD_PATIENT_HAS_HKID_YES)
         self.pr.verify(data.PR_ADD_PATIENT_HKID)
         self.pr.enter(data.HKID, data.PR_ADD_PATIENT_HKID)
@@ -135,15 +136,35 @@ class Add_new_patient(unittest.TestCase):
         self.pr.delete_patient(ID)
     
     def test_add_patient_with_full_info(self):
-        # This test is for '101005 Invite a patient and full fill info'
-        #                  '101002 Invite a patient with billing'
+        # This test is for '101103 Invite a app patient with billing'
         self.add_patient_with_full_info(data.INDIA_DOCTOR)
         self.add_patient_with_full_info(data.INDIA_NURSE)
         
     def test_add_nobilling_patient(self):
-        # This test is for '101001 Invite a patient without billing'
+        # This test is for '101101 Invite a app patient without billing'
         self.add_nobilling_patient(data.DOCTOR_FREE)
         self.add_nobilling_patient(data.NURSE_FREE)
+        
+    def test_add_patient_with_required_info(self):
+        # This test is for '101105 Invite a app patient without fill optional fields'
+        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        INFO = self.pr.create_new_patient()
+        # Delete the patient
+        self.pr.delete_patient(INFO[1])
+    
+    def test_add_ehr_patient_in_billing_practice(self):
+        # This test is for '101104 Invite a normal patient with billing'
+        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        ID = self.pr.create_new_EHR_patient()
+        # Delete the patient
+        self.pr.delete_patient(ID)
+        
+    def test_add_ehr_patient_in_non_billing_practice(self):
+        # This test is for '101102 Invite a normal patient without billing'
+        self.pr.login(data.DOCTOR_FREE, data.PASSWORD)
+        ID = self.pr.create_new_EHR_patient()
+        # Delete the patient
+        self.pr.delete_patient(ID)
         
         
         
