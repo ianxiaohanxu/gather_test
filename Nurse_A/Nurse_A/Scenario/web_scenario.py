@@ -179,11 +179,11 @@ class WEB(Web):
     def delete_patient(self, id):
         # Delete a patient by id
         self.driver.get(data.DIRECTORY_PATH)
-        self.verify('a[href="/provider/patient/%s"]' %id)
-        self.click('//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a' %id)
+        self.verify(data.PR_DIRECTORY_PATIENT_ENTRY %id)
+        self.click(data.PR_DIRECTORY_PATIENT_DELETE %id)
         self.verify(data.PR_DIRECTORY_REMOVE_CONFIRM)
         self.click(data.PR_DIRECTORY_REMOVE_CONFIRM)
-        self.wait_until_not('a[href="/provider/patient/%s"]' %id)
+        self.wait_until_not(data.PR_DIRECTORY_PATIENT_ENTRY %id)
                     
     def get_surname(self):
         # Return patient surname from PR page

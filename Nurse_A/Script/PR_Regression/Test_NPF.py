@@ -153,6 +153,7 @@ class Add_new_patient(unittest.TestCase):
         
     def test_add_patient_with_required_info(self):
         # This test is for '101105 Invite a app patient without fill optional fields'
+        #                  '109012 Delete patient record'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()

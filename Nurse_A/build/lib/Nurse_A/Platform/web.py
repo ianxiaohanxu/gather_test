@@ -181,10 +181,9 @@ class Web(object):
         # Wait until element is not present.
         TIME = time() + WAITTIME
         while(time() < TIME):
-            try:
-                element = self.focus(what)
+            if self.is_element_present(what):
                 pass
-            except NoSuchElementException:
+            else:
                 return
         raise TimeoutException
             
