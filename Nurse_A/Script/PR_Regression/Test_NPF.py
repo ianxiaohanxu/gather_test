@@ -22,11 +22,12 @@ class Add_new_patient(unittest.TestCase):
         self.pr = WEB(server = data.SERVER)
         
     def tearDown(self):
+        self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def add_patient_with_full_info(self, account):
         # This test is for '101103 Invite a app patient with billing'
-        self.pr.login(account, data.PASSWORD)
+        self.pr.login(account, self.demo[0])
         self.pr.click(data.PR_NAV_ADD_PATIENT)
         self.assertEqual(self.pr.text(data.PR_ADD_PATIENT_TITLE), data.ADD_PATIENT)
         INFO = self.pr.generate_info()
@@ -101,72 +102,79 @@ class Add_new_patient(unittest.TestCase):
         
     def add_nobilling_patient(self, account):
         # This test is for '101001 Invite a patient without billing'
-        self.pr.login(account, data.PASSWORD)
+        self.pr.login(account, self.demo[0])
         self.pr.create_new_patient()
         # Delete the patient
         ID = self.pr.text(data.PR_PATIENT_RECORD_ID)
         self.pr.delete_patient(ID)
         self.pr.logout()
-          
-    def test_add_hk_patient_with_hkid(self):
-        # This test is for '198015 Add a new HK patient with HKID'
-        self.pr.login(data.HK_DOCTOR, data.PASSWORD)
-        self.pr.click(data.PR_NAV_ADD_PATIENT)
-        self.assertEqual(self.pr.text(data.PR_ADD_PATIENT_TITLE), data.ADD_PATIENT)
-        INFO = self.pr.generate_info()
-        self.pr.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
-        self.pr.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
-        self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
-        self.pr.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
-        self.pr.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
-        self.pr.click(data.PR_ADD_PATIENT_APP_PATIENT)
-        self.pr.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
-        self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)  
-        self.pr.click(data.PR_ADD_PATIENT_HAS_HKID_YES)
-        self.pr.verify(data.PR_ADD_PATIENT_HKID)
-        self.pr.enter(data.HKID, data.PR_ADD_PATIENT_HKID)
-        self.pr.enter(data.HKID_CHECK, data.PR_ADD_PATIENT_HKID_CHECK)
-        self.pr.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
-        self.pr.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
-        self.pr.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)
-        self.pr.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
-        self.pr.verify(data.PR_PATIENT_RECORD_ID)
-        ID = self.pr.text(data.PR_PATIENT_RECORD_ID)
-        # Delete the patient
-        self.pr.delete_patient(ID)
+        
+    '''
+    Since HKID is removed, we don't need this test case.
+    '''
+    # def test_add_hk_patient_with_hkid(self):
+    #     # This test is for '198015 Add a new HK patient with HKID'
+    #     self.pr.login(data.HK_DOCTOR, self.demo[0])
+    #     self.pr.click(data.PR_NAV_ADD_PATIENT)
+    #     self.assertEqual(self.pr.text(data.PR_ADD_PATIENT_TITLE), data.ADD_PATIENT)
+    #     INFO = self.pr.generate_info()
+    #     self.pr.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
+    #     self.pr.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
+    #     self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
+    #     self.pr.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
+    #     self.pr.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
+    #     self.pr.click(data.PR_ADD_PATIENT_APP_PATIENT)
+    #     self.pr.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
+    #     self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)
+    #     self.pr.click(data.PR_ADD_PATIENT_HAS_HKID_YES)
+    #     self.pr.verify(data.PR_ADD_PATIENT_HKID)
+    #     self.pr.enter(data.HKID, data.PR_ADD_PATIENT_HKID)
+    #     self.pr.enter(data.HKID_CHECK, data.PR_ADD_PATIENT_HKID_CHECK)
+    #     self.pr.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
+    #     self.pr.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
+    #     self.pr.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)
+    #     self.pr.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
+    #     self.pr.verify(data.PR_PATIENT_RECORD_ID)
+    #     ID = self.pr.text(data.PR_PATIENT_RECORD_ID)
+    #     # Delete the patient
+    #     self.pr.delete_patient(ID)
     
     def test_add_patient_with_full_info(self):
         # This test is for '101103 Invite a app patient with billing'
-        self.add_patient_with_full_info(data.INDIA_DOCTOR)
-        self.add_patient_with_full_info(data.INDIA_NURSE)
+        self.demo = self.pr.generate_test_demo()
+        self.add_patient_with_full_info(data.DOCTOR)
+        self.add_patient_with_full_info(data.NURSE)
         
     def test_add_nobilling_patient(self):
         # This test is for '101101 Invite a app patient without billing'
-        self.add_nobilling_patient(data.DOCTOR_FREE)
-        self.add_nobilling_patient(data.NURSE_FREE)
+        self.demo = self.pr.generate_test_demo(demo_conf='4098', billing=False)
+        self.add_nobilling_patient(data.DOCTOR)
+        self.add_nobilling_patient(data.NURSE)
         
     def test_add_patient_with_required_info(self):
         # This test is for '101105 Invite a app patient without fill optional fields'
-        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         # Delete the patient
         self.pr.delete_patient(INFO[1])
     
     def test_add_ehr_patient_in_billing_practice(self):
         # This test is for '101104 Invite a normal patient with billing'
-        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
         ID = self.pr.create_new_EHR_patient()
         # Delete the patient
         self.pr.delete_patient(ID)
         
     def test_add_ehr_patient_in_non_billing_practice(self):
         # This test is for '101102 Invite a normal patient without billing'
-        self.pr.login(data.DOCTOR_FREE, data.PASSWORD)
+        self.demo = self.pr.generate_test_demo(billing=False)
+        self.pr.login(data.DOCTOR, self.demo[0])
         ID = self.pr.create_new_EHR_patient()
         # Delete the patient
         self.pr.delete_patient(ID)
-        
-        
+              
         
 if __name__ == '__main__':
     unittest.main()

@@ -1,3 +1,4 @@
+SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
 HK_NURSE                    =   'alex+hk+n@gatherhealth.com'
 INDIA_DOCTOR                =   'alex+in@gatherhealth.com'
@@ -6,14 +7,47 @@ DOCTOR_FREE                 =   'alex+free@gatherhealth.com'
 NURSE_FREE                  =   'alex+freenurse@gatherhealth.com'
 US_DOCTOR                   =   'alex+us@gatherhealth.com'
 US_NURSE                    =   'alex+us+n@gatherhealth.com'
+DOCTOR                      =   'doctor@gatherhealth.com'
+NURSE                       =   'nurse@gatherhealth.com'
 PASSWORD                    =   '123456'
 
-Stag0                       =   'http://stag0.gatherhealth.com/provider/'
+Stag0                       =   'http://stag0.gatherhealth.com/provider'
 Stag1                       =   'https://stag1.gatherhealth.com/provider'
 Stag2                       =   'https://stag2.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
-SERVER                      =   Stag1
+Localhost                   =   'http://localhost:8000/provider'
+SERVER                      =   Localhost
+
+if SERVER == Localhost:
+    HOST                    =   'http://localhost:8080'
+else:
+    HOST                    =   SERVER[:-9]
+    
 DIRECTORY_PATH              =   SERVER+'/directory'
+
+# Country
+INDIA                       =   'IN'
+US                          =   'US'
+CHINA                       =   'CN'
+HK                          =   'HK'
+
+# Language
+ENGLISH                     =   'en'
+SIMPLE_CHINESE              =   'zh-cn'
+TRADITIONAL_CHINESE         =   'zh-tw'
+INDIAN                      =   'hi'
+
+# BG units
+MG_DL                       =   '0'
+MMO_L                       =   '1'
+
+# Height units
+CM                          =   '0'
+IN                          =   '1'
+
+# Demo configuration
+DEMO_TEST                   =   '4100'
+
 
 PR_LOGIN_TITLE              =   u'Gather \u22c5 Login'
 HKID                        =   'X356888'
@@ -42,6 +76,11 @@ EM_PR_ACCOUNT_CELL_NUM_HK                   =   'Phone number must be 8 digits, 
 EM_PR_ACCOUNT_CELL_NUM_CH                   =   'Phone number must be 11 digits, numbers only.'
 
 # Locator
+PR_TUTORIAL_WELCOME                         =   '.walkthrough_start'
+PR_TUTORIAL_WELCOME_CLOSE                   =   '.walkthrough_start .close'
+PR_TUTORIAL_TOOLTIP_HELP                    =   '.tut_bubble'
+PR_TUTORIAL_TOOLTIP_HELP_CLOSE              =   '.tut_bubble .submit'
+
 PR_NAV_FEED                                 =   '.feed a'
 PR_NAV_ADD_PATIENT                          =   '.normal .add a'
 PR_NAV_OPTION_MENU                          =   '.dropdown-toggle .avatar'

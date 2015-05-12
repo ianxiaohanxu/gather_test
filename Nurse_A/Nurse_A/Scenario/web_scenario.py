@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import base64
+import requests, urllib2, urllib
+import simplejson as json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -19,7 +22,7 @@ from Nurse_A.Settings import data
 
 class WEB(Web):
     
-    def __init__(self, browser = "Firefox", server = data.Stag0):
+    def __init__(self, browser = "Firefox", server = data.SERVER):
         # Create a session with different Browser
         if browser == 'Firefox':
             self.driver = webdriver.Firefox(timeout = 3000)
@@ -53,6 +56,10 @@ class WEB(Web):
             self.enter(ACCOUNT, data.PR_LOGIN_USERNAME)
             self.enter(PASSWORD, data.PR_LOGIN_PASSWORD)
             self.click(data.PR_LOGIN_SUBMIT)
+            if self.is_element_present(data.PR_TUTORIAL_WELCOME):
+                self.click(data.PR_TUTORIAL_WELCOME_CLOSE)
+                self.verify(data.PR_TUTORIAL_TOOLTIP_HELP)
+                self.click(data.PR_TUTORIAL_TOOLTIP_HELP_CLOSE)
             self.verify(data.PR_NAV_FEED)
         
     def logout(self):
@@ -73,6 +80,54 @@ class WEB(Web):
                 pass
             self.verify(data.PR_LOGIN_FORGOT_PASSWORD, 20)
 
+    def request_interface(self, url, method, parameter=None):
+        method = method.upper()
+        if method not in ['GET', 'POST', 'DELETE']:
+            raise Exception('Method %s not yet supported.' % method)
+        full_url = '%s%s' %(data.HOST, url)
+        auth = 'Basic %s' %data.SECURITY_KEY
+        req = urllib2.Request(full_url)
+        req.add_header('Authorization', auth) 
+        if parameter != None:
+            req.add_data(urllib.urlencode(parameter))
+        if method == 'DELETE':
+            req.get_method = lambda: 'DELETE'
+        response = urllib2.urlopen(req)
+        return response
+        
+                                 
+    def generate_test_demo(self, billing=True, 
+        country=data.INDIA, bg_unit=data.MG_DL, 
+        height_unit=data.CM, validity=12, 
+        language=data.ENGLISH, demo_conf=data.DEMO_TEST
+    ):
+        demo_data = {
+            'doctor_name':      'doctor_test',
+            'nurse_name':       'nurse_test',
+            'bg_units':         bg_unit,
+            'height_units':     height_unit,
+            'language_code':    language,
+            'country':          country,
+            'period':           validity,
+            'data':             demo_conf,
+            'billing_enabled':  billing,
+            'notes':            'abc'
+        }
+        
+        demo_conf = self.request_interface('/api/v1/demo.json', 'POST', parameter=demo_data)
+        assert (demo_conf.code == 200)
+        demo_conf = eval(demo_conf.read())
+        # Grab the password
+        assert 'key' in demo_conf
+        assert 'id' in demo_conf
+        return demo_conf['key'], demo_conf['id']
+        
+    def delete_test_demo(self, demo_id):
+        demo_id = str(demo_id)
+        url = '/api/v1/demo/%s.json' %demo_id
+        response = self.request_interface(url, 'DELETE')
+        assert (response.code == 204)
+                                 
     def create_new_patient(self):
         # Create a new patient
         self.driver.get(self.HOMEPAGE)

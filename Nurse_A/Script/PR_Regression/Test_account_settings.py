@@ -22,6 +22,7 @@ class Account_settings(unittest.TestCase):
         self.pr = WEB(server = data.SERVER)
         
     def tearDown(self):
+        self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def generate_number(self, length):
@@ -65,10 +66,11 @@ class Account_settings(unittest.TestCase):
         
     def test_reset_password(self):
         # This test is for '107009 Reset password'
+        self.demo = self.pr.generate_test_demo()
         PASSWORD = '234567'
         LESS_PASSWORD = '12345'
         WRONG_PASSWORD = '345678'
-        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
@@ -97,7 +99,7 @@ class Account_settings(unittest.TestCase):
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.logout()
-        self.pr.login(data.INDIA_DOCTOR, PASSWORD)
+        self.pr.login(data.DOCTOR, PASSWORD)
         # Resume password
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
@@ -110,7 +112,8 @@ class Account_settings(unittest.TestCase):
         
     def test_update_cell_number(self):
         # This test is for '107007 Change cell phone'
-        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
