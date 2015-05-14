@@ -45,6 +45,24 @@ MMO_L                       =   '1'
 CM                          =   '0'
 IN                          =   '1'
 
+# Weight units
+KG                          =   '0'
+LB                          =   '1'
+
+# BP units
+MMHG                        =   '0'
+KPA                         =   '1'
+
+# Units group
+SI                          =   '8239'
+CONV                        =   '1128'
+
+# Country code          
+US_COUNTRY_CODE             =   '1'
+IN_COUNTRY_CODE             =   '91'
+HK_COUNTRY_CODE             =   '852'
+CH_COUNTRY_CODE             =   '86'
+
 # Demo configuration
 DEMO_TEST                   =   '4100'
 
@@ -76,6 +94,10 @@ EM_PR_ACCOUNT_CELL_NUM_IN_US                =   'Phone number must be 10 digits,
 EM_PR_ACCOUNT_CELL_NUM_HK                   =   'Phone number must be 8 digits, numbers only.'
 EM_PR_ACCOUNT_CELL_NUM_CH                   =   'Phone number must be 11 digits, numbers only.'
 
+EM_PR_MANAGE_PRACTICE_CELL_NUM_IN_US        =   EM_PR_ACCOUNT_CELL_NUM_IN_US
+EM_PR_MANAGE_PRACTICE_CELL_NUM_HK           =   EM_PR_ACCOUNT_CELL_NUM_HK
+EM_PR_MANAGE_PRACTICE_CELL_NUM_CH           =   EM_PR_ACCOUNT_CELL_NUM_CH
+
 # Locator
 PR_TUTORIAL_WELCOME                         =   '.walkthrough_start'
 PR_TUTORIAL_WELCOME_CLOSE                   =   '.walkthrough_start .close'
@@ -88,6 +110,7 @@ PR_NAV_OPTION_MENU                          =   '.dropdown-toggle .avatar'
 PR_NAV_OPTION_MENU_LOGOUT                   =   '.user .dropdown-menu li:nth-last-child(1) a'
 PR_NAV_OPTION_MENU_ACCOUNT                  =   '.user .dropdown-menu li:nth-child(1) a'
 PR_NAV_OPTION_MENU_MANAGE_PRACTICE          =   '.user .dropdown-menu li:nth-child(2) a'
+PR_NAV_OPTION_MENU_FIRST_PRACTICE           =   '.user .dropdown-menu .practices li:nth-child(1) a'
 PR_NAV_SWITCH                               =   '.demo ul a'
 
 PR_ADD_PATIENT_SURNAME                      =   'input[name="last_name"]'
@@ -185,13 +208,23 @@ PR_PATIENT_RECORD_SMBG_TITLE                =   '.smbg_goals h3'
 PR_PATIENT_RECORD_MED_GOALS                 =   '.meds_schedule'
 PR_PATIENT_RECORD_PRE_MEAL_RANGE            =   '.pre_meal'
 PR_PATIENT_RECORD_POST_MEAL_RANGE           =   '.post_meal'
+PR_PATIENT_RECORD_PRE_MEAL_BG_UNIT          =   '.smbg .units'
+PR_PATIENT_RECORD_POST_MEAL_BG_UNIT         =   '.smbg .post_meal+span'
 PR_PATIENT_RECORD_BILLING                   =   'billing_tab_select'
 PR_PATIENT_RECORD_BILLING_OVERVIEW          =   '#billing .overview'
 PR_PATIENT_RECORD_BILLING_FIRST_M           =   '#billing table tr td:nth-child(3)'
 PR_PATIENT_RECORD_BILLING_FIRST_R           =   '#billing table tr td:nth-child(4)'
+PR_PATIENT_RECORD_SUMMARY_TAG               =   'data-tab-summary'
+PR_PATIENT_RECORD_SUMMARY_BG_Y_LABEL        =   '.summary_graph .y.label'
+PR_PATIENT_RECORD_VISIT_TAG                 =   'data-tab-visits'
+PR_PATIENT_RECORD_VISIT_NEW_BUTTON          =   '#visits .new'
+PR_PATIENT_RECORD_VISIT_FASTING_BG_UNIT     =   '[data-name="bg_fasting"] .unit'
+PR_PATIENT_RECORD_VISIT_POST_BG_UNIT        =   '[data-name="bg_postprandial"] .unit'
+PR_PATIENT_RECORD_VISIT_RANDOM_BG_UNIT      =   '[data-name="bg_random"] .unit'
 
 PR_DIRECTORY_REMOVE_CONFIRM                 =   '.cleared .right.submit'
 PR_DIRECTORY_TITLE                          =   '.directory-content h3'
+PR_DIRECTORY_FIRST_PATIENT                  =   '//table[@id="directory_table"]/tbody/tr[1]/td[1]/a'
 PR_DIRECTORY_PATIENT_ENTRY                  =   'a[href="/provider/patient/%s"]'
 PR_DIRECTORY_PATIENT_DELETE                 =   '//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a'
 PR_DIRECTORY_PATIENT_NEXT_APPT              =   '//tr/td/a[@href="/provider/patient/%s"]/../..//div[@class="appointments add button blue"]'
@@ -241,6 +274,23 @@ PR_ACCOUNT_COUNTRY_CODE                     =   '.phone_country'
 PR_ACCOUNT_CELL_NUMBER                      =   '.phone_number'
 PR_ACCOUNT_SEND_SMS_BUTTON                  =   '.send_confirmation'
 PR_ACCOUNT_CELL_ERROR                       =   '.halves .validation_errors'
+
+PR_MANAGE_PRACTICE_TITLE                    =   '.edit_profile h1'
+PR_MANAGE_PRACTICE_PRACTICE_NAME            =   'practice_name'
+PR_MANAGE_PRACTICE_HEIGHT_UNIT              =   'height_units'
+PR_MANAGE_PRACTICE_WEIGHT_UNIT              =   'weight_units'
+PR_MANAGE_PRACTICE_BP_UNIT                  =   'bp_units'
+PR_MANAGE_PRACTICE_BG_UNIT                  =   '[name="bg_units"]'
+PR_MANAGE_PRACTICE_CRITICAL_LOW_MG          =   'hypo_alert'
+PR_MANAGE_PRACTICE_CRITICAL_LOW_MMO         =   'hypo_alert_mmol'
+PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG        =   'hyper_alert'
+PR_MANAGE_PRACTICE_CRITICAL_UPPER_MMO       =   'hyper_alert_mmol'
+PR_MANAGE_PRACTICE_COUNTRY_CODE             =   'phone_country'
+PR_MANAGE_PRACTICE_NUMBER                   =   'phone_number'
+PR_MANAGE_PRACTICE_NUMBER_ERROR             =   '.validation_errors'
+PR_MANAGE_PRACTICE_UNIT_GROUP               =   'unit_cluster_type'
+PR_MANAGE_PRACTICE_SAVE_BUTTON              =   'update_range'
+PR_MANAGE_PRACTICE_SAVE_SUCCESS             =   'div.info.clear'
 
 PR_LOGIN_USERNAME                           =   'id_username'
 PR_LOGIN_PASSWORD                           =   'id_password'
