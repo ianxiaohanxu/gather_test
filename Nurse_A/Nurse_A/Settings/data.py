@@ -14,6 +14,8 @@ PASSWORD                    =   '123456'
 Stag0                       =   'http://stag0.gatherhealth.com/provider'
 Stag1                       =   'https://stag1.gatherhealth.com/provider'
 Stag2                       =   'https://stag2.gatherhealth.com/provider'
+Stag3                       =   'https://stag3.gatherhealth.com/provider'
+Stag4                       =   'https://stag4.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
 Localhost                   =   'http://localhost:8000/provider'
 SERVER                      =   Localhost
@@ -24,6 +26,7 @@ else:
     HOST                    =   SERVER[:-9]
     
 DIRECTORY_PATH              =   SERVER+'/directory'
+FEED_PATH                   =   SERVER+'/feed'
 
 # Country
 INDIA                       =   'IN'
@@ -107,9 +110,11 @@ PR_TUTORIAL_TOOLTIP_HELP_CLOSE              =   '.tut_bubble .submit'
 PR_NAV_FEED                                 =   '.feed a'
 PR_NAV_ADD_PATIENT                          =   '.normal .add a'
 PR_NAV_OPTION_MENU                          =   '.dropdown-toggle .avatar'
-PR_NAV_OPTION_MENU_LOGOUT                   =   '.user .dropdown-menu li:nth-last-child(1) a'
-PR_NAV_OPTION_MENU_ACCOUNT                  =   '.user .dropdown-menu li:nth-child(1) a'
-PR_NAV_OPTION_MENU_MANAGE_PRACTICE          =   '.user .dropdown-menu li:nth-child(2) a'
+PR_NAV_OPTION_MENU_LOGOUT                   =   '.user .dropdown-menu>li:nth-last-child(1) a'
+PR_NAV_OPTION_MENU_ACCOUNT                  =   '.user .dropdown-menu>li:nth-child(1) a'
+'''It is history now.'''
+# PR_NAV_OPTION_MENU_MANAGE_PRACTICE          =   '.user .dropdown-menu>li:nth-child(2) a'
+
 PR_NAV_OPTION_MENU_FIRST_PRACTICE           =   '.user .dropdown-menu .practices li:nth-child(1) a'
 PR_NAV_SWITCH                               =   '.demo ul a'
 
@@ -268,6 +273,7 @@ PR_APPOINTMENT_COMPLETE                     =   '.complete'
 PR_APPOINTMENT_DELETE                       =   '.delete'
 PR_APPOINTMENT_CLOSE                        =   '.appointments .close'
 
+PR_FEED_CONTENT                             =   '#content.feed'
 PR_FEED_FIRST_WARNING                       =   'div.warning'
 PR_FEED_FORWARD                             =   'div.fwd'
 PR_FEED_CLOSE                               =   'div.close'
@@ -276,7 +282,9 @@ PR_FEED_FORWARD_FIRST_OPTION                =   '[name="forward_to"] option:nth-
 PR_FEED_FORWARD_NOTE                        =   '.fwd_group textarea'
 PR_FEED_FORWARD_BUTTON                      =   '.fwd_actions .submit'
 PR_FEED_FORWARD_CANCEL                      =   '.fwd_actions .cancel_fwd'
+PR_FEED_WARNING_FORWARD_BY                  =   'div.warning .fwd_by'
 PR_FEED_FIRST_MESSAGE                       =   'div.message.patient'
+PR_FEED_PATIENT_NAME                        =   '.vitals .name'   
 PR_FEED_EMPTY_LOGO                          =   '.logo_gather'
 
 

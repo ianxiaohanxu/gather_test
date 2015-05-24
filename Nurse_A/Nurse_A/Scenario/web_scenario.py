@@ -179,6 +179,11 @@ class WEB(Web):
     def delete_patient(self, id):
         # Delete a patient by id
         self.driver.get(data.DIRECTORY_PATH)
+        # If an alert pops up, accept it.
+        try:
+            Alert(self.driver).accept()
+        except:
+            pass
         self.verify(data.PR_DIRECTORY_PATIENT_ENTRY %id)
         self.click(data.PR_DIRECTORY_PATIENT_DELETE %id)
         self.verify(data.PR_DIRECTORY_REMOVE_CONFIRM)
@@ -414,7 +419,16 @@ class WEB(Web):
         self.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
         self.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
                 
-        
-        
+    def clear_message_event(self):
+        # Clear all message events by 'x'    
+        self.driver.get(data.FEED_PATH)
+        # If an alert pops up, accept it.
+        try:
+            Alert(self.driver).accept()
+        except:
+            pass
+        self.verify(data.PR_FEED_CONTENT)
+        while(self.is_element_present(data.PR_FEED_FIRST_MESSAGE)):
+            self.focus(data.PR_FEED_FIRST_MESSAGE).find_element_by_css_selector(data.PR_FEED_CLOSE).click()
         
         

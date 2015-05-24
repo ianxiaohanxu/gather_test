@@ -41,7 +41,7 @@ class Feed(unittest.TestCase):
         # Check the feed event
         self.pr.click(data.PR_NAV_FEED)
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
-        self.assertTrue(self.pr.is_element_present(data.PR_FEED_EMPTY_LOGO))
+        self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
     def test_dismiss_event_by_med_goal(self):
         # This test is for '108003 Complete the event by update MED goals'
@@ -59,7 +59,7 @@ class Feed(unittest.TestCase):
         # Check the feed event
         self.pr.click(data.PR_NAV_FEED)
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
-        self.assertTrue(self.pr.is_element_present(data.PR_FEED_EMPTY_LOGO))
+        self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
     def test_dismiss_event_by_bg_goal(self):
         # This test is for '108004 Complete the event by update BG goals'
@@ -75,7 +75,7 @@ class Feed(unittest.TestCase):
         # Check the feed event
         self.pr.click(data.PR_NAV_FEED)
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
-        self.assertTrue(self.pr.is_element_present(data.PR_FEED_EMPTY_LOGO))
+        self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
     def test_delete_feed_event(self):
         # This test is for '108005 Delete event in feed'
@@ -99,9 +99,39 @@ class Feed(unittest.TestCase):
         self.pr.wait_until_not(data.PR_FEED_FIRST_WARNING)
         self.pr.logout()
         self.pr.login(data.NURSE, self.demo[0])
-        self.assertTrue(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
+        self.assertTrue(self.pr.is_element_present(data.PR_FEED_WARNING_FORWARD_BY))
         
+    def test_delete_feed_message(self):
+        # This test is for '106013 Delete messages event in Feed'
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.NURSE, self.demo[0])
+        self.pr.clear_message_event()
+        self.pr.logout()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.assertTrue(self.pr.is_element_present(data.PR_FEED_FIRST_MESSAGE))
         
+    def test_dismiss_feed_message_by_chat(self):
+        # This test is for '106014 Complete messages event by chat'
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.NURSE, self.demo[0])
+        MES = 'hello, world!'
+        NAME = 'Ashvin'
+        self.pr.click(data.PR_FEED_FIRST_MESSAGE)
+        self.pr.verify(data.PR_PATIENT_RECORD_CHAT)
+        self.pr.click(data.PR_PATIENT_RECORD_CHAT)
+        self.pr.verify(data.PR_PATIENT_RECORD_CHAT_TEXTAREA)
+        self.pr.enter(MES, data.PR_PATIENT_RECORD_CHAT_TEXTAREA)
+        self.pr.click(data.PR_PATIENT_RECORD_CHAT_SEND_BUTTON)
+        self.pr.verify(data.PR_PATIENT_RECORD_CHAT_LATEST_MES)
+        sleep(constant.INTERVAL_5)
+        self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_LATEST_MES), MES)
+        self.pr.click(data.PR_NAV_FEED)
+        self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
+        if self.pr.is_element_present(data.PR_FEED_FIRST_MESSAGE):
+            self.assertFalse(NAME in self.pr.focus(data.PR_FEED_FIRST_MESSAGE).find_element_by_css_selector(data.PR_FEED_PATIENT_NAME).text)
+        self.pr.logout()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.assertTrue(NAME in self.pr.focus(data.PR_FEED_FIRST_MESSAGE).find_element_by_css_selector(data.PR_FEED_PATIENT_NAME).text)
         
 
 if __name__ == '__main__':
