@@ -80,12 +80,12 @@ class WEB(Web):
                 pass
             self.verify(data.PR_LOGIN_FORGOT_PASSWORD, 20)
 
-    def request_interface(self, url, method, parameter=None):
+    def request_interface(self, url, method, parameter=None, security=data.SECURITY_KEY):
         method = method.upper()
         if method not in ['GET', 'POST', 'DELETE']:
             raise Exception('Method %s not yet supported.' % method)
         full_url = '%s%s' %(data.HOST, url)
-        auth = 'Basic %s' %data.SECURITY_KEY
+        auth = 'Basic %s' %security
         req = urllib2.Request(full_url)
         req.add_header('Authorization', auth) 
         if parameter != None:
@@ -121,6 +121,26 @@ class WEB(Web):
         assert 'key' in demo_conf
         assert 'id' in demo_conf
         return demo_conf['key'], demo_conf['id']
+        
+    def create_new_practice(self, billing=True, 
+        country=data.INDIA, language=data.ENGLISH, 
+        role='0',
+    ):
+        INFO = self.generate_info()
+        practice_data = {
+            'admin_name':       'Alex',
+            'admin_email':      INFO['email'],
+            'practice_name':    INFO['surname'],
+            'language':         language,
+            'country':          country,
+            'billing_enabled':  billing,
+            'role':             role,
+        }
+        
+        practice_conf = self.request_interface('/api/v1/practices.json', 'POST', parameter=practice_data)
+        assert (practice_conf.code == 200)
+        practice_conf = eval(practice_conf.read())
+        import pdb;pdb.set_trace()
         
     def delete_test_demo(self, demo_id):
         demo_id = str(demo_id)
@@ -418,6 +438,7 @@ class WEB(Web):
         self.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
         self.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
         self.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
+        self.wait_until_not(data.PR_MED_GOALS_CONFIRM_TITLE)
                 
     def clear_message_event(self):
         # Clear all message events by 'x'    
