@@ -126,7 +126,7 @@ class Web(object):
         element = self.focus(where)
         value = element.get_attribute('value')
         text = element.text
-        if element.tag_name == 'input':
+        if element.tag_name in ('input', 'textarea', 'select'):
             return value
         else:
             return text
