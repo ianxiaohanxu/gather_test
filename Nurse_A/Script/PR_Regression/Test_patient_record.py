@@ -27,7 +27,7 @@ class Patient_record(unittest.TestCase):
     
     def test_add_med_goals(self):
         # This test is for '111014 Add new medication - insulin'
-        #                  '111015 Add new medication - insulin'
+        #                  '111015 Add new medication - oral'
         now = datetime.datetime.now()
         date_str = now.strftime('%b %d, %Y')
         self.demo = self.pr.generate_test_demo()
@@ -47,7 +47,7 @@ class Patient_record(unittest.TestCase):
         self.pr.click(data.PR_PATIENT_RECORD_SUMMARY_TAG)
         self.pr.verify(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY)
         self.assertEqual(date_str, self.pr.text(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY))
-        
+
     def test_add_bg_goals(self):
         # This test is for '111020 Add BG Goals'
         self.demo = self.pr.generate_test_demo()
@@ -64,6 +64,36 @@ class Patient_record(unittest.TestCase):
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
         self.assertTrue('49' in self.pr.text(data.PR_PATIENT_RECORD_SMBG_COUNTER))
+
+
+    def test_(self):
+        # This test is for 
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        INFO = self.pr.create_new_patient()
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.pr.verify(data.PR_PATIENT_RECORD_MED_GOALS)
+        self.pr.click(data.PR_PATIENT_RECORD_MED_GOALS)
+        self.pr.verify(data.PR_MED_GOALS_TITLE)
+        self.pr.add_med_goals(data.MED_GOALS)
+        self.pr.refresh()
+        self.pr.verify(data.PR_PATIENT_RECORD_INFO)
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.pr.verify(data.PR_PATIENT_RECORD_MED_GOALS_UNCONFIRM)
+        self.pr.click(data.PR_PATIENT_RECORD_MED_GOALS)
+        self.pr.verify(data.PR_MED_GOALS_TITLE)
+        self.pr.click(data.PR_MED_GAOLS_FORM_DELETE)
+        self.pr.clear(data.PR_MED_GOALS_FORM_LUN_DOSAGE)
+        self.pr.clear(data.PR_MED_GOALS_FORM_LUN_AMOUNT)
+        self.pr.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
+        self.pr.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
+        self.pr.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
+        self.pr.wait_until_not(data.PR_MED_GOALS_CONFIRM_TITLE)
+        goals = self.pr.get_med_goals()
+        original_goals = data.MED_GOALS[1]
+        original_goals[4][0] = 0
+        original_goals[4][1] = 0
+        self.assertEqual(goals[0], original_goals)
 
 if __name__ == '__main__':
     unittest.main()
