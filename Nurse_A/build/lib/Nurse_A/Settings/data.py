@@ -18,7 +18,7 @@ Stag3                       =   'https://stag3.gatherhealth.com/provider'
 Stag4                       =   'https://stag4.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
 Localhost                   =   'http://localhost:8000/provider'
-SERVER                      =   Localhost
+SERVER                      =   Production
 
 if SERVER == Localhost:
     HOST                    =   'http://localhost:8080'
