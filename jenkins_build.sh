@@ -2,6 +2,4 @@
 
 source ./venv/bin/activate
 pip install -r requirements/test.txt
-cd Nurse_A
-python setup.py sdist
-python setup.py install
+python ./Nurse_A/Script/PR_Regression/Test_chat.py
