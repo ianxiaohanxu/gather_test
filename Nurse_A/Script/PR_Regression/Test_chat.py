@@ -25,7 +25,7 @@ class Chat(unittest.TestCase):
         self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
-    def test_send_quick_message(self):
+    def test_urgent_send_quick_message(self):
         # This test is for '111032 send quick message'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -38,9 +38,8 @@ class Chat(unittest.TestCase):
         self.pr.click(data.PR_PATIENT_RECORD_QUICK_MES_SEND)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_SECOND_MES)
         self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_SECOND_MES), data.MES_CONTENT_BIGGEST_SUCCESS)
-        self.pr.delete_patient(INFO[1])
         
-    def test_send_message_to_patient(self):
+    def test_urgent_send_message_to_patient(self):
         # This test is for '111029 send message to patient'
         MES = 'hello, world!'
         self.demo = self.pr.generate_test_demo()
@@ -52,7 +51,6 @@ class Chat(unittest.TestCase):
         self.pr.click(data.PR_PATIENT_RECORD_CHAT_SEND_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_SECOND_MES)
         self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_SECOND_MES), MES)
-        self.pr.delete_patient(INFO[1])
         
                 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ Stag3                       =   'https://stag3.gatherhealth.com/provider'
 Stag4                       =   'https://stag4.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
 Localhost                   =   'http://localhost:8000/provider'
-SERVER                      =   Production
+SERVER                      =   Localhost
 
 if SERVER == Localhost:
     HOST                    =   'http://localhost:8080'
@@ -362,8 +362,11 @@ PR_PATIENT_RECORD_VISIT_SECOND_HISTORY      =   '#visits .dates li.normal:nth-ch
 PR_PATIENT_RECORD_VISIT_THIRD_HISTORY       =   '#visits .dates li.normal:nth-child(5)'
 PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM      =   '.delete_event'
 PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM_Y    =   '.delete_event button'
+PR_PATIENT_RECORD_VISIT_FASTING_BG_UNIT     =   '[data-name="bg_fasting"] .unit'
+PR_PATIENT_RECORD_VISIT_POST_BG_UNIT        =   '[data-name="bg_postprandial"] .unit'
+PR_PATIENT_RECORD_VISIT_RANDOM_BG_UNIT      =   '[data-name="bg_random"] .unit'
 
-PR_DIRECTORY_REMOVE_CONFIRM                 =   '.cleared .right.submit'
+PR_DIRECTORY_REMOVE_CONFIRM                 =   '.delete_patient .right.submit'
 PR_DIRECTORY_TITLE                          =   '.directory-content h3'
 PR_DIRECTORY_FIRST_PATIENT                  =   '//table[@id="directory_table"]/tbody/tr[1]/td[1]/a'
 PR_DIRECTORY_PATIENT_ENTRY                  =   'a[href="/provider/patient/%s"]'

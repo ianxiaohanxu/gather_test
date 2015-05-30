@@ -211,7 +211,7 @@ class Visit(unittest.TestCase):
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_ALT)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_PROTEIN)
         
-    def test_empty_visit_ui(self):
+    def test_urgent_empty_visit_ui(self):
         # This test is for '103001 Visits view with no visits'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -222,7 +222,7 @@ class Visit(unittest.TestCase):
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_OLD_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_EMPTY_HISTORY)
         
-    def test_history_view_with_visits(self):
+    def test_urgent_history_view_with_visits(self):
         # This test is for '103002 Visits view with some visits'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -235,7 +235,7 @@ class Visit(unittest.TestCase):
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_AGGREGATE)
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         
-    def test_edit_visit_history(self):
+    def test_urgent_edit_visit_history(self):
         # This test is for '103004 Edit history visit info'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -262,7 +262,7 @@ class Visit(unittest.TestCase):
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         self.assertEqual('180', self.pr.text(data.PR_PATIENT_RECORD_VISIT_HEIGHT))
         
-    def test_add_a_new_visit(self):
+    def test_urgent_add_a_new_visit(self):
         # This test is for '103008 Add a new visit'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -272,7 +272,7 @@ class Visit(unittest.TestCase):
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON).get_attribute('class'))
         self.full_fill_visit()
         
-    def test_delete_data(self):
+    def test_urgent_delete_data(self):
         # This test is for '103016 Delete button'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -292,7 +292,7 @@ class Visit(unittest.TestCase):
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         self.verify_all_data_empty()
         
-    def test_aggregate_update(self):
+    def test_urgent_aggregate_update(self):
         # This test is for '103013 Aggregate by updating visit history'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])

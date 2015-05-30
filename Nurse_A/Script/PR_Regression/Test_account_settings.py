@@ -63,12 +63,13 @@ class Account_settings(unittest.TestCase):
         self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SEND_SMS_BUTTON).is_enabled())
         self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
         
-    def test_reset_password(self):
+    def test_urgent_reset_password(self):
         # This test is for '107009 Reset password'
         PASSWORD = '234567'
         LESS_PASSWORD = '12345'
         WRONG_PASSWORD = '345678'
-        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
@@ -97,7 +98,7 @@ class Account_settings(unittest.TestCase):
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.logout()
-        self.pr.login(data.INDIA_DOCTOR, PASSWORD)
+        self.pr.login(data.DOCTOR, PASSWORD)
         # Resume password
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
@@ -108,9 +109,10 @@ class Account_settings(unittest.TestCase):
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         
-    def test_update_cell_number(self):
+    def test_urgent_update_cell_number(self):
         # This test is for '107007 Change cell phone'
-        self.pr.login(data.INDIA_DOCTOR, data.PASSWORD)
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_TITLE)

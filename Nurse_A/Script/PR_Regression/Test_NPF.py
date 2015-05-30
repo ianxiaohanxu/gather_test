@@ -112,7 +112,7 @@ class Add_new_patient(unittest.TestCase):
     '''
     Since HKID is removed, we don't need this test case.
     '''
-    # def test_add_hk_patient_with_hkid(self):
+    # def test_urgent_add_hk_patient_with_hkid(self):
     #     # This test is for '198015 Add a new HK patient with HKID'
     #     self.pr.login(data.HK_DOCTOR, self.demo[0])
     #     self.pr.click(data.PR_NAV_ADD_PATIENT)
@@ -139,19 +139,19 @@ class Add_new_patient(unittest.TestCase):
     #     # Delete the patient
     #     self.pr.delete_patient(ID)
     
-    def test_add_patient_with_full_info(self):
+    def test_urgent_add_patient_with_full_info(self):
         # This test is for '101103 Invite a app patient with billing'
         self.demo = self.pr.generate_test_demo()
         self.add_patient_with_full_info(data.DOCTOR)
         self.add_patient_with_full_info(data.NURSE)
         
-    def test_add_nobilling_patient(self):
+    def test_urgent_add_nobilling_patient(self):
         # This test is for '101101 Invite a app patient without billing'
         self.demo = self.pr.generate_test_demo(demo_conf='4098', billing=False)
         self.add_nobilling_patient(data.DOCTOR)
         self.add_nobilling_patient(data.NURSE)
         
-    def test_add_patient_with_required_info(self):
+    def test_urgent_add_patient_with_required_info(self):
         # This test is for '101105 Invite a app patient without fill optional fields'
         #                  '109012 Delete patient record'
         self.demo = self.pr.generate_test_demo()
@@ -160,7 +160,7 @@ class Add_new_patient(unittest.TestCase):
         # Delete the patient
         self.pr.delete_patient(INFO[1])
     
-    def test_add_ehr_patient_in_billing_practice(self):
+    def test_urgent_add_ehr_patient_in_billing_practice(self):
         # This test is for '101104 Invite a normal patient with billing'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -168,7 +168,7 @@ class Add_new_patient(unittest.TestCase):
         # Delete the patient
         self.pr.delete_patient(ID)
         
-    def test_add_ehr_patient_in_non_billing_practice(self):
+    def test_urgent_add_ehr_patient_in_non_billing_practice(self):
         # This test is for '101102 Invite a normal patient without billing'
         self.demo = self.pr.generate_test_demo(billing=False)
         self.pr.login(data.DOCTOR, self.demo[0])

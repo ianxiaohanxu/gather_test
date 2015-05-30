@@ -25,7 +25,7 @@ class Feed(unittest.TestCase):
         self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
-    def test_dismiss_event_by_chat(self):
+    def test_urgent_dismiss_event_by_chat(self):
         # This test is for '108002 Complete the event by chat'
         MES = 'hello, world!'
         self.demo = self.pr.generate_test_demo()
@@ -43,7 +43,7 @@ class Feed(unittest.TestCase):
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
         self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
-    def test_dismiss_event_by_med_goal(self):
+    def test_urgent_dismiss_event_by_med_goal(self):
         # This test is for '108003 Complete the event by update MED goals'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -61,7 +61,7 @@ class Feed(unittest.TestCase):
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
         self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
-    def test_dismiss_event_by_bg_goal(self):
+    def test_urgent_dismiss_event_by_bg_goal(self):
         # This test is for '108004 Complete the event by update BG goals'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -77,7 +77,7 @@ class Feed(unittest.TestCase):
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
         self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
-    def test_delete_feed_event(self):
+    def test_urgent_delete_feed_event(self):
         # This test is for '108005 Delete event in feed'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -85,7 +85,7 @@ class Feed(unittest.TestCase):
         self.pr.refresh()
         self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
         
-    def test_forward_feed_event(self):
+    def test_urgent_forward_feed_event(self):
         # This test is for '108006 Forward event in feed'
         notes = 'It is up to you.'
         self.demo = self.pr.generate_test_demo()
@@ -101,7 +101,7 @@ class Feed(unittest.TestCase):
         self.pr.login(data.NURSE, self.demo[0])
         self.assertTrue(self.pr.is_element_present(data.PR_FEED_WARNING_FORWARD_BY))
         
-    def test_delete_feed_message(self):
+    def test_urgent_delete_feed_message(self):
         # This test is for '106013 Delete messages event in Feed'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.NURSE, self.demo[0])
@@ -110,7 +110,7 @@ class Feed(unittest.TestCase):
         self.pr.login(data.DOCTOR, self.demo[0])
         self.assertTrue(self.pr.is_element_present(data.PR_FEED_FIRST_MESSAGE))
         
-    def test_dismiss_feed_message_by_chat(self):
+    def test_urgent_dismiss_feed_message_by_chat(self):
         # This test is for '106014 Complete messages event by chat'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.NURSE, self.demo[0])

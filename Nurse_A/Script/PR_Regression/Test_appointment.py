@@ -47,7 +47,7 @@ class Appointment(unittest.TestCase):
         self.assertTrue(today_after_180_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         return INFO
         
-    def test_add_appointment_with_full_info(self):
+    def test_urgent_add_appointment_with_full_info(self):
         # This test is for '197001 Add a new appointment from patient directory'
         today = datetime.datetime.now()
         today = today.strftime('%Y-%m-%d')
@@ -73,11 +73,11 @@ class Appointment(unittest.TestCase):
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
-    def test_add_appointment_without_time(self):
+    def test_urgent_add_appointment_without_time(self):
         # This test is for '197002 Add a new appointment without time set'
         self.create_simple_appointment()
         
-    def test_edit_appointment(self):
+    def test_urgent_edit_appointment(self):
         # This test is for '197004 Edit an appointment'
         today = datetime.datetime.now()
         date_after_90 = today + datetime.timedelta(days=90)
@@ -98,7 +98,7 @@ class Appointment(unittest.TestCase):
         self.assertTrue(date_after_90_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
-    def test_delete_appointment(self):
+    def test_urgent_delete_appointment(self):
         # This test is for '197005 Delete an appointment'
         INFO = self.create_simple_appointment()
         # Delete appointment
@@ -109,7 +109,7 @@ class Appointment(unittest.TestCase):
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(INFO[2] not in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
-    def test_complete_appointment(self):
+    def test_urgent_complete_appointment(self):
         # This test is for '197008 Mark an appointment as complete'
         INFO = self.create_simple_appointment()
         # Complete appointment

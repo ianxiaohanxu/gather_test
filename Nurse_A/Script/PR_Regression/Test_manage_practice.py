@@ -45,13 +45,14 @@ class Manage_practice(unittest.TestCase):
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_FASTING_BG_UNIT)
         self.assertTrue(unit in self.pr.text(data.PR_PATIENT_RECORD_VISIT_FASTING_BG_UNIT))
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_POST_BG_UNIT)
         self.assertTrue(unit in self.pr.text(data.PR_PATIENT_RECORD_VISIT_POST_BG_UNIT))
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_RANDOM_BG_UNIT)
         self.assertTrue(unit in self.pr.text(data.PR_PATIENT_RECORD_VISIT_RANDOM_BG_UNIT))
         # Verify BG unit on Manage Practice page
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
         self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
-        self.assertTrue(unit in self.pr.text(data.PR_MANAGE_PRACTICE_BG_UNIT))
         
     def generate_number(self, length):
         # Generate valid & invalid numbers with length
@@ -91,7 +92,7 @@ class Manage_practice(unittest.TestCase):
         self.assertTrue(self.pr.focus(data.PR_MANAGE_PRACTICE_SAVE_BUTTON).is_enabled())
         
         
-    def test_update_bg_unit(self):
+    def test_urgent_update_bg_unit(self):
         # This test is for '106008 Update BG Units'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -105,6 +106,7 @@ class Manage_practice(unittest.TestCase):
         # Verify BG unit updated
         self.pr.verify(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MMO)
         self.verify_bg_unit('mmol/L')
+        self.assertTrue(data.MMO_L == self.pr.text(data.PR_MANAGE_PRACTICE_BG_UNIT))
         # Change BG unit to mg/dL
         self.pr.select(data.MG_DL, data.PR_MANAGE_PRACTICE_BG_UNIT)
         self.pr.click(data.PR_MANAGE_PRACTICE_SAVE_BUTTON)
@@ -112,8 +114,9 @@ class Manage_practice(unittest.TestCase):
         # Verify BG unit updated
         self.pr.verify(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG)
         self.verify_bg_unit('mg/dL')
+        self.assertTrue(data.MG_DL == self.pr.text(data.PR_MANAGE_PRACTICE_BG_UNIT))
         
-    def test_update_critical_bg_range(self):
+    def test_urgent_update_critical_bg_range(self):
         # This test is for '106009 Update Critical range'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -139,7 +142,7 @@ class Manage_practice(unittest.TestCase):
         self.assertTrue('3.0' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MMO))
         self.assertTrue('20.0' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MMO))
         
-    def test_update_practice_number(self):
+    def test_urgent_update_practice_number(self):
         # This test is for '106011 Update practice phone'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])

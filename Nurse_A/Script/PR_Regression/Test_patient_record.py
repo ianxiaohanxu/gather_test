@@ -25,7 +25,7 @@ class Patient_record(unittest.TestCase):
         self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
     
-    def test_add_med_goals(self):
+    def test_urgent_add_med_goals(self):
         # This test is for '111014 Add new medication - insulin'
         #                  '111015 Add new medication - oral'
         now = datetime.datetime.now()
@@ -48,7 +48,7 @@ class Patient_record(unittest.TestCase):
         self.pr.verify(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY)
         self.assertEqual(date_str, self.pr.text(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY))
 
-    def test_add_bg_goals(self):
+    def test_urgent_add_bg_goals(self):
         # This test is for '111020 Add BG Goals'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -66,7 +66,7 @@ class Patient_record(unittest.TestCase):
         self.assertTrue('49' in self.pr.text(data.PR_PATIENT_RECORD_SMBG_COUNTER))
 
 
-    def test_delete_med_goals(self):
+    def test_urgent_delete_med_goals(self):
         # This test is for '111017 delete medication'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
