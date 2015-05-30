@@ -1,0 +1,6 @@
+# Install all below modules to be able to run the tests.
+
+selenium
+requests
+simplejson
+Appium-Python-Client
