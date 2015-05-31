@@ -14,9 +14,12 @@ fi
 ~/.pip install -r requirements/test.txt
 
 # Install loacal package
-cp -R ./Nurse_A/Nurse_A ~/Temp/
-cp -Rf ./Nurse_A/setup.py ~/Temp/
-pushd ~/Temp/
+# cp -R ./Nurse_A/Nurse_A ~/Temp/ 
+# cp -Rf ./Nurse_A/setup.py ~/Temp/
+# pushd ~/Temp/
+# python setup.py sdist
+# python setup.py install
+pushd Nurse_A
 python setup.py sdist
 python setup.py install
 
