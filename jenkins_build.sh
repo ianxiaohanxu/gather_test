@@ -8,7 +8,11 @@ then
 fi
 
 # Activate virtualenv
+if
 . ~/Temp/venv/bin/activate
+then
+echo 'Activate virtualenv'
+fi
 
 # Intall dependence modules
 ~/.pip install -r requirements/test.txt
