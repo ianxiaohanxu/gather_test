@@ -15,7 +15,7 @@ echo 'Activate virtualenv'
 fi
 
 # Intall dependence modules
-~/.pip install -r requirements/test.txt
+pip install -r requirements/test.txt
 
 # Install loacal package
 # cp -R ./Nurse_A/Nurse_A ~/Temp/ 
