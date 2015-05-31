@@ -1,5 +1,23 @@
 #!/bin/bash
 
-source ./venv/bin/activate
+# If no virtualenv in ~/Temp/, create virtualenv there
+if 
+! test -e ~/Temp/venv
+then
+virtualenv ~/Temp/venv
+fi
+
+# Activate virtualenv
+. ~/Temp/venv/bin/activate
+
+# Intall dependence modules
 pip install -r requirements/test.txt
-python ./Nurse_A/Script/PR_Regression/Test_chat.py
+
+# Install loacal package
+cp -Rf ./Nurse_A/Nurse_A ~/Temp/
+cp -Rf ./Nurse_A/setup.py ~/Temp/
+pushd ~/Temp/
+python setup.py sdist
+python setup.py install
+
+popd
