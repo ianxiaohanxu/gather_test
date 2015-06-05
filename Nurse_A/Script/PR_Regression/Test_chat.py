@@ -15,8 +15,9 @@ from time import sleep, time
 import unittest
 from Nurse_A.Settings import keycode, constant, data
 from Nurse_A.Scenario.web_scenario import WEB
+from Nurse_A.Ext_unittest.Testcase import Case
 
-class Chat(unittest.TestCase):
+class Chat(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)

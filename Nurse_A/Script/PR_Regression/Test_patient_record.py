@@ -15,8 +15,9 @@ from time import sleep, time
 import unittest, datetime
 from Nurse_A.Settings import keycode, constant, data
 from Nurse_A.Scenario.web_scenario import WEB
+from Nurse_A.Ext_unittest.Testcase import Case
 
-class Patient_record(unittest.TestCase):
+class Patient_record(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
@@ -30,6 +31,8 @@ class Patient_record(unittest.TestCase):
         #                  '111015 Add new medication - oral'
         now = datetime.datetime.now()
         date_str = now.strftime('%b %d, %Y')
+        if date_str[4] == '0':
+            date_str = date_str.replace('0', '', 1)
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -85,7 +88,7 @@ class Patient_record(unittest.TestCase):
         self.pr.click(data.PR_MED_GAOLS_FORM_DELETE)
         self.pr.clear(data.PR_MED_GOALS_FORM_LUN_DOSAGE)
         self.pr.clear(data.PR_MED_GOALS_FORM_LUN_AMOUNT)
-        self.pr.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
+        self.pr.click(dat a.PR_MED_GOALS_SUBMIT_BUTTON)
         self.pr.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
         self.pr.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
         self.pr.wait_until_not(data.PR_MED_GOALS_CONFIRM_TITLE)

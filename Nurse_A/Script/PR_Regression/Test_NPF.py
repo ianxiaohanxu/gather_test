@@ -15,8 +15,9 @@ from time import sleep, time
 import unittest
 from Nurse_A.Settings import keycode, constant, data
 from Nurse_A.Scenario.web_scenario import WEB
+from Nurse_A.Ext_unittest.Testcase import Case
 
-class Add_new_patient(unittest.TestCase):
+class Add_new_patient(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
@@ -90,10 +91,10 @@ class Add_new_patient(unittest.TestCase):
         self.pr.verify(data.PR_PATIENT_RECORD_ID)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
         PULL = self.pr.get_data()
-        print 'PUSH:\n'
-        print PUSH
-        print 'PULL:\n'
-        print PULL
+        # print 'PUSH:\n'
+        # print PUSH
+        # print 'PULL:\n'
+        # print PULL
         self.assertEqual(PUSH, PULL)
         # Delete the patient
         ID = self.pr.text(data.PR_PATIENT_RECORD_ID)

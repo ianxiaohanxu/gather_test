@@ -449,7 +449,8 @@ class WEB(Web):
         except:
             pass
         self.verify(data.PR_FEED_CONTENT)
-        while(self.is_element_present(data.PR_FEED_FIRST_MESSAGE)):
-            self.focus(data.PR_FEED_FIRST_MESSAGE).find_element_by_css_selector(data.PR_FEED_CLOSE).click()
-        
+        if self.is_element_present(data.PR_FEED_FIRST_MESSAGE):
+            Messages = self.find(data.PR_FEED_FIRST_MESSAGE)
+            for item in Messages:
+                item.find_element_by_css_selector(data.PR_FEED_CLOSE).click()
         

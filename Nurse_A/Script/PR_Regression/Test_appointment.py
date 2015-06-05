@@ -16,8 +16,9 @@ import unittest
 import datetime
 from Nurse_A.Settings import keycode, constant, data
 from Nurse_A.Scenario.web_scenario import WEB
+from Nurse_A.Ext_unittest.Testcase import Case
 
-class Appointment(unittest.TestCase):
+class Appointment(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)

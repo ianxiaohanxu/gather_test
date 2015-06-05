@@ -1,4 +1,5 @@
-SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
+# SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
+SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOjEyMzQ1Ng=='
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
 HK_NURSE                    =   'alex+hk+n@gatherhealth.com'
 INDIA_DOCTOR                =   'alex+in@gatherhealth.com'
@@ -18,7 +19,7 @@ Stag3                       =   'https://stag3.gatherhealth.com/provider'
 Stag4                       =   'https://stag4.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
 Localhost                   =   'http://localhost:8000/provider'
-SERVER                      =   Stag1
+SERVER                      =   Localhost
 
 if SERVER == Localhost:
     HOST                    =   'http://localhost:8080'

@@ -15,13 +15,15 @@ from time import sleep, time
 import unittest
 from Nurse_A.Settings import keycode, constant, data
 from Nurse_A.Scenario.web_scenario import WEB
+from Nurse_A.Ext_unittest.Testcase import Case
 
-class Account_settings(unittest.TestCase):
+class Account_settings(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         
     def tearDown(self):
+        self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def generate_number(self, length):
@@ -77,8 +79,8 @@ class Account_settings(unittest.TestCase):
         self.pr.click(data.PR_ACCOUNT_NEW_PASSWORD)
         self.pr.enter(LESS_PASSWORD, data.PR_ACCOUNT_NEW_PASSWORD)
         self.pr.click(data.PR_ACCOUNT_CONFIRM_PASSWORD)
-        self.assertEqual(self.pr.focus(data.PR_ACCOUNT_NEW_PASSWORD).get_attribute('class'), 'invalid')
         self.pr.verify(data.PR_ACCOUNT_PASSWORD_ERROR)
+        self.assertEqual(self.pr.focus(data.PR_ACCOUNT_NEW_PASSWORD).get_attribute('class'), 'invalid')
         self.assertEqual(self.pr.text(data.PR_ACCOUNT_PASSWORD_ERROR), data.EM_PR_ACCOUNT_PASSWORD_LENGH)
         self.assertEqual(self.pr.text(data.PR_ACCOUNT_PASSWORD_STRENGTH), data.EM_PR_ACCOUNT_PASSWROD_STRENGTH_TOO_WEAK)
         self.assertFalse(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
@@ -87,6 +89,7 @@ class Account_settings(unittest.TestCase):
         self.pr.enter(PASSWORD, data.PR_ACCOUNT_NEW_PASSWORD)
         self.pr.enter(WRONG_PASSWORD, data.PR_ACCOUNT_CONFIRM_PASSWORD)
         self.pr.click(data.PR_ACCOUNT_PASSWORD_STRENGTH)
+        self.pr.verify(data.PR_ACCOUNT_PASSWORD_ERROR)
         self.assertEqual(self.pr.focus(data.PR_ACCOUNT_CONFIRM_PASSWORD).get_attribute('class'), 'invalid')
         self.assertEqual(self.pr.text(data.PR_ACCOUNT_PASSWORD_ERROR), data.EM_PR_ACCOUNT_PASSWORD_MATCH)
         self.assertEqual(self.pr.text(data.PR_ACCOUNT_PASSWORD_STRENGTH), data.EM_PR_ACCOUNT_PASSWROD_STRENGTH_WEAK)
@@ -98,16 +101,6 @@ class Account_settings(unittest.TestCase):
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.logout()
-        self.pr.login(data.DOCTOR, PASSWORD)
-        # Resume password
-        self.pr.click(data.PR_NAV_OPTION_MENU)
-        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
-        self.pr.verify(data.PR_ACCOUNT_TITLE)
-        self.pr.enter(data.PASSWORD, data.PR_ACCOUNT_NEW_PASSWORD)
-        self.pr.enter(data.PASSWORD, data.PR_ACCOUNT_CONFIRM_PASSWORD)
-        self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
-        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
-        self.pr.verify(data.PR_ACCOUNT_TITLE)
         
     def test_urgent_update_cell_number(self):
         # This test is for '107007 Change cell phone'
@@ -115,6 +108,11 @@ class Account_settings(unittest.TestCase):
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.select('91', data.PR_ACCOUNT_COUNTRY_CODE)
+        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         # Validation check for US number
         self.number_validation_check('1', 10)
