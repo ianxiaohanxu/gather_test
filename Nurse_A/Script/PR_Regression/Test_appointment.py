@@ -49,7 +49,10 @@ class Appointment(Case):
         return INFO
         
     def test_urgent_add_appointment_with_full_info(self):
-        # This test is for '197001 Add a new appointment from patient directory'
+        '''
+        197001
+        This test is for '197001 Add a new appointment from patient directory'
+        '''
         today = datetime.datetime.now()
         today = today.strftime('%Y-%m-%d')
         today_slash = today.replace('-', '/')
@@ -75,11 +78,17 @@ class Appointment(Case):
         self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
     def test_urgent_add_appointment_without_time(self):
-        # This test is for '197002 Add a new appointment without time set'
+        '''
+        197002
+        This test is for '197002 Add a new appointment without time set'
+        '''
         self.create_simple_appointment()
         
     def test_urgent_edit_appointment(self):
-        # This test is for '197004 Edit an appointment'
+        '''
+        197004
+        This test is for '197004 Edit an appointment'
+        '''
         today = datetime.datetime.now()
         date_after_90 = today + datetime.timedelta(days=90)
         date_after_90 = date_after_90.strftime('%Y-%m-%d')
@@ -100,7 +109,10 @@ class Appointment(Case):
         self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
     def test_urgent_delete_appointment(self):
-        # This test is for '197005 Delete an appointment'
+        '''
+        197005
+        This test is for '197005 Delete an appointment'
+        '''
         INFO = self.create_simple_appointment()
         # Delete appointment
         self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
@@ -111,7 +123,10 @@ class Appointment(Case):
         self.assertTrue(INFO[2] not in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
     def test_urgent_complete_appointment(self):
-        # This test is for '197008 Mark an appointment as complete'
+        '''
+        197008
+        This test is for '197008 Mark an appointment as complete'
+        '''
         INFO = self.create_simple_appointment()
         # Complete appointment
         self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])

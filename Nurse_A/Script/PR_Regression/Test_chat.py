@@ -27,7 +27,10 @@ class Chat(Case):
         self.pr.teardown()
         
     def test_urgent_send_quick_message(self):
-        # This test is for '111032 send quick message'
+        '''
+        111032
+        This test is for '111032 send quick message'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -41,7 +44,10 @@ class Chat(Case):
         self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_SECOND_MES), data.MES_CONTENT_BIGGEST_SUCCESS)
         
     def test_urgent_send_message_to_patient(self):
-        # This test is for '111029 send message to patient'
+        '''
+        111029
+        This test is for '111029 send message to patient'
+        '''
         MES = 'hello, world!'
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])

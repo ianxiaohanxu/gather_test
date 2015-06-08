@@ -27,7 +27,10 @@ class Payment(Case):
         self.pr.teardown()
         
     def test_urgent_extend_subscriptioin_with_premium(self):
-        # This test is for '111052 Extend Premium'
+        '''
+        111052
+        This test is for '111052 Extend Premium'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -57,7 +60,10 @@ class Payment(Case):
         self.assertTrue(len(self.pr.find(data.PR_PATIENT_RECORD_BILLING_HISTOR_ENTRY)) == 2)
         
     def test_urgent_extend_subscriptioin_with_free_trial(self):
-        # This test is for '111053 Extend Premium (Free Trial)'
+        '''
+        111053
+        This test is for '111053 Extend Premium (Free Trial)'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -79,7 +85,10 @@ class Payment(Case):
         self.assertTrue(len(self.pr.find(data.PR_PATIENT_RECORD_BILLING_HISTOR_ENTRY)) == 2)
         
     def test_urgent_void_premium_entry(self):
-        # This test is for '111056 Void a premium entry'
+        '''
+        111056
+        This test is for '111056 Void a premium entry'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -105,7 +114,10 @@ class Payment(Case):
         self.assertTrue(self.pr.is_element_present(data.PR_PATIENT_RECORD_BILLING_FIRST_VOIDED))
         
     def test_urgent_void_free_trial_entry(self):
-        # This test is for '111057 Void a free trial entry'
+        '''
+        111057
+        This test is for '111057 Void a free trial entry'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()

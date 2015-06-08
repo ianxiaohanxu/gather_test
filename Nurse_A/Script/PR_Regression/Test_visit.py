@@ -213,7 +213,10 @@ class Visit(Case):
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_PROTEIN)
         
     def test_urgent_empty_visit_ui(self):
-        # This test is for '103001 Visits view with no visits'
+        '''
+        103001
+        This test is for '103001 Visits view with no visits'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -224,7 +227,10 @@ class Visit(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_EMPTY_HISTORY)
         
     def test_urgent_history_view_with_visits(self):
-        # This test is for '103002 Visits view with some visits'
+        '''
+        103002
+        This test is for '103002 Visits view with some visits'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_FIRST_WARNING)
@@ -237,7 +243,10 @@ class Visit(Case):
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         
     def test_urgent_edit_visit_history(self):
-        # This test is for '103004 Edit history visit info'
+        '''
+        103004
+        This test is for '103004 Edit history visit info'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -264,7 +273,10 @@ class Visit(Case):
         self.assertEqual('180', self.pr.text(data.PR_PATIENT_RECORD_VISIT_HEIGHT))
         
     def test_urgent_add_a_new_visit(self):
-        # This test is for '103008 Add a new visit'
+        '''
+        103008
+        This test is for '103008 Add a new visit'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -274,7 +286,10 @@ class Visit(Case):
         self.full_fill_visit()
         
     def test_urgent_delete_data(self):
-        # This test is for '103016 Delete button'
+        '''
+        103016
+        This test is for '103016 Delete button'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -294,7 +309,10 @@ class Visit(Case):
         self.verify_all_data_empty()
         
     def test_urgent_aggregate_update(self):
-        # This test is for '103013 Aggregate by updating visit history'
+        '''
+        103013
+        This test is for '103013 Aggregate by updating visit history'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()

@@ -94,7 +94,10 @@ class Manage_practice(Case):
         
         
     def test_urgent_update_bg_unit(self):
-        # This test is for '106008 Update BG Units'
+        '''
+        106008
+        This test is for '106008 Update BG Units'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
@@ -118,7 +121,10 @@ class Manage_practice(Case):
         self.assertTrue(data.MG_DL == self.pr.text(data.PR_MANAGE_PRACTICE_BG_UNIT))
         
     def test_urgent_update_critical_bg_range(self):
-        # This test is for '106009 Update Critical range'
+        '''
+        106009
+        This test is for '106009 Update Critical range'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
@@ -144,7 +150,10 @@ class Manage_practice(Case):
         self.assertTrue('20.0' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MMO))
         
     def test_urgent_update_practice_number(self):
-        # This test is for '106011 Update practice phone'
+        '''
+        106011
+        This test is for '106011 Update practice phone'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)

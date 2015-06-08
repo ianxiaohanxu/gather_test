@@ -141,20 +141,29 @@ class Add_new_patient(Case):
     #     self.pr.delete_patient(ID)
     
     def test_urgent_add_patient_with_full_info(self):
-        # This test is for '101103 Invite a app patient with billing'
+        '''
+        101103
+        This test is for '101103 Invite a app patient with billing'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.add_patient_with_full_info(data.DOCTOR)
         self.add_patient_with_full_info(data.NURSE)
         
     def test_urgent_add_nobilling_patient(self):
-        # This test is for '101101 Invite a app patient without billing'
+        '''
+        101101
+        This test is for '101101 Invite a app patient without billing'
+        '''
         self.demo = self.pr.generate_test_demo(demo_conf='4098', billing=False)
         self.add_nobilling_patient(data.DOCTOR)
         self.add_nobilling_patient(data.NURSE)
         
     def test_urgent_add_patient_with_required_info(self):
-        # This test is for '101105 Invite a app patient without fill optional fields'
-        #                  '109012 Delete patient record'
+        '''
+        101105 109012
+        This test is for '101105 Invite a app patient without fill optional fields'
+                         '109012 Delete patient record'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -162,7 +171,10 @@ class Add_new_patient(Case):
         self.pr.delete_patient(INFO[1])
     
     def test_urgent_add_ehr_patient_in_billing_practice(self):
-        # This test is for '101104 Invite a normal patient with billing'
+        '''
+        101104
+        This test is for '101104 Invite a normal patient with billing'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         ID = self.pr.create_new_EHR_patient()
@@ -170,7 +182,10 @@ class Add_new_patient(Case):
         self.pr.delete_patient(ID)
         
     def test_urgent_add_ehr_patient_in_non_billing_practice(self):
-        # This test is for '101102 Invite a normal patient without billing'
+        '''
+        101102
+        This test is for '101102 Invite a normal patient without billing'
+        '''
         self.demo = self.pr.generate_test_demo(billing=False)
         self.pr.login(data.DOCTOR, self.demo[0])
         ID = self.pr.create_new_EHR_patient()

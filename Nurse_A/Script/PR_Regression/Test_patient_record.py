@@ -27,8 +27,11 @@ class Patient_record(Case):
         self.pr.teardown()
     
     def test_urgent_add_med_goals(self):
-        # This test is for '111014 Add new medication - insulin'
-        #                  '111015 Add new medication - oral'
+        '''
+        111014 111015
+        This test is for '111014 Add new medication - insulin'
+                         '111015 Add new medication - oral'
+        '''
         now = datetime.datetime.now()
         date_str = now.strftime('%b %d, %Y')
         if date_str[4] == '0':
@@ -52,7 +55,10 @@ class Patient_record(Case):
         self.assertEqual(date_str, self.pr.text(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY))
 
     def test_urgent_add_bg_goals(self):
-        # This test is for '111020 Add BG Goals'
+        '''
+        111020
+        This test is for '111020 Add BG Goals'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -70,7 +76,10 @@ class Patient_record(Case):
 
 
     def test_urgent_delete_med_goals(self):
-        # This test is for '111017 delete medication'
+        '''
+        111017
+        This test is for '111017 delete medication'
+        '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
