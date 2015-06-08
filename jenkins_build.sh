@@ -18,10 +18,11 @@ python setup.py install
 popd
 
 # Run test on virtual screen
+export PATH=$PATH:/usr/local/bin
 export DISPLAY=:99
 
 # Run test scripts
-# pushd Nurse_A/Script/Suites
-# python PR_R_U.py
-python Nurse_A/Script/PR_Regression/Test_account_settings.py
-# popd
+pushd Nurse_A/Script/Suites
+python PR_R_U.py
+# python Nurse_A/Script/PR_Regression/Test_account_settings.py
+popd
