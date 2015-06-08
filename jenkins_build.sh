@@ -16,3 +16,6 @@ python setup.py sdist
 python setup.py install
 
 popd
+
+# Run test scripts
+python Nurse_A/Script/Suites/PR_R_U.py
