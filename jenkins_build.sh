@@ -18,4 +18,7 @@ python setup.py install
 popd
 
 # Run test scripts
-python Nurse_A/Script/Suites/PR_R_U.py
+pushd Nurse_A/Script/Suites
+python PR_R_U.py
+
+popd
