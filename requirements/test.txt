@@ -4,3 +4,4 @@ selenium
 requests
 simplejson
 Appium-Python-Client
+unittest-xml-reporting
