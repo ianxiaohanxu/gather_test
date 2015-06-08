@@ -17,6 +17,9 @@ python setup.py install
 
 popd
 
+# Run test on virtual screen
+export DISPLAY=:99
+
 # Run test scripts
 pushd Nurse_A/Script/Suites
 python PR_R_U.py
