@@ -22,7 +22,7 @@ class Appointment(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
-        self.pr.maximize_window()
+        self.pr.driver.maximize_window()
         
     def tearDown(self):
         self.pr.delete_test_demo(self.demo[1])
