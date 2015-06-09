@@ -21,6 +21,7 @@ class Patient_record(Case):
     
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
+        self.pr.driver.maximize_window()
         
     def tearDown(self):
         self.pr.delete_test_demo(self.demo[1])
