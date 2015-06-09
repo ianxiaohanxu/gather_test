@@ -19,7 +19,7 @@ popd
 
 # Run test on virtual screen
 # export PATH=$PATH:/usr/local/bin
-# export DISPLAY=:99
+export DISPLAY=:0
 
 # Run test scripts
 pushd Nurse_A/Script/Suites
