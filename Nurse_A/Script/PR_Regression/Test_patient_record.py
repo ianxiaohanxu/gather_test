@@ -97,7 +97,7 @@ class Patient_record(Case):
         self.pr.click(data.PR_MED_GAOLS_FORM_DELETE)
         self.pr.clear(data.PR_MED_GOALS_FORM_LUN_DOSAGE)
         self.pr.clear(data.PR_MED_GOALS_FORM_LUN_AMOUNT)
-        self.pr.click(dat a.PR_MED_GOALS_SUBMIT_BUTTON)
+        self.pr.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
         self.pr.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
         self.pr.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
         self.pr.wait_until_not(data.PR_MED_GOALS_CONFIRM_TITLE)
