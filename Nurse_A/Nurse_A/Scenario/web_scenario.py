@@ -87,7 +87,7 @@ class WEB(Web):
         full_url = '%s%s' %(data.HOST, url)
         auth = 'Basic %s' %security
         req = urllib2.Request(full_url)
-        req.add_header('Authorization', auth) 
+        req.add_header('Authorization', auth)
         if parameter != None:
             req.add_data(urllib.urlencode(parameter))
         if method == 'DELETE':
