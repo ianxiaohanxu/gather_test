@@ -22,7 +22,7 @@ Localhost                   =   'http://localhost:8000/provider'
 SERVER                      =   Localhost
 
 if SERVER == Localhost:
-    HOST                    =   'http://localhost:8080'
+    HOST                    =   'http://localhost:8081'
 else:
     HOST                    =   SERVER[:-9]
     
