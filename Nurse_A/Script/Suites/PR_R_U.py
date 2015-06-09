@@ -4,6 +4,6 @@ import unittest, xmlrunner
 
 Loader = unittest.defaultTestLoader
 Loader.testMethodPrefix = 'test_urgent'
-suites = Loader.discover('../PR_Regression', pattern='Test_*.py')
+suites = Loader.discover('../PR_Regression', pattern='Test_account*.py')
 Runner = xmlrunner.XMLTestRunner(output='../reports', verbosity=2)
 result = Runner.run(suites)
