@@ -29,9 +29,8 @@ class Patient_record(Case):
     
     def test_urgent_add_med_goals(self):
         '''
-        111014 111015
-        This test is for '111014 Add new medication - insulin'
-                         '111015 Add new medication - oral'
+        111014
+        This test is for '111014 Add new medication - with a exist medication name'
         '''
         now = datetime.datetime.now()
         date_str = now.strftime('%b %d, %Y')
