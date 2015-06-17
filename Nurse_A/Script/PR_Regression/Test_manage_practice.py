@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
@@ -166,6 +167,59 @@ class Manage_practice(Case):
         self.number_validation_check(data.IN_COUNTRY_CODE, 10)
         self.pr.click(data.PR_MANAGE_PRACTICE_SAVE_BUTTON)
         self.pr.verify(data.PR_MANAGE_PRACTICE_SAVE_SUCCESS)
+        
+    def test_normal_interrupt_edit_practice_settings(self):
+        '''
+        106010
+        This test is for '106010 Interrupt edit practice settings'
+        '''
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
+        # Get original data
+        original_name = self.pr.text(data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        original_height_unit = self.pr.text(data.PR_MANAGE_PRACTICE_HEIGHT_UNIT)
+        original_weight_unit = self.pr.text(data.PR_MANAGE_PRACTICE_WEIGHT_UNIT)
+        original_bp_unit = self.pr.text(data.PR_MANAGE_PRACTICE_BP_UNIT)
+        original_bg_unit = self.pr.text(data.PR_MANAGE_PRACTICE_BG_UNIT)
+        original_bg_low =   self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MG)
+        original_bg_upper = self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG)
+        original_country_code = self.pr.text(data.PR_MANAGE_PRACTICE_COUNTRY_CODE)
+        original_number = self.pr.text(data.PR_MANAGE_PRACTICE_NUMBER)
+        original_group_unit = self.pr.text(data.PR_MANAGE_PRACTICE_UNIT_GROUP)
+        # Input new data
+        self.pr.clear(data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        self.pr.enter('abc', data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        self.pr.select('1', data.PR_MANAGE_PRACTICE_HEIGHT_UNIT)
+        self.pr.select('1', data.PR_MANAGE_PRACTICE_WEIGHT_UNIT)
+        self.pr.select('1', data.PR_MANAGE_PRACTICE_BP_UNIT)
+        self.pr.select('1', data.PR_MANAGE_PRACTICE_BG_UNIT)
+        self.pr.select('1', data.PR_MANAGE_PRACTICE_COUNTRY_CODE)
+        self.pr.clear(data.PR_MANAGE_PRACTICE_NUMBER)
+        self.pr.enter('1234567890', data.PR_MANAGE_PRACTICE_NUMBER)
+        self.pr.select('1128', data.PR_MANAGE_PRACTICE_UNIT_GROUP)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_DIRECTORY_TITLE)
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
+        self.assertEqual(original_name, self.pr.text(data.PR_MANAGE_PRACTICE_PRACTICE_NAME))
+        self.assertEqual(original_height_unit, self.pr.text(data.PR_MANAGE_PRACTICE_HEIGHT_UNIT))
+        self.assertEqual(original_weight_unit, self.pr.text(data.PR_MANAGE_PRACTICE_WEIGHT_UNIT))
+        self.assertEqual(original_bp_unit, self.pr.text(data.PR_MANAGE_PRACTICE_BP_UNIT))
+        self.assertEqual(original_bg_unit, self.pr.text(data.PR_MANAGE_PRACTICE_BG_UNIT))
+        self.assertEqual(original_bg_low, self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MG))
+        self.assertEqual(original_bg_upper, self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG))
+        self.assertEqual(original_country_code, self.pr.text(data.PR_MANAGE_PRACTICE_COUNTRY_CODE))
+        self.assertEqual(original_number, self.pr.text(data.PR_MANAGE_PRACTICE_NUMBER))
+        self.assertEqual(original_group_unit, self.pr.text(data.PR_MANAGE_PRACTICE_UNIT_GROUP))
+        
         
 if __name__ == '__main__':
     unittest.main()

@@ -143,8 +143,9 @@ class Add_new_patient(Case):
     
     def test_urgent_add_patient_with_full_info(self):
         '''
-        101103
+        101103 101112
         This test is for '101103 Invite a app patient with billing'
+        This test is for '101112 Verify patient data after invitation'
         '''
         self.demo = self.pr.generate_test_demo()
         self.add_patient_with_full_info(data.DOCTOR)

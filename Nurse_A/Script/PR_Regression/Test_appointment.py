@@ -80,8 +80,9 @@ class Appointment(Case):
         
     def test_urgent_add_appointment_without_time(self):
         '''
-        197002
+        197002 197006
         This test is for '197002 Add a new appointment without time set'
+        This test is for '197006 Add a new appointment with date shortcut'
         '''
         self.create_simple_appointment()
         
@@ -137,6 +138,45 @@ class Appointment(Case):
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(INFO[2] not in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         self.assertTrue(INFO[2] in self.pr.text(data.PR_DIRECTORY_PATIENT_LAST_APPT %INFO[1]))
+        
+    def test_normal_add_appointment_at_the_same_time(self):
+        '''
+        197007
+        This test is for '197007 Add appointments at the same time'
+        '''
+        today = datetime.datetime.now()
+        today = today.strftime('%Y-%m-%d')
+        today_slash = today.replace('-', '/')
+        time_str = '12:00'
+        notes = 'Hello world!'
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        INFO = self.pr.create_new_patient()
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
+        self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
+        self.pr.verify(data.PR_APPOINTMENT_TITLE_ADD)
+        self.pr.click(data.PR_APPOINTMENT_TODAY)
+        self.pr.enter(time_str, data.PR_APPOINTMENT_TIME)
+        self.pr.enter(notes, data.PR_APPOINTMENT_NOTE)
+        self.pr.click(data.PR_APPOINTMENT_SAVE)
+        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
+        self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        INFO = self.pr.create_new_patient()
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
+        self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
+        self.pr.verify(data.PR_APPOINTMENT_TITLE_ADD)
+        self.pr.click(data.PR_APPOINTMENT_TODAY)
+        self.pr.enter(time_str, data.PR_APPOINTMENT_TIME)
+        self.pr.enter(notes, data.PR_APPOINTMENT_NOTE)
+        self.pr.click(data.PR_APPOINTMENT_SAVE)
+        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
+        self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
 
 if __name__ == '__main__':
     unittest.main()
