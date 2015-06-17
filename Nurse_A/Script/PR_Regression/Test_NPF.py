@@ -75,7 +75,7 @@ class Add_new_patient(Case):
             BG_GOALS.append(1)
         PUSH.append(BG_GOALS)
         self.pr.click(data.PR_ADD_PATIENT_MED_GOALS_BUTTON)
-        self.pr.verify(data.PR_MED_GOALS_TITLE)
+        self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
         self.pr.add_med_goals(data.MED_GOALS)
         PUSH.append(data.MED_GOALS)
         self.pr.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)

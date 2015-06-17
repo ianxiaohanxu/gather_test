@@ -309,72 +309,46 @@ class WEB(Web):
     def get_med_goals(self):
         # Return MED goals
         goals = []
-        self.click(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.verify(data.PR_MED_GOALS_TITLE)
-        forms = self.find(data.PR_MED_GOALS_FORM)
-        for form in forms:
+        self.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.verify(data.PR_PRESCRIPTION_VISIBLE_ENTRY)
+        entries = self.find(data.PR_PRESCRIPTION_ENTRY)
+        entries.pop(0)
+        for entry in entries:
             goal = []
-            name = form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NAME).get_attribute('value')
-            oral_insulin = form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_ORAL).is_selected()
-            pre_post = form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_PRE).is_selected()
+            name = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_NAME).get_attribute('value')
             goal.append(name)
-            if oral_insulin:
-                goal.append(1)
+            med_type = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_TYPE).get_attribute('value')
+            goal.append(med_type)
+            if entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_STRENGTH).is_displayed():
+                strength = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_STRENGTH).get_attribute('value')
             else:
-                goal.append(0)
-            if pre_post:
-                goal.append(0)
+                strength = ''
+            goal.append(strength)
+            unit = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_UNIT).get_attribute('value')
+            goal.append(unit)
+            instruction = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_INSTRUCTION).get_attribute('value')
+            goal.append(instruction)
+            pre_post = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_PRE_POST).get_attribute('value')
+            goal.append(pre_post)
+            frequency = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_FREQUENCY).get_attribute('value')
+            goal.append(frequency)
+            bre = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_BRE).get_attribute('value')
+            goal.append(bre)
+            lun = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_LUN).get_attribute('value')
+            goal.append(lun)
+            din = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_DIN).get_attribute('value')
+            goal.append(din)
+            nig = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_NIG).get_attribute('value')
+            goal.append(nig)
+            tim = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_TIME).get_attribute('value')
+            goal.append(tim)
+            if tim != '':
+                specific_time = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_TIME).get_attribute('value')
             else:
-                goal.append(1)
-            breakfast = []
-            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_BRK_DOSAGE).get_attribute('value') == '':
-                breakfast.extend([0,0])                
-            else:
-                breakfast.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_BRK_DOSAGE).get_attribute('value')))
-                if oral_insulin:
-                    breakfast.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_BRK_AMOUNT).get_attribute('value')))
-                else:
-                    breakfast.append(0)
-            lunch = []
-            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_LUN_DOSAGE).get_attribute('value') == '':
-                lunch.extend([0,0])                
-            else:
-                lunch.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_LUN_DOSAGE).get_attribute('value')))
-                if oral_insulin:
-                    lunch.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_LUN_AMOUNT).get_attribute('value')))
-                else:
-                    lunch.append(0)
-            dinner = []
-            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_DIN_DOSAGE).get_attribute('value') == '':
-                dinner.extend([0,0])                
-            else:
-                dinner.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_DIN_DOSAGE).get_attribute('value')))
-                if oral_insulin:
-                    dinner.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_DIN_AMOUNT).get_attribute('value')))
-                else:
-                    dinner.append(0)        
-            night = []
-            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NIGHT_DOSAGE).get_attribute('value') == '':
-                night.extend([0,0])                
-            else:
-                night.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NIGHT_DOSAGE).get_attribute('value')))
-                if oral_insulin:
-                    night.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NIGHT_AMOUNT).get_attribute('value')))
-                else:
-                    night.append(0)
-            freetime = []
-            if form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_DOSAGE).get_attribute('value') == '':
-                freetime.extend([0,0,0])
-            else:
-                freetime.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_DOSAGE).get_attribute('value')))
-                if oral_insulin:
-                    freetime.append(int(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_AMOUNT).get_attribute('value')))
-                else:
-                    freetime.append(0)
-                freetime.append(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_SELECT).get_attribute('value'))
-            goal.extend([breakfast, lunch, dinner, night, freetime])
+                specific_time = ''
+            goal.append(specific_time)
             goals.append(goal)
-        self.click(data.PR_MED_GOALS_CLOSE_BUTTON)
+        self.click(data.PR_PRESCRIPTION_CLOSE)
         return goals    
             
     def get_data(self):
@@ -408,37 +382,40 @@ class WEB(Web):
             
     def add_med_goals(self, goals):
         # Add med goals with list 'goals'
+        self.verify(data.PR_PRESCRIPTION_VISIBLE_ENTRY)
         for goal in goals:
             index = goals.index(goal)
-            form = self.find(data.PR_MED_GOALS_FORM)[index]
-            form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_NAME).send_keys(goal[0])
-            if goal[1] == 0:
-                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_INSULIN).click()
-            else:
-                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_ORAL).click()
-            if goal[2] == 0:
-                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_PRE).click()
-            else:
-                form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_POST).click()
-            self.fill_dosage(goal[3][0], data.PR_MED_GOALS_FORM_BRK_DOSAGE, form)
-            self.fill_dosage(goal[4][0], data.PR_MED_GOALS_FORM_LUN_DOSAGE, form)
-            self.fill_dosage(goal[5][0], data.PR_MED_GOALS_FORM_DIN_DOSAGE, form)
-            self.fill_dosage(goal[6][0], data.PR_MED_GOALS_FORM_NIGHT_DOSAGE, form)
-            self.fill_dosage(goal[7][0], data.PR_MED_GOALS_FORM_FREEFORM_DOSAGE, form)
-            if goal[1] ==1:
-                self.fill_dosage(goal[3][1], data.PR_MED_GOALS_FORM_BRK_AMOUNT, form)
-                self.fill_dosage(goal[4][1], data.PR_MED_GOALS_FORM_LUN_AMOUNT, form)
-                self.fill_dosage(goal[5][1], data.PR_MED_GOALS_FORM_DIN_AMOUNT, form)
-                self.fill_dosage(goal[6][1], data.PR_MED_GOALS_FORM_NIGHT_AMOUNT, form)
-                self.fill_dosage(goal[7][1], data.PR_MED_GOALS_FORM_FREEFORM_AMOUNT, form)
-            if goal[7][0] != 0:
-                Select(form.find_element_by_css_selector(data.PR_MED_GOALS_FORM_FREEFORM_SELECT)).select_by_value(goal[7][2])
+            entry = self.find(data.PR_PRESCRIPTION_ENTRY)[index+1]
+            entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_NAME).send_keys(goal[0])
+            dropdown = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_TYPE)
+            Select(dropdown).select_by_value(goal[1])
+            if goal[2] != '':
+                entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_STRENGTH).send_keys(goal[2])
+            dropdown = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_UNIT)
+            Select(dropdown).select_by_value(goal[3])
+            entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_INSTRUCTION).send_keys(goal[4])
+            dropdown = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_PRE_POST)
+            Select(dropdown).select_by_value(goal[5])
+            dropdown = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_FREQUENCY)
+            Select(dropdown).select_by_value(goal[6])
+            if goal[7] != '':
+                entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_BRE).send_keys(goal[7])
+            if goal[8] != '':
+                entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_LUN).send_keys(goal[8])
+            if goal[9] != '':
+                entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_DIN).send_keys(goal[9])
+            if goal[10] != '':
+                entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_NIG).send_keys(goal[10])
+            if goal[11] != '':
+                entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_TIME).send_keys(goal[11])
+                dropdown = entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_TIME)
+                Select(dropdown).select_by_value(goal[12])
             if index < (len(goals)-1):
-                self.click(data.PR_MED_GOALS_NEW_BUTTON)
-        self.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
-        self.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
-        self.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
-        self.wait_until_not(data.PR_MED_GOALS_CONFIRM_TITLE)
+                self.click(data.PR_PRESCRIPTION_ADD_NEW)
+        self.click(data.PR_PRESCRIPTION_SAVE)
+        self.verify(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
+        self.click(data.PR_PRESCRIPTION_CONFIRM_SAVE)
+        self.wait_until_not(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
                 
     def clear_message_event(self):
         # Clear all message events by 'x'    

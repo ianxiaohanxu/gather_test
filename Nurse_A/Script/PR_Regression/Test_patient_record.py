@@ -29,9 +29,8 @@ class Patient_record(Case):
     
     def test_urgent_add_med_goals(self):
         '''
-        111014 111015
-        This test is for '111014 Add new medication - insulin'
-                         '111015 Add new medication - oral'
+        111014
+        This test is for '111014 Add new medication - with a exist medication name'
         '''
         now = datetime.datetime.now()
         date_str = now.strftime('%b %d, %Y')
@@ -41,14 +40,14 @@ class Patient_record(Case):
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
-        self.pr.verify(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.pr.click(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.pr.verify(data.PR_MED_GOALS_TITLE)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
         self.pr.add_med_goals(data.MED_GOALS)
         self.pr.refresh()
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
-        self.pr.verify(data.PR_PATIENT_RECORD_MED_GOALS_UNCONFIRM)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
         goals = self.pr.get_med_goals()
         self.assertEqual(goals, data.MED_GOALS)
         self.pr.click(data.PR_PATIENT_RECORD_SUMMARY_TAG)
@@ -85,27 +84,27 @@ class Patient_record(Case):
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
-        self.pr.verify(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.pr.click(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.pr.verify(data.PR_MED_GOALS_TITLE)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
         self.pr.add_med_goals(data.MED_GOALS)
         self.pr.refresh()
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
-        self.pr.verify(data.PR_PATIENT_RECORD_MED_GOALS_UNCONFIRM)
-        self.pr.click(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.pr.verify(data.PR_MED_GOALS_TITLE)
-        self.pr.click(data.PR_MED_GAOLS_FORM_DELETE)
-        self.pr.clear(data.PR_MED_GOALS_FORM_LUN_DOSAGE)
-        self.pr.clear(data.PR_MED_GOALS_FORM_LUN_AMOUNT)
-        self.pr.click(data.PR_MED_GOALS_SUBMIT_BUTTON)
-        self.pr.verify(data.PR_MED_GOALS_CONFIRM_TITLE)
-        self.pr.click(data.PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON)
-        self.pr.wait_until_not(data.PR_MED_GOALS_CONFIRM_TITLE)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
+        self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
+        deletes = self.pr.find(data.PR_PRESCRIPTION_ENTRY_DELETE)
+        deletes[-1].click()
+        lunch_amounts = self.pr.find(data.PR_PRESCRIPTION_ENTRY_DOSAGE_LUN)
+        lunch_amounts[-1].clear()
+        self.pr.click(data.PR_PRESCRIPTION_SAVE)
+        self.pr.verify(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
+        self.pr.click(data.PR_PRESCRIPTION_CONFIRM_SAVE)
+        self.pr.wait_until_not(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         goals = self.pr.get_med_goals()
-        original_goals = data.MED_GOALS[1]
-        original_goals[4][0] = 0
-        original_goals[4][1] = 0
+        original_goals = data.MED_GOALS[0]
+        original_goals[8] = ''
         self.assertEqual(goals[0], original_goals)
 
 if __name__ == '__main__':

@@ -43,6 +43,7 @@ class Visit(Case):
         self.pr.click(location)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM)
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM_Y)
+        self.pr.wait_until_not(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM)
     
     def select_one_day_in_last_month(self):
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_DATE)
@@ -59,6 +60,9 @@ class Visit(Case):
             data.PR_PATIENT_RECORD_VISIT_HEIGHT_DELETE,
             data.PR_PATIENT_RECORD_VISIT_WEIGHT_DELETE,
             data.PR_PATIENT_RECORD_VISIT_WAIST_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_TEMPERATURE_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_BGROUP_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_RHBGROUP_DELETE,
             data.PR_PATIENT_RECORD_VISIT_TOBACCO_DELETE,
             data.PR_PATIENT_RECORD_VISIT_ALCOHOL_DELETE,
             data.PR_PATIENT_RECORD_VISIT_EXERCISE_DELETE,
@@ -72,6 +76,8 @@ class Visit(Case):
             data.PR_PATIENT_RECORD_VISIT_BUN_DELETE,
             data.PR_PATIENT_RECORD_VISIT_URIC_DELETE,
             data.PR_PATIENT_RECORD_VISIT_TSH_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_T3_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_T4_DELETE,
             data.PR_PATIENT_RECORD_VISIT_BG_FASTING_DELETE,
             data.PR_PATIENT_RECORD_VISIT_BG_POST_DELETE,
             data.PR_PATIENT_RECORD_VISIT_BG_RANDOM_DELETE,
@@ -82,11 +88,30 @@ class Visit(Case):
             data.PR_PATIENT_RECORD_VISIT_VLDL_DELETE,
             data.PR_PATIENT_RECORD_VISIT_TRI_DELETE,
             data.PR_PATIENT_RECORD_VISIT_CALCIUM_DELETE,
-            data.PR_PATIENT_RECORD_VISIT_VIT_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_VITB12_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_VITD_DELETE,
             data.PR_PATIENT_RECORD_VISIT_ECG_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_C_PEP_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_INSULIN_A_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_GAD_DELETE,
             data.PR_PATIENT_RECORD_VISIT_AST_DELETE,
             data.PR_PATIENT_RECORD_VISIT_ALT_DELETE,
             data.PR_PATIENT_RECORD_VISIT_PROTEIN_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_RBC_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_HB_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_HCT_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_MCV_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_MCH_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_MCHC_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_RDW_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_PLATELET_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_MPV_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_WBC_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_NEU_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_EOS_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_LYM_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_MON_DELETE,
+            data.PR_PATIENT_RECORD_VISIT_BAS_DELETE,
         ]
         map(self.delete_data, delete_button_group)
         sleep(constant.INTERVAL_5)
@@ -100,6 +125,9 @@ class Visit(Case):
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_HEIGHT)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_WEIGHT)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_WAIST)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_TEMPERATURE)
+        self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_BGROUP)
+        self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_RHBGROUP)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_EXERCISE)
@@ -113,6 +141,8 @@ class Visit(Case):
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_BUN)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_URIC)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_TSH)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_T3)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_T4)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_BG_FASTING)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_BG_POST)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_BG_RANDOM)
@@ -124,11 +154,30 @@ class Visit(Case):
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_VLDL)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_TRI)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_CALCIUM)
-        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_VIT)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_VITB12)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_VITD)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_ECG)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_C_PEP)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_INSULIN_A)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_GAD)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_AST)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_ALT)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_PROTEIN)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_RBC)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_HB)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_HCT)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_MCV)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_MCH)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_MCHC)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_RDW)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_PLATELET)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_MPV)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_WBC)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_NEU)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_EOS)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_LYM)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_MON)
+        self.verify_data('', data.PR_PATIENT_RECORD_VISIT_BAS)
         
     def full_fill_visit(self):
         # Full fill all data for the new visit
@@ -137,6 +186,9 @@ class Visit(Case):
         self.enter_data('178', data.PR_PATIENT_RECORD_VISIT_HEIGHT, data.PR_PATIENT_RECORD_VISIT_HEIGHT_CONFIRM)
         self.enter_data('67', data.PR_PATIENT_RECORD_VISIT_WEIGHT, data.PR_PATIENT_RECORD_VISIT_WEIGHT_CONFIRM)
         self.enter_data('97', data.PR_PATIENT_RECORD_VISIT_WAIST, data.PR_PATIENT_RECORD_VISIT_WAIST_CONFIRM)
+        self.enter_data('37', data.PR_PATIENT_RECORD_VISIT_TEMPERATURE, data.PR_PATIENT_RECORD_VISIT_TEMPERATURE_CONFIRM)
+        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_BGROUP, data.PR_PATIENT_RECORD_VISIT_BGROUP_CONFIRM)
+        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_RHBGROUP, data.PR_PATIENT_RECORD_VISIT_RHBGROUP_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO, data.PR_PATIENT_RECORD_VISIT_TOBACCO_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL, data.PR_PATIENT_RECORD_VISIT_ALCOHOL_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_EXERCISE, data.PR_PATIENT_RECORD_VISIT_EXERCISE_CONFIRM)
@@ -150,6 +202,8 @@ class Visit(Case):
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_BUN, data.PR_PATIENT_RECORD_VISIT_BUN_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_URIC, data.PR_PATIENT_RECORD_VISIT_URIC_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_TSH, data.PR_PATIENT_RECORD_VISIT_TSH_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_T3, data.PR_PATIENT_RECORD_VISIT_T3_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_T4, data.PR_PATIENT_RECORD_VISIT_T4_CONFIRM)
         self.enter_data('123', data.PR_PATIENT_RECORD_VISIT_BG_FASTING, data.PR_PATIENT_RECORD_VISIT_BG_FASTING_CONFIRM)
         self.enter_data('123', data.PR_PATIENT_RECORD_VISIT_BG_POST, data.PR_PATIENT_RECORD_VISIT_BG_POST_CONFIRM)
         self.enter_data('123', data.PR_PATIENT_RECORD_VISIT_BG_RANDOM, data.PR_PATIENT_RECORD_VISIT_BG_RANDOM_CONFIRM)
@@ -162,11 +216,30 @@ class Visit(Case):
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_VLDL, data.PR_PATIENT_RECORD_VISIT_VLDL_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_TRI, data.PR_PATIENT_RECORD_VISIT_TRI_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_CALCIUM, data.PR_PATIENT_RECORD_VISIT_CALCIUM_CONFIRM)
-        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_VIT, data.PR_PATIENT_RECORD_VISIT_VIT_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_VITB12, data.PR_PATIENT_RECORD_VISIT_VITB12_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_VITD, data.PR_PATIENT_RECORD_VISIT_VITD_CONFIRM)
         self.enter_data('abc', data.PR_PATIENT_RECORD_VISIT_ECG, data.PR_PATIENT_RECORD_VISIT_ECG_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_C_PEP, data.PR_PATIENT_RECORD_VISIT_C_PEP_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_INSULIN_A, data.PR_PATIENT_RECORD_VISIT_INSULIN_A_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_GAD, data.PR_PATIENT_RECORD_VISIT_GAD_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_AST, data.PR_PATIENT_RECORD_VISIT_AST_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_ALT, data.PR_PATIENT_RECORD_VISIT_ALT_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_PROTEIN, data.PR_PATIENT_RECORD_VISIT_PROTEIN_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_RBC, data.PR_PATIENT_RECORD_VISIT_RBC_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_HB, data.PR_PATIENT_RECORD_VISIT_HB_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_HCT, data.PR_PATIENT_RECORD_VISIT_HCT_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_MCV, data.PR_PATIENT_RECORD_VISIT_MCV_CONFIRM)
+        self.enter_data('1.0', data.PR_PATIENT_RECORD_VISIT_MCH, data.PR_PATIENT_RECORD_VISIT_MCH_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_MCHC, data.PR_PATIENT_RECORD_VISIT_MCHC_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_RDW, data.PR_PATIENT_RECORD_VISIT_RDW_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_PLATELET, data.PR_PATIENT_RECORD_VISIT_PLATELET_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_MPV, data.PR_PATIENT_RECORD_VISIT_MPV_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_WBC, data.PR_PATIENT_RECORD_VISIT_WBC_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_NEU, data.PR_PATIENT_RECORD_VISIT_NEU_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_EOS, data.PR_PATIENT_RECORD_VISIT_EOS_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_LYM, data.PR_PATIENT_RECORD_VISIT_LYM_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_MON, data.PR_PATIENT_RECORD_VISIT_MON_CONFIRM)
+        self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_BAS, data.PR_PATIENT_RECORD_VISIT_BAS_CONFIRM)
         sleep(constant.INTERVAL_5)
         
         self.pr.refresh()
@@ -183,6 +256,9 @@ class Visit(Case):
         self.verify_data('178', data.PR_PATIENT_RECORD_VISIT_HEIGHT)
         self.verify_data('67', data.PR_PATIENT_RECORD_VISIT_WEIGHT)
         self.verify_data('97', data.PR_PATIENT_RECORD_VISIT_WAIST)
+        self.verify_data('37', data.PR_PATIENT_RECORD_VISIT_TEMPERATURE)
+        self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_BGROUP)
+        self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_RHBGROUP)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_EXERCISE)
@@ -196,6 +272,8 @@ class Visit(Case):
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_BUN)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_URIC)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_TSH)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_T3)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_T4)
         self.verify_data('123', data.PR_PATIENT_RECORD_VISIT_BG_FASTING)
         self.verify_data('123', data.PR_PATIENT_RECORD_VISIT_BG_POST)
         self.verify_data('123', data.PR_PATIENT_RECORD_VISIT_BG_RANDOM)
@@ -207,11 +285,30 @@ class Visit(Case):
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_VLDL)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_TRI)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_CALCIUM)
-        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_VIT)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_VITB12)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_VITD)
         self.verify_data('abc', data.PR_PATIENT_RECORD_VISIT_ECG)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_C_PEP)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_INSULIN_A)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_GAD)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_AST)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_ALT)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_PROTEIN)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_RBC)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_HB)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_HCT)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_MCV)
+        self.verify_data('1.0', data.PR_PATIENT_RECORD_VISIT_MCH)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_MCHC)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_RDW)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_PLATELET)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_MPV)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_WBC)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_NEU)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_EOS)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_LYM)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_MON)
+        self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_BAS)
         
     def test_urgent_empty_visit_ui(self):
         '''

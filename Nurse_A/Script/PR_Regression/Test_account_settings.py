@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
@@ -137,6 +138,167 @@ class Account_settings(Case):
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         
+    def test_normal_show_bg_data(self):
+        '''
+        107014
+        This test is for '107014 Patient record data view show BG data'
+        '''
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SHOW_BG)
+        self.pr.click(data.PR_ACCOUNT_SHOW_BG)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.verify(data.PR_PATIENT_RECORD_BG_DIV)
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SHOW_BG)
+        self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SHOW_BG).is_selected())
+        
+    def test_normal_show_summary(self):
+        '''
+        107013
+        This test is for '107013 Patient record data view show summary'
+        '''
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SHOW_SUMMARY)
+        self.pr.click(data.PR_ACCOUNT_SHOW_SUMMARY)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.verify(data.PR_PATIENT_RECORD_SUMMARY_DIV)
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SHOW_SUMMARY)
+        self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SHOW_SUMMARY).is_selected())
+        
+    def test_normal_show_visit(self):
+        '''
+        '''
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SHOW_VISIT)
+        self.pr.click(data.PR_ACCOUNT_SHOW_VISIT)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_CONTENT)
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SHOW_VISIT)
+        self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SHOW_VISIT).is_selected())
+        
+    def test_normal_update_name_and_birthday(self):
+        '''
+        107001 107003
+        This test is for '107001 Update name'
+        This test is for '107003 Update birthdate'
+        '''
+        surname = 'surname'
+        given_name = 'given'
+        birthday = '1980-01-07'
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SURNAME)
+        self.pr.clear(data.PR_ACCOUNT_SURNAME)
+        self.pr.enter(surname, data.PR_ACCOUNT_SURNAME)
+        self.pr.clear(data.PR_ACCOUNT_GIVEN_NAME)
+        self.pr.enter(given_name, data.PR_ACCOUNT_GIVEN_NAME)
+        self.pr.clear(data.PR_ACCOUNT_BIRTHDATE)
+        self.pr.enter(birthday+'\n', data.PR_ACCOUNT_BIRTHDATE)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.refresh()
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_ACCOUNT_SURNAME)
+        self.assertEqual(surname, self.pr.text(data.PR_ACCOUNT_SURNAME))
+        self.assertEqual(given_name, self.pr.text(data.PR_ACCOUNT_GIVEN_NAME))
+        self.assertEqual(birthday, self.pr.text(data.PR_ACCOUNT_BIRTHDATE))
+        
+    def test_normal_update_language(self):
+        '''
+        107002
+        This test is for '107002 Change Language'
+        '''
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
+        # Update language to Traditional Chinese
+        self.pr.select(data.TRADITIONAL_CHINESE, data.PR_ACCOUNT_LANGUAGE)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.refresh()
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
+        self.assertEqual(data.ACCOUNT_HK.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
+        self.assertEqual(data.TRADITIONAL_CHINESE, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
+        # Update language to Indian
+        self.pr.select(data.INDIAN, data.PR_ACCOUNT_LANGUAGE)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.refresh()
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
+        self.assertEqual(data.ACCOUNT_IN.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
+        self.assertEqual(data.INDIAN, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
+        # Update language to English
+        self.pr.select(data.ENGLISH, data.PR_ACCOUNT_LANGUAGE)
+        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
+        sleep(constant.INTERVAL_10)
+        self.pr.verify(data.PR_ACCOUNT_TITLE)
+        self.pr.refresh()
+        try:
+            Alert(self.pr.driver).accept()
+        except:
+            pass
+        self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
+        self.assertEqual(data.ACCOUNT_US.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
+        self.assertEqual(data.ENGLISH, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
         
 if __name__ == '__main__':
     unittest.main()
