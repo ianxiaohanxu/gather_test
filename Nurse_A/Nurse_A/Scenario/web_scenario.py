@@ -309,8 +309,8 @@ class WEB(Web):
     def get_med_goals(self):
         # Return MED goals
         goals = []
-        self.click(data.PR_PATIENT_RECORD_MED_GOALS)
-        self.verify(data.PR_PRESCRIPTION_DIALOG)
+        self.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.verify(data.PR_PRESCRIPTION_VISIBLE_ENTRY)
         entries = self.find(data.PR_PRESCRIPTION_ENTRY)
         entries.pop(0)
         for entry in entries:
@@ -348,7 +348,7 @@ class WEB(Web):
                 specific_time = ''
             goal.append(specific_time)
             goals.append(goal)
-        self.click(data.PR_MED_GOALS_CLOSE_BUTTON)
+        self.click(data.PR_PRESCRIPTION_CLOSE)
         return goals    
             
     def get_data(self):
@@ -382,6 +382,7 @@ class WEB(Web):
             
     def add_med_goals(self, goals):
         # Add med goals with list 'goals'
+        self.verify(data.PR_PRESCRIPTION_VISIBLE_ENTRY)
         for goal in goals:
             index = goals.index(goal)
             entry = self.find(data.PR_PRESCRIPTION_ENTRY)[index+1]

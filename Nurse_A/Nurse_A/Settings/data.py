@@ -1,5 +1,5 @@
-SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
-# SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOjEyMzQ1Ng=='
+# SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
+SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOjEyMzQ1Ng=='
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
 HK_NURSE                    =   'alex+hk+n@gatherhealth.com'
 INDIA_DOCTOR                =   'alex+in@gatherhealth.com'
@@ -19,7 +19,7 @@ Stag3                       =   'https://stag3.gatherhealth.com/provider'
 Stag4                       =   'https://stag4.gatherhealth.com/provider'
 Production                  =   'https://www.gatherhealth.com/provider'
 Localhost                   =   'http://localhost:8000/provider'
-SERVER                      =   Stag3
+SERVER                      =   Localhost
 
 if SERVER == Localhost:
     HOST                    =   'http://localhost:8081'
@@ -70,6 +70,12 @@ CH_COUNTRY_CODE             =   '86'
 # Demo configuration
 DEMO_TEST                   =   '4100'
 
+# Different language version 'Account'
+ACCOUNT_HK                  =   '帳戶'
+ACCOUNT_IN                  =   'खाता'
+ACCOUNT_CH                  =   '用户设置'
+ACCOUNT_US                  =   'ACCOUNT'
+
 
 PR_LOGIN_TITLE              =   u'Gather \u22c5 Login'
 PR_FEED_TITLE               =   u'Gather \u22c5 Patient Feed'
@@ -78,7 +84,7 @@ HKID_CHECK                  =   'A'
 ADD_PATIENT                 =   u'ADD PATIENT'
 
 MED_GOALS                   =   [
-                                 ['G1', '2', '5', '4', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G1', '2', '', '4', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
                                  ['G2', '4', '5', '1', 'abc', '8', '0', '5', '5', '5', '5', '5', '20:00'],
                                 ]
 
@@ -196,9 +202,10 @@ PR_ADD_PATIENT_BP_DIA                       =   'bp_dia'
 # PR_MED_GOALS_CONFIRM_BACK_BUTTON            =   '.med-conf .revert'
 # PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON          =   '.med-conf .submit'
 
-PR_PRESCRIPTION_DIALOG                      =   '.medications'
-PR_PRESCRIPTION_TITLE                       =   '.medications h3'
-PR_PRESCRIPTION_ENTRY                       =   '.medications tr.prescription_input'
+PR_PRESCRIPTION_DIALOG                      =   'div.medications'
+PR_PRESCRIPTION_TITLE                       =   'div.medications h3'
+PR_PRESCRIPTION_VISIBLE_ENTRY               =   '//tr[@class="prescription_input"]'
+PR_PRESCRIPTION_ENTRY                       =   'div.medications tr.prescription_input'
 PR_PRESCRIPTION_ENTRY_NAME                  =   '.med_name input'
 PR_PRESCRIPTION_ENTRY_TYPE                  =   '.med_type select'
 PR_PRESCRIPTION_ENTRY_STRENGTH              =   '.med_strength input'
@@ -214,15 +221,15 @@ PR_PRESCRIPTION_ENTRY_DOSAGE_TIME           =   '.specific_time input'
 PR_PRESCRIPTION_ENTRY_TIME                  =   '.specific_time select'
 PR_PRESCRIPTION_ENTRY_DURATION              =   '.duration input'
 PR_PRESCRIPTION_ENTRY_DELETE                =   'td.delete>div.delete'
-PR_PRESCRIPTION_ADD_NEW                     =   '.medications div.add'
-PR_PRESCRIPTION_SAVE                        =   '.medications button.submit'
-PR_PRESCRIPTION_CLOSE                       =   '.medications div.close'
-PR_PRESCRIPTION_DOCTOR_DROPDOWN             =   '.medications select[name="guru"]'
-PR_PRESCRIPTION_PRINT                       =   '.medications .medications_print'
+PR_PRESCRIPTION_ADD_NEW                     =   'div.medications div.add'
+PR_PRESCRIPTION_SAVE                        =   'div.medications button.submit'
+PR_PRESCRIPTION_CLOSE                       =   'div.medications div.close'
+PR_PRESCRIPTION_DOCTOR_DROPDOWN             =   'div.medications select[name="guru"]'
+PR_PRESCRIPTION_PRINT                       =   'div.medications .medications_print'
 
-PR_PRESCRIPTION_CONFIRM_DIALOG              =   '.medications_confirm'
-PR_PRESCRIPTION_CONFIRM_CANCEL              =   '.medications_confirm button.cancel'
-PR_PRESCRIPTION_CONFIRM_SAVE                =   '.medications_confirm button.submit'
+PR_PRESCRIPTION_CONFIRM_DIALOG              =   'div.medications_confirm'
+PR_PRESCRIPTION_CONFIRM_CANCEL              =   'div.medications_confirm button.cancel'
+PR_PRESCRIPTION_CONFIRM_SAVE                =   'div.medications_confirm button.submit'
 
     
 PR_BG_GOALS_CLOSE_BUTTON                    =   '.smbg_goals .close'
@@ -242,8 +249,10 @@ PR_PATIENT_RECORD_CHAT_LATEST_MES           =   '.scroller-content li:nth-last-c
 PR_PATIENT_RECORD_SMBG                      =   '.smbg'
 PR_PATIENT_RECORD_SMBG_COUNTER              =   '.smbg_counter'
 PR_PATIENT_RECORD_SMBG_TITLE                =   '.smbg_goals h3'
-PR_PATIENT_RECORD_MED_GOALS                 =   '.meds_schedule'
-PR_PATIENT_RECORD_MED_GOALS_UNCONFIRM       =   '.meds_schedule .alert.med-ack'
+# PR_PATIENT_RECORD_MED_GOALS                 =   '.meds_schedule'
+# PR_PATIENT_RECORD_MED_GOALS_UNCONFIRM       =   '.meds_schedule .alert.med-ack'
+PR_PATIENT_RECORD_PRESCRIPTION              =   '.new_rx'
+PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM    =   '.new_rx .alert.med-ack'
 PR_PATIENT_RECORD_PRE_MEAL_RANGE            =   '.pre_meal'
 PR_PATIENT_RECORD_POST_MEAL_RANGE           =   '.post_meal'
 PR_PATIENT_RECORD_PRE_MEAL_BG_UNIT          =   '.smbg .units'
@@ -277,8 +286,11 @@ PR_PATIENT_RECORD_BILLING_V_CONFIRM_BACK    =   '.void-subscription-confirm .rev
 PR_PATIENT_RECORD_BILLING_V_CONFIRM_SUBMIT  =   '.void-subscription-confirm .submit'
 PR_PATIENT_RECORD_BILLING_V_CONFIRM_DATE    =   '.void-subscription-confirm .new_end_date'
 PR_PATIENT_RECORD_SUMMARY_TAG               =   'data-tab-summary'
+PR_PATIENT_RECORD_SUMMARY_DIV               =   'div[data-tab-name="graph-summary"]'
 PR_PATIENT_RECORD_SUMMARY_BG_Y_LABEL        =   '.summary_graph .y.label'
 PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY  =   'a.summary_last'
+PR_PATIENT_RECORD_BG_TAG                    =   '#data-tab-bg-data'
+PR_PATIENT_RECORD_BG_DIV                    =   'div[data-tab-name="graph-bg-data"]'
 PR_PATIENT_RECORD_VISIT_TAG                 =   'data-tab-visits'
 PR_PATIENT_RECORD_VISIT_CONTENT             =   '#visits'
 PR_PATIENT_RECORD_VISIT_NEW_BUTTON          =   '#visits .new'
@@ -515,6 +527,10 @@ PR_INFO_EMAIL                               =   '.email div'
 PR_INFO_NUMBER                              =   '.cell div'
 
 PR_ACCOUNT_TITLE                            =   '.heading h1'
+PR_ACCOUNT_SURNAME                          =   'input[name="last_name"]'
+PR_ACCOUNT_GIVEN_NAME                       =   'input[name="first_name"]'
+PR_ACCOUNT_LANGUAGE                         =   'select[name="prefs.language_code"]'
+PR_ACCOUNT_BIRTHDATE                        =   'input[name="dob"]'
 PR_ACCOUNT_NEW_PASSWORD                     =   'password1'
 PR_ACCOUNT_CONFIRM_PASSWORD                 =   'password2'
 PR_ACCOUNT_PASSWORD_ERROR                   =   '.validation_errors'
@@ -524,6 +540,9 @@ PR_ACCOUNT_COUNTRY_CODE                     =   '.phone_country'
 PR_ACCOUNT_CELL_NUMBER                      =   '.phone_number'
 PR_ACCOUNT_SEND_SMS_BUTTON                  =   '.send_confirmation'
 PR_ACCOUNT_CELL_ERROR                       =   '.halves .validation_errors'
+PR_ACCOUNT_SHOW_SUMMARY                     =   'input[name="prefs.graph_layout"][value="1"]'
+PR_ACCOUNT_SHOW_BG                          =   'input[name="prefs.graph_layout"][value="2"]'
+PR_ACCOUNT_SHOW_VISIT                       =   'input[name="prefs.graph_layout"][value="3"]'
 
 PR_MANAGE_PRACTICE_TITLE                    =   '.edit_profile h1'
 PR_MANAGE_PRACTICE_PRACTICE_NAME            =   'practice_name'
