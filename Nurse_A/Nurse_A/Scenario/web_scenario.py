@@ -148,7 +148,7 @@ class WEB(Web):
         response = self.request_interface(url, 'DELETE')
         assert (response.code == 204)
                                  
-    def create_new_patient(self):
+    def create_new_patient(self, email=None):
         # Create a new patient
         self.driver.get(self.HOMEPAGE)
         # If an alert pops up, accept it.
@@ -157,6 +157,7 @@ class WEB(Web):
         except:
             pass
         self.click(data.PR_NAV_ADD_PATIENT)
+        self.verify(data.PR_ADD_PATIENT_SURNAME)
         INFO = self.generate_info()
         self.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
         self.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
@@ -164,7 +165,11 @@ class WEB(Web):
         self.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
         self.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
         self.click(data.PR_ADD_PATIENT_APP_PATIENT)
-        self.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
+        self.verify(data.PR_ADD_PATIENT_EMAIL)
+        if email is None:
+            self.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
+        else:
+            self.enter(email, data.PR_ADD_PATIENT_EMAIL)
         self.select('en', data.PR_ADD_PATIENT_LANGUAGE)
         if self.is_element_present(data.PR_ADD_PATIENT_PREMIUM_TRIAL):
             self.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
@@ -184,6 +189,7 @@ class WEB(Web):
         except:
             pass
         self.click(data.PR_NAV_ADD_PATIENT)
+        self.verify(data.PR_ADD_PATIENT_SURNAME)
         INFO = self.generate_info()
         self.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
         self.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
