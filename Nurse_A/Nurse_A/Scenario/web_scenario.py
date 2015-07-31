@@ -368,7 +368,7 @@ class WEB(Web):
         data.extend(self.get_billing())
         data.append(self.get_type())
         data.append(self.get_year())
-        data.append(self.get_comorbidities())
+        #data.append(self.get_comorbidities())
         data.append(self.get_notes())
         data.extend(self.get_bg_range())
         data.append(self.get_bg_goals())

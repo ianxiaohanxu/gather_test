@@ -63,10 +63,10 @@ class Visit(Case):
             data.PR_PATIENT_RECORD_VISIT_TEMPERATURE_DELETE,
             data.PR_PATIENT_RECORD_VISIT_BGROUP_DELETE,
             data.PR_PATIENT_RECORD_VISIT_RHBGROUP_DELETE,
-            data.PR_PATIENT_RECORD_VISIT_TOBACCO_DELETE,
-            data.PR_PATIENT_RECORD_VISIT_ALCOHOL_DELETE,
-            data.PR_PATIENT_RECORD_VISIT_EXERCISE_DELETE,
-            data.PR_PATIENT_RECORD_VISIT_DIET_DELETE,
+            # data.PR_PATIENT_RECORD_VISIT_TOBACCO_DELETE,
+            # data.PR_PATIENT_RECORD_VISIT_ALCOHOL_DELETE,
+            # data.PR_PATIENT_RECORD_VISIT_EXERCISE_DELETE,
+            # data.PR_PATIENT_RECORD_VISIT_DIET_DELETE,
             data.PR_PATIENT_RECORD_VISIT_EYE_DELETE,
             data.PR_PATIENT_RECORD_VISIT_FOOT_DELETE,
             data.PR_PATIENT_RECORD_VISIT_ALBUMIN_DELETE,
@@ -128,10 +128,10 @@ class Visit(Case):
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_TEMPERATURE)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_BGROUP)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_RHBGROUP)
-        self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
-        self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL)
-        self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_EXERCISE)
-        self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_DIET)
+        # self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
+        # self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL)
+        # self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_EXERCISE)
+        # self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_DIET)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_EYE)
         self.verify_data('-1', data.PR_PATIENT_RECORD_VISIT_FOOT)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_ALBUMIN)
@@ -189,10 +189,10 @@ class Visit(Case):
         self.enter_data('37', data.PR_PATIENT_RECORD_VISIT_TEMPERATURE, data.PR_PATIENT_RECORD_VISIT_TEMPERATURE_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_BGROUP, data.PR_PATIENT_RECORD_VISIT_BGROUP_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_RHBGROUP, data.PR_PATIENT_RECORD_VISIT_RHBGROUP_CONFIRM)
-        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO, data.PR_PATIENT_RECORD_VISIT_TOBACCO_CONFIRM)
-        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL, data.PR_PATIENT_RECORD_VISIT_ALCOHOL_CONFIRM)
-        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_EXERCISE, data.PR_PATIENT_RECORD_VISIT_EXERCISE_CONFIRM)
-        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_DIET, data.PR_PATIENT_RECORD_VISIT_DIET_CONFIRM)
+        # self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO, data.PR_PATIENT_RECORD_VISIT_TOBACCO_CONFIRM)
+        # self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL, data.PR_PATIENT_RECORD_VISIT_ALCOHOL_CONFIRM)
+        # self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_EXERCISE, data.PR_PATIENT_RECORD_VISIT_EXERCISE_CONFIRM)
+        # self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_DIET, data.PR_PATIENT_RECORD_VISIT_DIET_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_EYE, data.PR_PATIENT_RECORD_VISIT_EYE_CONFIRM)
         self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_FOOT, data.PR_PATIENT_RECORD_VISIT_FOOT_CONFIRM)
         self.enter_data('5.0', data.PR_PATIENT_RECORD_VISIT_ALBUMIN, data.PR_PATIENT_RECORD_VISIT_ALBUMIN_CONFIRM)
@@ -259,10 +259,10 @@ class Visit(Case):
         self.verify_data('37', data.PR_PATIENT_RECORD_VISIT_TEMPERATURE)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_BGROUP)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_RHBGROUP)
-        self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
-        self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL)
-        self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_EXERCISE)
-        self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_DIET)
+        # self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
+        # self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_ALCOHOL)
+        # self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_EXERCISE)
+        # self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_DIET)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_EYE)
         self.verify_data('1', data.PR_PATIENT_RECORD_VISIT_FOOT)
         self.verify_data('5.0', data.PR_PATIENT_RECORD_VISIT_ALBUMIN)
@@ -419,7 +419,7 @@ class Visit(Case):
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON).get_attribute('class'))
         # Input data for today
         self.enter_data('150', data.PR_PATIENT_RECORD_VISIT_HEIGHT, data.PR_PATIENT_RECORD_VISIT_HEIGHT_CONFIRM)
-        self.enter_data('0', data.PR_PATIENT_RECORD_VISIT_TOBACCO, data.PR_PATIENT_RECORD_VISIT_TOBACCO_CONFIRM)
+        self.enter_data('0', data.PR_PATIENT_RECORD_VISIT_EYE, data.PR_PATIENT_RECORD_VISIT_EYE_CONFIRM)
         # Input data for some day in last month
         self.select_one_day_in_last_month()
         self.enter_data('aaa', data.PR_PATIENT_RECORD_VISIT_NOTES, data.PR_PATIENT_RECORD_VISIT_NOTES_CONFIRM)
@@ -427,7 +427,7 @@ class Visit(Case):
         self.enter_data('aaa', data.PR_PATIENT_RECORD_VISIT_ECG, data.PR_PATIENT_RECORD_VISIT_ECG_CONFIRM)
         # Input data for some day in the month befor last month
         self.select_one_day_in_last_month()
-        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_TOBACCO, data.PR_PATIENT_RECORD_VISIT_TOBACCO_CONFIRM)
+        self.enter_data('1', data.PR_PATIENT_RECORD_VISIT_EYE, data.PR_PATIENT_RECORD_VISIT_EYE_CONFIRM)
         self.enter_data('bbb', data.PR_PATIENT_RECORD_VISIT_ECG, data.PR_PATIENT_RECORD_VISIT_ECG_CONFIRM)
         self.enter_data('50', data.PR_PATIENT_RECORD_VISIT_WEIGHT, data.PR_PATIENT_RECORD_VISIT_WEIGHT_CONFIRM)
         sleep(constant.INTERVAL_5)
@@ -440,7 +440,7 @@ class Visit(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_AGGREGATE)
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         self.verify_data('150', data.PR_PATIENT_RECORD_VISIT_HEIGHT)
-        self.verify_data('0', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
+        self.verify_data('0', data.PR_PATIENT_RECORD_VISIT_EYE)
         self.verify_data('aaa', data.PR_PATIENT_RECORD_VISIT_ECG)
         self.verify_data('50', data.PR_PATIENT_RECORD_VISIT_WEIGHT)
         # Edit data in history entry
@@ -453,7 +453,7 @@ class Visit(Case):
         self.enter_data('165', data.PR_PATIENT_RECORD_VISIT_HEIGHT, data.PR_PATIENT_RECORD_VISIT_HEIGHT_CONFIRM)
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_THIRD_HISTORY)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_ECG)
-        self.enter_data('2', data.PR_PATIENT_RECORD_VISIT_TOBACCO, data.PR_PATIENT_RECORD_VISIT_TOBACCO_CONFIRM)
+        self.enter_data('2', data.PR_PATIENT_RECORD_VISIT_EYE, data.PR_PATIENT_RECORD_VISIT_EYE_CONFIRM)
         self.enter_data('ccc', data.PR_PATIENT_RECORD_VISIT_ECG, data.PR_PATIENT_RECORD_VISIT_ECG_CONFIRM)
         self.enter_data('55', data.PR_PATIENT_RECORD_VISIT_WEIGHT, data.PR_PATIENT_RECORD_VISIT_WEIGHT_CONFIRM)
         sleep(constant.INTERVAL_5)
@@ -466,14 +466,14 @@ class Visit(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_AGGREGATE)
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         self.verify_data('155', data.PR_PATIENT_RECORD_VISIT_HEIGHT)
-        self.verify_data('0', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
+        self.verify_data('0', data.PR_PATIENT_RECORD_VISIT_EYE)
         self.verify_data('aaa', data.PR_PATIENT_RECORD_VISIT_ECG)
         self.verify_data('55', data.PR_PATIENT_RECORD_VISIT_WEIGHT)
         # Edit data in history entry
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_LATEST_HISTORY)
         sleep(constant.INTERVAL_5)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NOTES)
-        self.delete_data(data.PR_PATIENT_RECORD_VISIT_TOBACCO_DELETE)
+        self.delete_data(data.PR_PATIENT_RECORD_VISIT_EYE_DELETE)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_SECOND_HISTORY)
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_SECOND_HISTORY)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_ECG)
@@ -492,7 +492,7 @@ class Visit(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_AGGREGATE)
         self.assertTrue('active' in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_AGGREGATE).get_attribute('class'))
         self.verify_data('155', data.PR_PATIENT_RECORD_VISIT_HEIGHT)
-        self.verify_data('2', data.PR_PATIENT_RECORD_VISIT_TOBACCO)
+        self.verify_data('2', data.PR_PATIENT_RECORD_VISIT_EYE)
         self.verify_data('ccc', data.PR_PATIENT_RECORD_VISIT_ECG)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_WEIGHT)
         

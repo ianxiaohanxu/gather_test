@@ -535,7 +535,7 @@ PR_FEED_EMPTY_LOGO                          =   '.logo_gather'
 
 
 PR_INFO_NAME                                =   'h1.name'
-PR_INFO_PATIENT_DATA                        =   '.patient-data li'
+PR_INFO_PATIENT_DATA                        =   '.blurb'
 PR_INFO_COMORBIDITIES                       =   '.patient-data li.chiclet'
 PR_INFO_OTHER_MED                           =   '.other li.chiclet'
 PR_INFO_NOTE                                =   '.dummy'
