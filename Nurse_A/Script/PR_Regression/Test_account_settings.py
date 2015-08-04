@@ -149,14 +149,13 @@ class Account_settings(Case):
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_SHOW_BG)
         self.pr.click(data.PR_ACCOUNT_SHOW_BG)
+        self.pr.select(data.IN_COUNTRY_CODE, data.PR_ACCOUNT_COUNTRY_CODE)
+        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.driver.get(data.DIRECTORY_PATH)
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.verify(data.PR_PATIENT_RECORD_BG_DIV)
@@ -176,14 +175,13 @@ class Account_settings(Case):
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_SHOW_SUMMARY)
         self.pr.click(data.PR_ACCOUNT_SHOW_SUMMARY)
+        self.pr.select(data.IN_COUNTRY_CODE, data.PR_ACCOUNT_COUNTRY_CODE)
+        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.driver.get(data.DIRECTORY_PATH)
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.verify(data.PR_PATIENT_RECORD_SUMMARY_DIV)
@@ -201,17 +199,17 @@ class Account_settings(Case):
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_SHOW_VISIT)
         self.pr.click(data.PR_ACCOUNT_SHOW_VISIT)
+        self.pr.select(data.IN_COUNTRY_CODE, data.PR_ACCOUNT_COUNTRY_CODE)
+        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.driver.get(data.DIRECTORY_PATH)
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_CONTENT)
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_HEIGHT)
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
         self.pr.verify(data.PR_ACCOUNT_SHOW_VISIT)
@@ -235,16 +233,14 @@ class Account_settings(Case):
         self.pr.enter(surname, data.PR_ACCOUNT_SURNAME)
         self.pr.clear(data.PR_ACCOUNT_GIVEN_NAME)
         self.pr.enter(given_name, data.PR_ACCOUNT_GIVEN_NAME)
-        self.pr.clear(data.PR_ACCOUNT_BIRTHDATE)
-        self.pr.enter(birthday+'\n', data.PR_ACCOUNT_BIRTHDATE)
+        self.pr.driver.execute_script('document.getElementsByName("dob")[0].value="%s"' %birthday)
+        self.pr.select(data.IN_COUNTRY_CODE, data.PR_ACCOUNT_COUNTRY_CODE)
+        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.refresh()
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_ACCOUNT_SURNAME)
         self.assertEqual(surname, self.pr.text(data.PR_ACCOUNT_SURNAME))
         self.assertEqual(given_name, self.pr.text(data.PR_ACCOUNT_GIVEN_NAME))
@@ -262,14 +258,13 @@ class Account_settings(Case):
         self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
         # Update language to Traditional Chinese
         self.pr.select(data.TRADITIONAL_CHINESE, data.PR_ACCOUNT_LANGUAGE)
+        self.pr.select(data.IN_COUNTRY_CODE, data.PR_ACCOUNT_COUNTRY_CODE)
+        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
+        self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
         self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.refresh()
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
         self.assertEqual(data.ACCOUNT_HK.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
         self.assertEqual(data.TRADITIONAL_CHINESE, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
@@ -279,10 +274,6 @@ class Account_settings(Case):
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.refresh()
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
         self.assertEqual(data.ACCOUNT_IN.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
         self.assertEqual(data.INDIAN, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
@@ -292,10 +283,6 @@ class Account_settings(Case):
         sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_ACCOUNT_TITLE)
         self.pr.refresh()
-        try:
-            Alert(self.pr.driver).accept()
-        except:
-            pass
         self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
         self.assertEqual(data.ACCOUNT_US.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
         self.assertEqual(data.ENGLISH, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
