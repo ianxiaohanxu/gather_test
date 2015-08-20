@@ -3,6 +3,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
@@ -29,8 +30,11 @@ class Patient_record(Case):
     
     def test_urgent_add_med_goals(self):
         '''
-        111014
+        111014 111015 111016 111061
         This test is for '111014 Add new medication - with a exist medication name'
+        This test is for '111015 Add new medication - with a non exist medication name'
+        This test is for '111016 add new medication - with different type
+        This test is for '111061 add new medication - with different Frequency'
         '''
         now = datetime.datetime.now()
         date_str = now.strftime('%b %d, %Y')
@@ -47,7 +51,7 @@ class Patient_record(Case):
         self.pr.refresh()
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
-        # self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
         goals = self.pr.get_med_goals()
         self.assertEqual(goals, data.MED_GOALS)
         self.pr.click(data.PR_PATIENT_RECORD_SUMMARY_TAG)
@@ -91,7 +95,7 @@ class Patient_record(Case):
         self.pr.refresh()
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
-        # self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
         self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
         self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
         deletes = self.pr.find(data.PR_PRESCRIPTION_ENTRY_DELETE)
@@ -106,6 +110,121 @@ class Patient_record(Case):
         original_goals = data.MED_GOALS[0]
         original_goals[8] = ''
         self.assertEqual(goals[0], original_goals)
+        
+    def test_normal_medication_sort(self):
+        '''
+        111062
+        This test is for '111062 Medication sort'
+        '''
+        MED_GOALS = [
+            ['G2', '6', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+            ['G1', '2', '', '4', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+            ['G3', '3', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+            ['G4', '9', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+        ]
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        INFO = self.pr.create_new_patient()
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
+        self.pr.add_med_goals(MED_GOALS)
+        self.pr.refresh()
+        self.pr.verify(data.PR_PATIENT_RECORD_INFO)
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
+        med_names = self.pr.find(data.PR_PATIENT_RECORD_MEDICATION_NAMES)
+        med_names = [item.text for item in med_names]
+        self.assertEqual(med_names, ['G1', 'G2', 'G3', 'G4'])
+        
+    def test_normal_prescription_validation(self):
+        '''
+        111019
+        This test is for '111019 validation check during add medication goals'
+        '''
+        self.demo = self.pr.generate_test_demo()
+        self.pr.login(data.DOCTOR, self.demo[0])
+        INFO = self.pr.create_new_patient()
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
+        self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
+        entry = self.pr.find(data.PR_PRESCRIPTION_ENTRY)[1]
+        
+        # Check validation message for Medication name
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_TYPE).click()
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_REQUIRED)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_NAME).send_keys('abc')
+        
+        # Check validation message for Medication type
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_STRENGTH).click()
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_REQUIRED)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        Select(entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_TYPE)).select_by_value('3')
+        
+        # Check validation message for Medication strength
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_UNIT).click()
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_STRENGTH)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_STRENGTH).send_keys('5')
+        
+        # Check validation message for Medication unit
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_PRE_POST).click()
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_REQUIRED)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        Select(entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_UNIT)).select_by_value('1')
+        
+        # Check validation message for Medication timing
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_FREQUENCY).click()
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_REQUIRED)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        Select(entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_PRE_POST)).select_by_value('8')
+        
+        # Check validation message for Medication frequency
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_BRE).click()
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_REQUIRED)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        Select(entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_FREQUENCY)).select_by_value('0')
+        
+        # Check validation message for Medication dosage
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_BRE).send_keys('abc')
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_DOSAGE)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_BRE).clear()
+        
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_LUN).send_keys('abc')
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_DOSAGE)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_LUN).clear()
+        
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_DIN).send_keys('abc')
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_DOSAGE)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_DIN).clear()
+        
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_NIG).send_keys('abc')
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_DOSAGE)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_NIG).clear()
+        
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_TIME).send_keys('abc')
+        self.pr.verify(data.PR_PRESCRIPTION_ENTRY_VALIDATION)
+        self.assertEqual(self.pr.text(data.PR_PRESCRIPTION_ENTRY_VALIDATION), data.EM_PR_PRESCRIPTION_DOSAGE)
+        self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
+        entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_TIME).clear()
+        
 
 if __name__ == '__main__':
     unittest.main()

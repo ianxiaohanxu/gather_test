@@ -246,6 +246,19 @@ class WEB(Web):
         interval = int(data_str.split(',')[-1].split('of')[-1].split()[0])
         year = str(localtime().tm_year - interval)
         return year
+    
+    def get_birthday(self):
+        # Return patient's birthday
+        self.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)
+        self.verify(data.PR_PATIENT_RECORD_MEDICAL_HISTORY_DOB)
+        dob = self.text(data.PR_PATIENT_RECORD_MEDICAL_HISTORY_DOB)
+        return dob
+        
+    def get_age(self):
+        # Return patient's age
+        data_str = self.text(data.PR_INFO_PATIENT_DATA)
+        age =  data_str.split(',')[1].split()[1]
+        return age
         
     def get_comorbidities(self):
         # Return patient comorbidities
@@ -362,6 +375,8 @@ class WEB(Web):
         data.append(self.get_surname())
         data.append(self.get_givename())
         data.append(self.get_gender())
+        data.append(self.get_birthday())
+        data.append(self.get_age())
         data.append(self.get_country_code())
         data.append(self.get_number())
         data.append(self.get_email())        

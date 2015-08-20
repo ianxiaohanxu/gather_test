@@ -12,7 +12,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
-import unittest
+import unittest, datetime
 from Nurse_A.Settings import keycode, constant, data
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
@@ -27,6 +27,12 @@ class Add_new_patient(Case):
         self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
+    def calc_age(self, birthday):
+        birthday = datetime.datetime.strptime(birthday, '%Y-%m-%d')
+        age = datetime.datetime.today() - birthday
+        age = age.days / 365
+        return str(age)
+        
     def add_patient_with_full_info(self, account):
         # This test is for '101103 Invite a app patient with billing'
         self.pr.login(account, self.demo[0])
@@ -40,6 +46,11 @@ class Add_new_patient(Case):
         PUSH.append(INFO['givename'])
         self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
         PUSH.append('Male')
+        dob = '2000-01-01'
+        self.pr.driver.execute_script('document.getElementsByName("dob")[0].value="%s"' %dob)
+        age = self.calc_age(dob)
+        PUSH.append(dob)
+        PUSH.append(age)
         self.pr.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
         PUSH.append('+1')
         self.pr.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)

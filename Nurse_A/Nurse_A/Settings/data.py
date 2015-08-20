@@ -85,7 +85,20 @@ ADD_PATIENT                 =   u'ADD PATIENT'
 
 MED_GOALS                   =   [
                                  ['G1', '2', '', '4', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
-                                 ['G2', '4', '5', '1', 'abc', '8', '0', '5', '5', '5', '5', '5', '20:00'],
+                                 ['ABC', '4', '5', '1', 'abc', '9', '0', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G2', '3', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G3', '5', '5', '1', 'abc', '9', '4', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G4', '6', '5', '1', 'abc', '8', '5', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G5', '7', '5', '1', 'abc', '9', '6', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G6', '8', '5', '1', 'abc', '8', '7', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G7', '9', '5', '1', 'abc', '9', '8', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G8', '10', '5', '1', 'abc', '8', '9', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G9', '11', '5', '1', 'abc', '9', '10', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G10', '12', '5', '1', 'abc', '8', '2', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G11', '13', '5', '1', 'abc', '9', '3', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G12', '14', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+                                 ['G13', '15', '5', '1', 'abc', '9', '0', '5', '5', '5', '5', '5', '20:00'],
+                                 ['G14', '16', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
                                 ]
 
 WEEKDAY                     =   ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
@@ -120,6 +133,10 @@ EM_PR_NPF_INVALID_EMAIL                     =   'Invalid patient email'
 EM_PR_NPF_DUPLICATE_EMAIL                   =   'A user with this email already exists'
 EM_PR_NPF_INVALID_LO_NUMBER                 =   'Invalid loved one phone number'
 EM_PR_NPF_DUPLICATE_NUMBER_WITH_PATIENT     =   'Patient and loved one phone number can not be the same.'
+
+EM_PR_PRESCRIPTION_REQUIRED                 =   'This field is required.'
+EM_PR_PRESCRIPTION_STRENGTH                 =   'This field can contain only numbers and punctuation.'
+EM_PR_PRESCRIPTION_DOSAGE                   =   'This field must be a number.'
 
 # Locator
 PR_TUTORIAL_WELCOME                         =   '.walkthrough_start'
@@ -237,6 +254,7 @@ PR_PRESCRIPTION_ENTRY_DOSAGE_TIME           =   '.specific_time input'
 PR_PRESCRIPTION_ENTRY_TIME                  =   '.specific_time select'
 PR_PRESCRIPTION_ENTRY_DURATION              =   '.duration input'
 PR_PRESCRIPTION_ENTRY_DELETE                =   'td.delete>div.delete'
+PR_PRESCRIPTION_ENTRY_VALIDATION            =   'div.g_validation_errors'
 PR_PRESCRIPTION_ADD_NEW                     =   'div.medications div.add'
 PR_PRESCRIPTION_SAVE                        =   'div.medications button.submit'
 PR_PRESCRIPTION_CLOSE                       =   'div.medications div.close'
@@ -253,6 +271,7 @@ PR_BG_GOALS_SAVE_BUTTON                     =   '.smbg_goals .submit'
 
 PR_PATIENT_RECORD_ID                        =   '.id span'
 PR_PATIENT_RECORD_INFO                      =   '.indicator li.status'
+PR_PATIENT_RECORD_MEDICATION_NAMES          =   'div.new_rx table tr div.name'
 PR_PATIENT_RECORD_CHAT                      =   '.indicator li.messaging'
 PR_PATIENT_RECORD_CHAT_QUICK_BUTTON         =   'quick_msg'
 PR_PATIENT_RECORD_QUICK_MES_TITLE           =   '.quick_msg_modal h3'
@@ -496,6 +515,12 @@ PR_PATIENT_RECORD_VISIT_MON_DELETE          =   '#visits [name="monocytes"]+div+
 PR_PATIENT_RECORD_VISIT_BAS                 =   '#visits [name="basophils"]'
 PR_PATIENT_RECORD_VISIT_BAS_CONFIRM         =   '#visits [name="basophils"]+div+div+button'
 PR_PATIENT_RECORD_VISIT_BAS_DELETE          =   '#visits [name="basophils"]+div+div+button+button'
+PR_PATIENT_RECORD_MEDICAL_HISTORY           =   'li[data-tracking="PR-MedHistory-ClickTab"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_GENDER    =   'select[g-measurement="gender"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DOB       =   'input[g-measurement="dob"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CC        =   'textarea[g-measurement="chief_complaints"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_TYPE      =   'select[g-measurement="diabetes_type"]'
+
 
 PR_DIRECTORY_REMOVE_CONFIRM                 =   '.delete_patient .right.submit'
 PR_DIRECTORY_TITLE                          =   '.directory-content h3'
