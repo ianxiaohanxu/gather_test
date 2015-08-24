@@ -138,7 +138,7 @@ class Feed(Case):
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.NURSE, self.demo[0])
         MES = 'hello, world!'
-        NAME = 'Ashvin'
+        NAME = 'Uttam'
         self.pr.click(data.PR_FEED_FIRST_MESSAGE)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT)
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)
