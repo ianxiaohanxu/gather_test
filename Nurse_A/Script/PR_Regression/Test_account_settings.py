@@ -192,6 +192,8 @@ class Account_settings(Case):
         
     def test_normal_show_visit(self):
         '''
+        107016
+        This test is for '107016 Patient record data view show Visits by default'
         '''
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -217,9 +219,10 @@ class Account_settings(Case):
         
     def test_normal_update_name_and_birthday(self):
         '''
-        107001 107003
+        107001 107003 107004
         This test is for '107001 Update name'
         This test is for '107003 Update birthdate'
+        This test is for '107004 Enter birthdate'
         '''
         surname = 'surname'
         given_name = 'given'

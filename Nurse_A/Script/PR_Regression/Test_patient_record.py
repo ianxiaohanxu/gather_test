@@ -30,10 +30,11 @@ class Patient_record(Case):
     
     def test_urgent_add_med_goals(self):
         '''
-        111014 111015 111016 111061
+        111014 111015 111016 111060 111061
         This test is for '111014 Add new medication - with a exist medication name'
         This test is for '111015 Add new medication - with a non exist medication name'
         This test is for '111016 add new medication - with different type
+        This test is for '111060 add new medication - with different units
         This test is for '111061 add new medication - with different Frequency'
         '''
         now = datetime.datetime.now()
