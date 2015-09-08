@@ -520,6 +520,83 @@ PR_PATIENT_RECORD_MEDICAL_HISTORY_GENDER    =   'select[g-measurement="gender"]'
 PR_PATIENT_RECORD_MEDICAL_HISTORY_DOB       =   'input[g-measurement="dob"]'
 PR_PATIENT_RECORD_MEDICAL_HISTORY_CC        =   'textarea[g-measurement="chief_complaints"]'
 PR_PATIENT_RECORD_MEDICAL_HISTORY_TYPE      =   'select[g-measurement="diabetes_type"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_TYPE_YEAR =   'select[g-measurement-since="diabetes_type"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CVD       =   'textarea[g-measurement="cardiovascular"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CVD_YEAR  =   'select[g-measurement-since="cardiovascular"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_HYPE      =   'textarea[g-measurement="hypertension"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_HYPE_YEAR =   'select[g-measurement-since="hypertension"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DYSL      =   'textarea[g-measurement="dyslipidemia"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DYSL_YEAR =   'select[g-measurement-since="dyslipidemia"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CVA       =   'textarea[g-measurement="stroke"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CVA_YEAR  =   'select[g-measurement-since="stroke"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_THYR      =   'textarea[g-measurement="thyroid"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_THYR_YEAR =   'select[g-measurement-since="thyroid"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PSYC      =   'textarea[g-measurement="psychiatric_illness"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PSYC_YEAR =   'select[g-measurement-since="psychiatric_illness"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ANEM      =   'textarea[g-measurement="anemia"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ANEM_YEAR =   'select[g-measurement-since="anemia"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ASTH      =   'textarea[g-measurement="bronchial_asthma"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ASTH_YEAR =   'select[g-measurement-since="bronchial_asthma"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_OTHER     =   'textarea[g-measurement="other_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_NEUR      =   'textarea[g-measurement="peripheral_neuropathy"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_NEPH      =   'textarea[g-measurement="nephropathy"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_RETI      =   'textarea[g-measurement="retinopathy"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_FOOT      =   'textarea[g-measurement="diabetic_foot_problems"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_COLO      =   'textarea[g-measurement="colonoscopy"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_COLO_YEAR =   'select[g-measurement-since="colonoscopy"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_MOLE      =   'textarea[g-measurement="mole_check"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_MOLE_YEAR =   'select[g-measurement-since="mole_check"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_VACC      =   'textarea[g-measurement="vaccinations"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_VACC_YEAR =   'select[g-measurement-since="vaccinations"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_MAMM      =   'textarea[g-measurement="mammogram_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_MAMM_YEAR =   'select[g-measurement-since="mammogram_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PAP       =   'textarea[g-measurement="pap_smear"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PAP_YEAR  =   'select[g-measurement-since="pap_smear"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PSA       =   'textarea[g-measurement="prostate_specific_antigen"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PSA_YEAR  =   'select[g-measurement-since="prostate_specific_antigen"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_SMOKE     =   'textarea[g-measurement="tobacco"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ALCO      =   'textarea[g-measurement="alcohol"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_EXER      =   'textarea[g-measurement="exercise"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DIET      =   'textarea[g-measurement="diet"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DRUG      =   'textarea[g-measurement="drugs_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_MARI      =   'textarea[g-measurement="marital_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_PREG      =   'textarea[g-measurement="pregnancy_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_BIRTH     =   'textarea[g-measurement="birth_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_SEX       =   'textarea[g-measurement="sexual_preference"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_STD       =   'textarea[g-measurement="std_history"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DIAB_HIS  =   'textarea[g-measurement="fam_history_diabetes"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_HYPE_HIS  =   'textarea[g-measurement="fam_history_hypertension"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_DYSL_HIS  =   'textarea[g-measurement="fam_history_dyslipidemia"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_THYR_HIS  =   'textarea[g-measurement="fam_history_thyroid"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CANC_HIS  =   'textarea[g-measurement="fam_history_cancer"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CVD_HIS   =   'textarea[g-measurement="fam_history_heart_disease"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_CVA_HIS   =   'textarea[g-measurement="fam_history_stroke"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ADMI      =   'textarea[g-measurement="hospital_admissions"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_SURG      =   'textarea[g-measurement="hospital_surgeries"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_MEDI      =   'textarea[g-measurement="allergies_medications"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_FOOD      =   'textarea[g-measurement="allergies_foods"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_LATEX     =   'textarea[g-measurement="allergies_latex"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_ENVI      =   'textarea[g-measurement="allergies_environmental"]'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_SAVE_OK   =   'div.indicator.success'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_SAVE_BUT  =   '.medical_history button'
+PR_PATIENT_RECORD_MEDICAL_HISTORY_FIELDLIST =   [
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_CC, PR_PATIENT_RECORD_MEDICAL_HISTORY_CVD, PR_PATIENT_RECORD_MEDICAL_HISTORY_HYPE,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_DYSL, PR_PATIENT_RECORD_MEDICAL_HISTORY_CVA, PR_PATIENT_RECORD_MEDICAL_HISTORY_THYR,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_PSYC, PR_PATIENT_RECORD_MEDICAL_HISTORY_ANEM, PR_PATIENT_RECORD_MEDICAL_HISTORY_ASTH,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_OTHER, PR_PATIENT_RECORD_MEDICAL_HISTORY_NEUR, PR_PATIENT_RECORD_MEDICAL_HISTORY_NEPH,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_RETI, PR_PATIENT_RECORD_MEDICAL_HISTORY_FOOT, PR_PATIENT_RECORD_MEDICAL_HISTORY_COLO,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_MOLE, PR_PATIENT_RECORD_MEDICAL_HISTORY_VACC, PR_PATIENT_RECORD_MEDICAL_HISTORY_MAMM,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_PAP, PR_PATIENT_RECORD_MEDICAL_HISTORY_PSA, PR_PATIENT_RECORD_MEDICAL_HISTORY_SMOKE,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_ALCO, PR_PATIENT_RECORD_MEDICAL_HISTORY_EXER, PR_PATIENT_RECORD_MEDICAL_HISTORY_DIET,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_DRUG, PR_PATIENT_RECORD_MEDICAL_HISTORY_MARI, PR_PATIENT_RECORD_MEDICAL_HISTORY_PREG,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_BIRTH, PR_PATIENT_RECORD_MEDICAL_HISTORY_SEX, PR_PATIENT_RECORD_MEDICAL_HISTORY_STD,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_DIAB_HIS, PR_PATIENT_RECORD_MEDICAL_HISTORY_HYPE_HIS, PR_PATIENT_RECORD_MEDICAL_HISTORY_DYSL_HIS,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_THYR_HIS, PR_PATIENT_RECORD_MEDICAL_HISTORY_CANC_HIS, PR_PATIENT_RECORD_MEDICAL_HISTORY_CVD_HIS,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_CVA_HIS, PR_PATIENT_RECORD_MEDICAL_HISTORY_ADMI, PR_PATIENT_RECORD_MEDICAL_HISTORY_SURG,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_MEDI, PR_PATIENT_RECORD_MEDICAL_HISTORY_FOOD, PR_PATIENT_RECORD_MEDICAL_HISTORY_LATEX,
+                                                PR_PATIENT_RECORD_MEDICAL_HISTORY_ENVI, 
+                                                ]
+
 
 
 PR_DIRECTORY_REMOVE_CONFIRM                 =   '.delete_patient .right.submit'
