@@ -85,6 +85,10 @@ class Patient_record(Case):
         111017
         This test is for '111017 delete medication'
         '''
+        original_goals = [
+                          ['G1', '2', '', '4', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
+                          ['ABC', '4', '5', '1', 'abc', '9', '0', '5', '5', '5', '5', '5', '20:00'],
+                         ]
         self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
@@ -92,7 +96,7 @@ class Patient_record(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
         self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
         self.pr.verify(data.PR_PRESCRIPTION_DIALOG)
-        self.pr.add_med_goals(data.MED_GOALS)
+        self.pr.add_med_goals(original_goals)
         self.pr.refresh()
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
@@ -108,9 +112,9 @@ class Patient_record(Case):
         self.pr.click(data.PR_PRESCRIPTION_CONFIRM_SAVE)
         self.pr.wait_until_not(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         goals = self.pr.get_med_goals()
-        original_goals = data.MED_GOALS[0]
-        original_goals[8] = ''
-        self.assertEqual(goals[0], original_goals)
+        original_goals = original_goals[:-1]
+        original_goals[-1][8] = ''
+        self.assertEqual(goals, original_goals)
         
     def test_normal_medication_sort(self):
         '''

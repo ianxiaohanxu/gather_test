@@ -136,7 +136,8 @@ EM_PR_NPF_DUPLICATE_NUMBER_WITH_PATIENT     =   'Patient and loved one phone num
 
 EM_PR_PRESCRIPTION_REQUIRED                 =   'This field is required.'
 EM_PR_PRESCRIPTION_STRENGTH                 =   'This field can contain only numbers and punctuation.'
-EM_PR_PRESCRIPTION_DOSAGE                   =   'This field must be a number.'
+# EM_PR_PRESCRIPTION_DOSAGE                   =   'This field must be a number.'
+EM_PR_PRESCRIPTION_DOSAGE                   =   EM_PR_PRESCRIPTION_STRENGTH
 
 # Locator
 PR_TUTORIAL_WELCOME                         =   '.walkthrough_start'
