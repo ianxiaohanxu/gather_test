@@ -451,4 +451,15 @@ class WEB(Web):
             Messages = self.find(data.PR_FEED_FIRST_MESSAGE)
             for item in Messages:
                 item.find_element_by_css_selector(data.PR_FEED_CLOSE).click()
-        
+                
+    def same_list(self, list_a, list_b):
+        # Compare two lists, judge if they have the same elements.
+        if (type(list_a) != list or type(list_b) != list):
+            raise Exception('same_list only accept "list" as parameters')
+        for item in list_a:
+            if item not in list_b:
+                return False
+        for item in list_b:
+            if item not in list_a:
+                return False
+        return True

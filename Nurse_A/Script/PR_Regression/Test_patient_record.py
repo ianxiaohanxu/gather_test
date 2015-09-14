@@ -54,7 +54,7 @@ class Patient_record(Case):
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
         self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION_UNCONFIRM)
         goals = self.pr.get_med_goals()
-        self.assertEqual(goals, data.MED_GOALS)
+        self.pr.same_list(goals, data.MED_GOALS)
         self.pr.click(data.PR_PATIENT_RECORD_SUMMARY_TAG)
         self.pr.verify(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY)
         self.assertEqual(date_str, self.pr.text(data.PR_PATIENT_RECORD_SUMMARY_MED_LAST_HISTORY))
