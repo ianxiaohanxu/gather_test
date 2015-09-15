@@ -242,10 +242,10 @@ class WEB(Web):
         
     def get_year(self):
         # Return the year when patient got diabetes
-        data_str = self.text(data.PR_INFO_PATIENT_DATA)
-        interval = int(data_str.split(',')[-1].split('of')[-1].split()[0])
-        year = str(localtime().tm_year - interval)
-        return year
+        self.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)
+        self.verify(data.PR_PATIENT_RECORD_MEDICAL_HISTORY_TYPE_YEAR)
+        type_date = self.text(data.PR_PATIENT_RECORD_MEDICAL_HISTORY_TYPE_YEAR)
+        return type_date
     
     def get_birthday(self):
         # Return patient's birthday
