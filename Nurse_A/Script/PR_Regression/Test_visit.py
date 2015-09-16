@@ -13,7 +13,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -22,9 +22,10 @@ class Visit(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def enter_data(self, value, location, confirm_location):
@@ -315,7 +316,7 @@ class Visit(Case):
         103001
         This test is for '103001 Visits view with no visits'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
@@ -329,7 +330,7 @@ class Visit(Case):
         103002
         This test is for '103002 Visits view with some visits'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_TAG)
@@ -345,7 +346,7 @@ class Visit(Case):
         103004
         This test is for '103004 Edit history visit info'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
@@ -375,7 +376,7 @@ class Visit(Case):
         103008
         This test is for '103008 Add a new visit'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
@@ -388,7 +389,7 @@ class Visit(Case):
         103016
         This test is for '103016 Delete button'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
@@ -411,7 +412,7 @@ class Visit(Case):
         103013
         This test is for '103013 Aggregate by updating visit history'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)

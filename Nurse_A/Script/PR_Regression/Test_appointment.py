@@ -14,7 +14,7 @@ from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest
 import datetime
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -23,9 +23,10 @@ class Appointment(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def create_simple_appointment(self):
@@ -33,7 +34,7 @@ class Appointment(Case):
         today_after_180 = today + datetime.timedelta(days=180)
         today_after_180 = today_after_180.strftime('%Y-%m-%d')
         today_after_180_slash = today_after_180.replace('-', '/')
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         INFO = list(INFO)
@@ -62,7 +63,7 @@ class Appointment(Case):
         tomorrow_slash = tomorrow.replace('-', '/')
         time_str = '12:00'
         notes = 'Hello world!'
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.driver.get(data.DIRECTORY_PATH)
@@ -149,7 +150,7 @@ class Appointment(Case):
         today_slash = today.replace('-', '/')
         time_str = '12:00'
         notes = 'Hello world!'
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.driver.get(data.DIRECTORY_PATH)

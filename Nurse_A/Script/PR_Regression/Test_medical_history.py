@@ -12,7 +12,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest, datetime
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -21,9 +21,10 @@ class Medical_history(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def calc_age(self, birthday):
@@ -257,7 +258,7 @@ class Medical_history(Case):
         111063
         This test is for '111063 Fill all fields in Medical History tab'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)
@@ -274,7 +275,7 @@ class Medical_history(Case):
         111065
         This test is for '111065 Fill all fields in Medical History tab'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)
@@ -297,7 +298,7 @@ class Medical_history(Case):
         111064
         This test is for '111064 Delete data in Medical History tab'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)
@@ -321,7 +322,7 @@ class Medical_history(Case):
         111066
         This test is for '111066 Different fields shown according to gender info'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)
@@ -356,7 +357,7 @@ class Medical_history(Case):
         111067
         This test is for '111067 Sync data from Medical History tab'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_MEDICAL_HISTORY)

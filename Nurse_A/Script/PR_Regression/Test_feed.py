@@ -13,7 +13,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -22,9 +22,10 @@ class Feed(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def test_urgent_dismiss_event_by_chat(self):
@@ -33,7 +34,7 @@ class Feed(Case):
         This test is for '108002 Complete the event by chat'
         '''
         MES = 'hello, world!'
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT)
@@ -53,7 +54,7 @@ class Feed(Case):
         108003
         This test is for '108003 Complete the event by update MED goals'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
@@ -75,7 +76,7 @@ class Feed(Case):
         108004
         This test is for '108004 Complete the event by update BG goals'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_SMBG)
@@ -94,7 +95,7 @@ class Feed(Case):
         108005
         This test is for '108005 Delete event in feed'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_CLOSE)
         self.pr.refresh()
@@ -106,7 +107,7 @@ class Feed(Case):
         This test is for '108006 Forward event in feed'
         '''
         notes = 'It is up to you.'
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_FEED_FORWARD)
         self.pr.verify(data.PR_FEED_FORWARD_TO)
@@ -123,7 +124,7 @@ class Feed(Case):
         106013
         This test is for '106013 Delete messages event in Feed'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.NURSE, self.demo[0])
         self.pr.clear_message_event()
         self.pr.logout()
@@ -135,7 +136,7 @@ class Feed(Case):
         106014
         This test is for '106014 Complete messages event by chat'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.NURSE, self.demo[0])
         MES = 'hello, world!'
         NAME = 'Uttam'

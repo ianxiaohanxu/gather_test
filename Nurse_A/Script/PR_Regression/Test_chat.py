@@ -13,7 +13,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -22,9 +22,10 @@ class Chat(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def test_urgent_send_quick_message(self):
@@ -32,7 +33,7 @@ class Chat(Case):
         111032
         This test is for '111032 send quick message'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)
@@ -50,7 +51,7 @@ class Chat(Case):
         This test is for '111029 send message to patient'
         '''
         MES = 'hello, world!'
-        self.demo = self.pr.generate_test_demo()
+        # # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)

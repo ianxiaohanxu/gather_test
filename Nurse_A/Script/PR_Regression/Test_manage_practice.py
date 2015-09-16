@@ -14,7 +14,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -23,9 +23,10 @@ class Manage_practice(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def verify_bg_unit(self, unit):
@@ -100,7 +101,7 @@ class Manage_practice(Case):
         106008
         This test is for '106008 Update BG Units'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
@@ -127,7 +128,7 @@ class Manage_practice(Case):
         106009
         This test is for '106009 Update Critical range'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
@@ -156,7 +157,7 @@ class Manage_practice(Case):
         106011
         This test is for '106011 Update practice phone'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
@@ -173,7 +174,7 @@ class Manage_practice(Case):
         106010
         This test is for '106010 Interrupt edit practice settings'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
