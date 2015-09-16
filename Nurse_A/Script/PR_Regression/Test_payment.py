@@ -13,7 +13,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time
 import unittest
-from Nurse_A.Settings import keycode, constant, data
+from Nurse_A.Settings import keycode, constant, data, setup
 from Nurse_A.Scenario.web_scenario import WEB
 from Nurse_A.Ext_unittest.Testcase import Case
 
@@ -22,9 +22,10 @@ class Payment(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def test_urgent_extend_subscriptioin_with_premium(self):
@@ -32,7 +33,7 @@ class Payment(Case):
         111052
         This test is for '111052 Extend Premium'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_BILLING)
@@ -65,7 +66,7 @@ class Payment(Case):
         111053
         This test is for '111053 Extend Premium (Free Trial)'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_BILLING)
@@ -90,7 +91,7 @@ class Payment(Case):
         111056
         This test is for '111056 Void a premium entry'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_BILLING)
@@ -119,7 +120,7 @@ class Payment(Case):
         111057
         This test is for '111057 Void a free trial entry'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_BILLING)

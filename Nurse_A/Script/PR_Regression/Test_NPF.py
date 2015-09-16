@@ -22,9 +22,10 @@ class Add_new_patient(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def calc_age(self, birthday):
@@ -155,7 +156,7 @@ class Add_new_patient(Case):
         This test is for '101103 Invite a app patient with billing'
         This test is for '101112 Verify patient data after invitation'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.add_patient_with_full_info(data.DOCTOR)
         self.add_patient_with_full_info(data.NURSE)
         
@@ -167,6 +168,7 @@ class Add_new_patient(Case):
         self.demo = self.pr.generate_test_demo(demo_conf='4098', billing=False)
         self.add_nobilling_patient(data.DOCTOR)
         self.add_nobilling_patient(data.NURSE)
+        self.pr.delete_test_demo(self.demo[1])
         
     def test_urgent_add_patient_with_required_info(self):
         '''
@@ -174,7 +176,7 @@ class Add_new_patient(Case):
         This test is for '101105 Invite a app patient without fill optional fields'
                          '109012 Delete patient record'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         # Delete the patient
@@ -185,7 +187,7 @@ class Add_new_patient(Case):
         101104
         This test is for '101104 Invite a normal patient with billing'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         ID = self.pr.create_new_EHR_patient()
         # Delete the patient
@@ -201,13 +203,14 @@ class Add_new_patient(Case):
         ID = self.pr.create_new_EHR_patient()
         # Delete the patient
         self.pr.delete_patient(ID)
+        self.pr.delete_test_demo(self.demo[1])
         
     def test_normal_validation_for_normal_patient_field(self):
         '''
         101108
         This test is for '101108 Validation check for inviting a normal patient fields'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_ADD_PATIENT)
         self.pr.verify(data.PR_ADD_PATIENT_SURNAME)
@@ -338,7 +341,7 @@ class Add_new_patient(Case):
         This test is for '101109 Validation check for all required fileds during invite a app patient'
         This test is for '101110 Validation check for all optional fields during invite a app patient'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_ADD_PATIENT)
         self.pr.verify(data.PR_ADD_PATIENT_SURNAME)
@@ -516,7 +519,7 @@ class Add_new_patient(Case):
         101106
         This test is for '101106 Interrupt invite a normal patient'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_ADD_PATIENT)
         self.pr.verify(data.PR_ADD_PATIENT_SURNAME)

@@ -23,9 +23,10 @@ class Patient_record(Case):
     def setUp(self):
         self.pr = WEB(server = data.SERVER)
         self.pr.driver.maximize_window()
+        self.demo = setup.demo_data
         
     def tearDown(self):
-        self.pr.delete_test_demo(self.demo[1])
+        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
     
     def test_urgent_add_med_goals(self):
@@ -41,7 +42,7 @@ class Patient_record(Case):
         date_str = now.strftime('%b %d, %Y')
         if date_str[4] == '0':
             date_str = date_str.replace('0', '', 1)
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
@@ -64,7 +65,7 @@ class Patient_record(Case):
         111020
         This test is for '111020 Add BG Goals'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
@@ -89,7 +90,7 @@ class Patient_record(Case):
                           ['G1', '2', '', '4', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
                           ['ABC', '4', '5', '1', 'abc', '9', '0', '5', '5', '5', '5', '5', '20:00'],
                          ]
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
@@ -127,7 +128,7 @@ class Patient_record(Case):
             ['G3', '3', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
             ['G4', '9', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
         ]
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
@@ -148,7 +149,7 @@ class Patient_record(Case):
         111019
         This test is for '111019 validation check during add medication goals'
         '''
-        self.demo = self.pr.generate_test_demo()
+        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
