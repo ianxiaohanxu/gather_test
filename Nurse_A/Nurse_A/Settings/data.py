@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
 SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOjEyMzQ1Ng=='
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
@@ -28,6 +30,11 @@ else:
     
 DIRECTORY_PATH              =   SERVER+'/directory'
 FEED_PATH                   =   SERVER+'/feed'
+
+# Color
+GREY_CONFIRM                =   u'rgba(0, 0, 0, 0.25)'
+BLUE_CONFIRM                =   u'rgba(50, 179, 230, 1)'
+GREEN_CONFIRM               =   u'rgba(127, 210, 67, 1)'
 
 # Country
 INDIA                       =   'IN'
@@ -66,6 +73,51 @@ US_COUNTRY_CODE             =   '1'
 IN_COUNTRY_CODE             =   '91'
 HK_COUNTRY_CODE             =   '852'
 CH_COUNTRY_CODE             =   '86'
+
+# Filter
+FILTER_ALL_PATIENT          =   ''
+FILTER_STUDY_PATIENT        =   'IsOnStudy = \"True\"'
+FILTER_TYPE_ONE             =   'Type = \"1\"'
+FILTER_TYPE_TWO             =   'Type = \"2\"'
+FILTER_GESTATIONAL          =   'Type = \"Gest\"'
+FILTER_PRE_DIABETES         =   'Type = \"Pre\"'
+FILTER_OTHER                =   'Type = \"Other\"'
+FILTER_ACTIVE               =   'Status = Active'
+FILTER_INACTIVE             =   'Status = Inactive'
+FILTER_NOT_INSTALL          =   'Status = \"Not Installed\"'
+FILTER_EHR_ONLY             =   'Status = EHR'
+FILTER_A1C                  =   'A1C > 7'
+FILTER_BG_CONTROL           =   'BGControl < 30'
+FILTER_MEDADH               =   'MedAdh < 50'
+FILTER_NEXT_APPOINTMENT     =   'NextAppointment >= today'
+FILTER_WILL_EXPIRE          =   'DaysLeft >= 0 AND DaysLeft <= 14'
+FILTER_EXPIRED              =   'DaysLeft < 0 AND IsOnStudy = \"False\"'
+
+# Patient directory columns
+LAST                        =   '1'
+FIRST                       =   '2'
+MED_ADH                     =   '3'
+BG_CONTROL                  =   '4'
+PRACTICE_NAME               =   '5'
+NEXT_APPT                   =   '6'
+LAST_APPT                   =   '7'
+STATUS                      =   '8'
+LAST_BG                     =   '9'
+LAST_CONTACT                =   '10'
+JOINED                      =   '11'
+SUBSCRIPTION                =   '12'
+EXPIRES                     =   '13'
+TYPE                        =   '14'
+A1C                         =   '15'
+AGE                         =   '16'
+
+# Sign up steps name
+SIGN_UP_CONFIRM_INFO        =   'Confirm info'
+SIGN_UP_SIGN_AGREEMENT      =   'Sign agreement'
+SIGN_UP_PRACTICE_CONTACT    =   'Practice contact'
+SIGN_UP_UPLOAD_PHOTO        =   'Upload photo'
+SIGN_UP_ADD_PHONE           =   'Add phone'
+SIGN_UP_INVITE_STAFF        =   'Invite staff'
 
 # Demo configuration
 DEMO_TEST                   =   '4100'
@@ -108,6 +160,9 @@ PRE_POST                    =   ['pre', 'post']
 
 # Message content
 MES_CONTENT_BIGGEST_SUCCESS                 =   "It appears you're lagging on your blood sugar measurements, so I wanted to help you make a plan to fit them into your life. When in the past have you been successful in making a change in your life and how did you do it?"
+MES_GROUP_SMS_SUCCESS                       =   "Your SMS is in the queue now and will go out shortly."
+MES_GROUP_SMS_FAIL                          =   "We are having technical problems sending out your SMS. Please try again later."
+MES_PATIENT_SEARCH_NO_RESULT                =   "No results"
 
 # Error messages
 EM_PR_ACCOUNT_PASSWORD_LENGH                =   'Password must be between 6 and 64 characters.'
@@ -140,6 +195,17 @@ EM_PR_PRESCRIPTION_STRENGTH                 =   'This field can contain only num
 EM_PR_PRESCRIPTION_DOSAGE                   =   EM_PR_PRESCRIPTION_STRENGTH
 EM_PR_PRESCRIPTION_DOSAGE_NON_ZERO          =   'This field must be a non-zero number.'
 
+EM_SIGN_UP_REQUIRED                         =   EM_PR_PRESCRIPTION_REQUIRED
+EM_SIGN_UP_PASSWORD_LENGH                   =   'Password must be at least 6 characters.'
+EM_SIGN_UP_PASSWORD_MATCH                   =   EM_PR_ACCOUNT_PASSWORD_MATCH
+EM_SIGN_UP_SIGNATURE_SERVER_ERROR           =   'Signature can contain only letters, commas, periods, dashes, apostrophes, quotation marks, and spaces.'
+EM_SIGN_UP_CELL_NUMBER_IN_US                =   EM_PR_ACCOUNT_CELL_NUM_IN_US
+EM_SIGN_UP_CELL_NUMBER_HK                   =   EM_PR_ACCOUNT_CELL_NUM_HK
+EM_SIGN_UP_CELL_NUMBER_CH                   =   EM_PR_ACCOUNT_CELL_NUM_CH
+EM_SIGN_UP_INVITE_SHORT_ERROR               =   'Please complete the form.'
+EM_SIGN_UP_INVITE_LONG_ERROR                =   'Guru name, email, and role are required.'
+EM_SIGN_UP_INVALID_EMAIL                    =   'Invalid email address.'
+
 # Locator
 PR_TUTORIAL_WELCOME                         =   '.walkthrough_start'
 PR_TUTORIAL_WELCOME_CLOSE                   =   '.walkthrough_start .close'
@@ -155,10 +221,12 @@ PR_NAV_OPTION_MENU_ACCOUNT                  =   '.user .dropdown-menu>li:nth-chi
 # PR_NAV_OPTION_MENU_MANAGE_PRACTICE          =   '.user .dropdown-menu>li:nth-child(2) a'
 
 PR_NAV_OPTION_MENU_FIRST_PRACTICE           =   '.user .dropdown-menu .practices li:nth-child(1) a'
+PR_NAV_OPTION_MENU_PRACTICE                 =   '.user .dropdown-menu .practices li a'
 PR_NAV_SWITCH                               =   '.demo ul a'
 
 PR_ADD_PATIENT_SURNAME                      =   'input[name="last_name"]'
 PR_ADD_PATIENT_GIVENAME                     =   'input[name="first_name"]'
+PR_ADD_PATIENT_PRACTICE                     =   'select[name="practice_id"]'
 PR_ADD_PATIENT_P_COUNTRY_CODE               =   'select[name="phone1_country"]'
 PR_ADD_PATIENT_P_NUMBER                     =   'input[name="phone1"]'
 PR_ADD_PATIENT_L_COUNTRY_CODE               =   'select[name="care_phone_country"]'
@@ -209,33 +277,37 @@ PR_ADD_PATIENT_A1C                          =   'a1c'
 PR_ADD_PATIENT_BP_SYS                       =   'bp_sys'
 PR_ADD_PATIENT_BP_DIA                       =   'bp_dia'
 
-# PR_MED_GOALS_TITLE                          =   '.med-goals h3'
-# PR_MED_GOALS_FORM                           =   '.med-goals form'
-# PR_MED_GOALS_FORM_NAME                      =   '.med_name'
-# PR_MED_GOALS_FORM_ORAL                      =   '.oral'
-# PR_MED_GOALS_FORM_INSULIN                   =   '.insulin'
-# PR_MED_GOALS_FORM_PRE                       =   '.pre'
-# PR_MED_GOALS_FORM_POST                      =   '.post'
-# PR_MED_GAOLS_FORM_DELETE                    =   '.med .delete'
-# PR_MED_GOALS_FORM_BRK_DOSAGE                =   '.breakfast .dosage'
-# PR_MED_GOALS_FORM_BRK_AMOUNT                =   '.breakfast .amount'
-# PR_MED_GOALS_FORM_LUN_DOSAGE                =   '.lunch .dosage'
-# PR_MED_GOALS_FORM_LUN_AMOUNT                =   '.lunch .amount'
-# PR_MED_GOALS_FORM_DIN_DOSAGE                =   '.dinner .dosage'
-# PR_MED_GOALS_FORM_DIN_AMOUNT                =   '.dinner .amount'
-# PR_MED_GOALS_FORM_NIGHT_DOSAGE              =   '.night .dosage'
-# PR_MED_GOALS_FORM_NIGHT_AMOUNT              =   '.night .amount'
-# PR_MED_GOALS_FORM_FREEFORM_DOSAGE           =   '.freeform .dosage'
-# PR_MED_GOALS_FORM_FREEFORM_AMOUNT           =   '.freeform .amount'
-# PR_MED_GOALS_FORM_FREEFORM_SELECT           =   '.freeform select'
-# PR_MED_GOALS_NEW_BUTTON                     =   '.med-goals .button'
-# PR_MED_GOALS_SUBMIT_BUTTON                  =   '.med-goals .submit'
-# PR_MED_GOALS_CLOSE_BUTTON                   =   '.med-goals .close'
-#
-# PR_MED_GOALS_CONFIRM_DIALOG                 =   'div.modal.med-conf'
-# PR_MED_GOALS_CONFIRM_TITLE                  =   '.med-conf h3'
-# PR_MED_GOALS_CONFIRM_BACK_BUTTON            =   '.med-conf .revert'
-# PR_MED_GOALS_CONFIRM_SUBMIT_BUTTON          =   '.med-conf .submit'
+PR_SIGN_UP_STEP_LINE                        =   'section.steps'
+PR_SIGN_UP_ACTIVE_STEP                      =   'div.active>div.legend'
+PR_SIGN_UP_LAST_NAME                        =   'input[name="last_name"]'
+PR_SIGN_UP_LAST_NAME_VALIDATION             =   'input[name="last_name"]+div.validation_errors'
+PR_SIGN_UP_FIRST_NAME                       =   'input[name="first_name"]'
+PR_SIGN_UP_FIRST_NAME_VALIDATION            =   'input[name="first_name"]+div.validation_errors'
+PR_SIGN_UP_DOCTOR_ID                        =   'input[name="registration_number"]'
+PR_SIGN_UP_DOCTOR_ID_VALIDATION             =   'input[name="registration_number"]+div.validation_errors'
+PR_SIGN_UP_DEFAULT_LANG                     =   'select[name="language"]'
+PR_SIGN_UP_PASSWORD                         =   'input[name="password"]'
+PR_SIGN_UP_PASSWORD_VALIDATION              =   'input[name="password"]+div.validation_errors'
+PR_SIGN_UP_PASSWORD_CONFIRM                 =   'input[name="password_confirm"]'
+PR_SIGN_UP_PASSWORD_CONFIRM_VALIDATION      =   'input[name="password_confirm"]+div.validation_errors'
+PR_SIGN_UP_NEXT_BUTTON                      =   'button#next'
+PR_SIGN_UP_ACCEPT_CHECKBOX                  =   'input[name="terms_agreed"]'
+PR_SIGN_UP_SIGNATURE                        =   'input[name="signature"]'
+PR_SIGN_UP_SIGNATURE_ERROR                  =   'span.server_error'
+PR_SIGN_UP_COUNTRY_CODE                     =   'select[name="phone_country"]'
+PR_SIGN_UP_PRACTICE_NUMBER                  =   'input[name="phone_number"]'
+PR_SIGN_UP_PRACTICE_NUMBER_VALIDATION       =   'input[name="phone_number"]+div.validation_errors'
+PR_SIGN_UP_CELL_NUMBER                      =   'input[name="phone_number"]'
+PR_SIGN_UP_CELL_NUMBER_VALIDATION           =   'input[name="phone_number"]+div.validation_errors'
+PR_SIGN_UP_VERIFY_SEND_BUTTON               =   'button.send_confirmation'
+PR_SIGN_UP_STAFF_NAME                       =   'input[name="name"]'
+PR_SIGN_UP_STAFF_EMAIL                      =   'input[name="email"]'
+PR_SIGN_UP_STAFF_ROLE                       =   'select[name="role"]'
+PR_SIGN_UP_STAFF_LANG                       =   'select[name="language"]'
+PR_SIGN_UP_STAFF_RIGHT                      =   'select[name="is_practice_admin"]'
+PR_SIGN_UP_STAFF_INVITE_BUTTON              =   'button#invite_submit'
+PR_SIGN_UP_STAFF_INVITE_ERROR               =   'div#invite_error'
+
 
 PR_PRESCRIPTION_DIALOG                      =   'div.medications'
 PR_PRESCRIPTION_TITLE                       =   'div.medications h3'
@@ -272,6 +344,13 @@ PR_BG_GOALS_CLOSE_BUTTON                    =   '.smbg_goals .close'
 PR_BG_GOALS_SAVE_BUTTON                     =   '.smbg_goals .submit'
 
 PR_PATIENT_RECORD_ID                        =   '.id span'
+PR_PATIENT_RECORD_NAME                      =   'h1.name'
+PR_PATIENT_RECORD_NAME_DIALOG               =   'div.edit_patient_name'
+PR_PATIENT_RECORD_NAME_SURNAME              =   'input[name="last_name"]'
+PR_PATIENT_RECORD_NAME_GIVEN_NAME           =   'input[name="first_name"]'
+PR_PATIENT_RECORD_NAME_CANCEL               =   'div.edit_patient_name div.cancel'
+PR_PATIENT_RECORD_NAME_SAVE                 =   'div.edit_patient_name div.submit'
+PR_PATIENT_RECORD_NAME_CLOSE                =   'div.edit_patient_name div.close'
 PR_PATIENT_RECORD_INFO                      =   '.indicator li.status'
 PR_PATIENT_RECORD_MEDICATION_NAMES          =   'div.new_rx table tr div.name'
 PR_PATIENT_RECORD_CHAT                      =   '.indicator li.messaging'
@@ -608,6 +687,82 @@ PR_DIRECTORY_PATIENT_ENTRY                  =   'a[href="/provider/patient/%s"]'
 PR_DIRECTORY_PATIENT_DELETE                 =   '//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a'
 PR_DIRECTORY_PATIENT_NEXT_APPT              =   '//tr/td/a[@href="/provider/patient/%s"]/../..//div[@class="appointments add button blue"]'
 PR_DIRECTORY_PATIENT_LAST_APPT              =   '//tr/td/a[@href="/provider/patient/%s"]/../../td[6]'
+PR_DIRECTORY_LAST_NAME                      =   '#directory_table>tbody>tr>td:nth-child(%s)>a' %LAST
+PR_DIRECTORY_FIRST_NAME                     =   '#directory_table>tbody>tr>td:nth-child(%s)>a' %FIRST
+PR_DIRECTORY_MED_ADH                        =   '#directory_table>tbody>tr>td:nth-child(%s)' %MED_ADH
+PR_DIRECTORY_BG_CONTROL                     =   '#directory_table>tbody>tr>td:nth-child(%s)' %BG_CONTROL
+PR_DIRECTORY_PRACTICE_NAME                  =   '#directory_table>tbody>tr>td:nth-child(%s)' %PRACTICE_NAME
+PR_DIRECTORY_NEXT_APPT                      =   '#directory_table>tbody>tr>td:nth-child(%s)>div' %NEXT_APPT
+PR_DIRECTORY_LAST_APPT                      =   '#directory_table>tbody>tr>td:nth-child(%s)' %LAST_APPT
+PR_DIRECTORY_STATUS                         =   '#directory_table>tbody>tr>td:nth-child(%s)' %STATUS
+PR_DIRECTORY_LAST_BG                        =   '#directory_table>tbody>tr>td:nth-child(%s)' %LAST_BG
+PR_DIRECTORY_LAST_CONTACT                   =   '#directory_table>tbody>tr>td:nth-child(%s)' %LAST_CONTACT
+PR_DIRECTORY_JOINED                         =   '#directory_table>tbody>tr>td:nth-child(%s)' %JOINED
+PR_DIRECTORY_SUBSCRIPTION                   =   '#directory_table>tbody>tr>td:nth-child(%s)' %SUBSCRIPTION
+PR_DIRECTORY_EXPIRES                        =   '#directory_table>tbody>tr>td:nth-child(%s)' %EXPIRES
+PR_DIRECTORY_TYPE                           =   '#directory_table>tbody>tr>td:nth-child(%s)' %TYPE
+PR_DIRECTORY_A1C                            =   '#directory_table>tbody>tr>td:nth-child(%s)' %A1C
+PR_DIRECTORY_AGE                            =   '#directory_table>tbody>tr>td:nth-child(%s)' %AGE
+PR_DIRECTORY_LAST_NAME_SORT                 =   '#directory_table>thead>tr>th:nth-child(%s)>i' %LAST
+PR_DIRECTORY_FIRST_NAME_SORT                =   '#directory_table>thead>tr>th:nth-child(%s)>i' %FIRST
+PR_DIRECTORY_MED_ADH_SORT                   =   '#directory_table>thead>tr>th:nth-child(%s)>i' %MED_ADH
+PR_DIRECTORY_BG_CONTROL_SORT                =   '#directory_table>thead>tr>th:nth-child(%s)>i' %BG_CONTROL
+PR_DIRECTORY_PRACTICE_NAME_SORT             =   '#directory_table>thead>tr>th:nth-child(%s)>i' %PRACTICE_NAME
+PR_DIRECTORY_NEXT_APPT_SORT                 =   '#directory_table>thead>tr>th:nth-child(%s)>i' %NEXT_APPT
+PR_DIRECTORY_LAST_APPT_SORT                 =   '#directory_table>thead>tr>th:nth-child(%s)>i' %LAST_APPT
+PR_DIRECTORY_STATUS_SORT                    =   '#directory_table>thead>tr>th:nth-child(%s)>i' %STATUS
+PR_DIRECTORY_LAST_BG_SORT                   =   '#directory_table>thead>tr>th:nth-child(%s)>i' %LAST_BG
+PR_DIRECTORY_LAST_CONTACT_SORT              =   '#directory_table>thead>tr>th:nth-child(%s)>i' %LAST_CONTACT
+PR_DIRECTORY_JOINED_SORT                    =   '#directory_table>thead>tr>th:nth-child(%s)>i' %JOINED
+PR_DIRECTORY_SUBSCRIPTION_SORT              =   '#directory_table>thead>tr>th:nth-child(%s)>i' %SUBSCRIPTION
+PR_DIRECTORY_EXPIRES_SORT                   =   '#directory_table>thead>tr>th:nth-child(%s)>i' %EXPIRES
+PR_DIRECTORY_TYPE_SORT                      =   '#directory_table>thead>tr>th:nth-child(%s)>i' %TYPE
+PR_DIRECTORY_A1C_SORT                       =   '#directory_table>thead>tr>th:nth-child(%s)>i' %A1C
+PR_DIRECTORY_AGE_SORT                       =   '#directory_table>thead>tr>th:nth-child(%s)>i' %AGE
+PR_DIRECTORY_NO_PATIENT                     =   '.no_patient td'
+PR_DIRECTORY_SMS_BUTTON                     =   '#compose_sms'
+PR_DIRECTORY_SEARCH_BUTTON                  =   '#submit'
+PR_DIRECTORY_SEARCH_FIELD                   =   '#keyword'
+PR_DIRECTORY_FILTER                         =   'select[name="filters"]'
+PR_DIRECTORY_FILTER_OPTION_ALL_PATIENT      =   'option[value=""]'
+PR_DIRECTORY_FILTER_OPTION_STUDY_PATIENT    =   'option[value=\'%s\']'%FILTER_STUDY_PATIENT
+PR_DIRECTORY_FILTER_OPTION_TYPE_ONE         =   'option[value=\'%s\']'%FILTER_TYPE_ONE
+PR_DIRECTORY_FILTER_OPTION_TYPE_TWO         =   'option[value=\'%s\']'%FILTER_TYPE_TWO         
+PR_DIRECTORY_FILTER_OPTION_GEST             =   'option[value=\'%s\']'%FILTER_GESTATIONAL      
+PR_DIRECTORY_FILTER_OPTION_PRE_DIA          =   'option[value=\'%s\']'%FILTER_PRE_DIABETES     
+PR_DIRECTORY_FILTER_OPTION_OTHER            =   'option[value=\'%s\']'%FILTER_OTHER            
+PR_DIRECTORY_FILTER_OPTION_ACTIVE           =   'option[value=\'%s\']'%FILTER_ACTIVE           
+PR_DIRECTORY_FILTER_OPTION_INACTIVE         =   'option[value=\'%s\']'%FILTER_INACTIVE         
+PR_DIRECTORY_FILTER_OPTION_NOT_INSTALLED    =   'option[value=\'%s\']'%FILTER_NOT_INSTALL      
+PR_DIRECTORY_FILTER_OPTION_EHR              =   'option[value=\'%s\']'%FILTER_EHR_ONLY         
+PR_DIRECTORY_FILTER_OPTION_A1C              =   'option[value=\'%s\']'%FILTER_A1C              
+PR_DIRECTORY_FILTER_OPTION_BG_CONTROL       =   'option[value=\'%s\']'%FILTER_BG_CONTROL       
+PR_DIRECTORY_FILTER_OPTION_MEDADH           =   'option[value=\'%s\']'%FILTER_MEDADH           
+PR_DIRECTORY_FILTER_OPTION_NEXT_APPO        =   'option[value=\'%s\']'%FILTER_NEXT_APPOINTMENT 
+PR_DIRECTORY_FILTER_OPTION_WILL_EXPIRE      =   'option[value=\'%s\']'%FILTER_WILL_EXPIRE      
+PR_DIRECTORY_FILTER_OPTION_EXPIRED          =   'option[value=\'%s\']'%FILTER_EXPIRED          
+PR_DIRECTORY_SEARCH_RESULT_INFO             =   'span.result-stats'
+PR_DIRECTORY_GROUP_SMS_DIALOG               =   '.group_sms'
+PR_DIRECTORY_GROUP_SMS_TITLE                =   'div.group_sms h3'
+PR_DIRECTORY_GROUP_SMS_CLOSE                =   'div.group_sms h3 .close'
+PR_DIRECTORY_GROUP_SMS_SMS_NUMBER           =   'td.count_sms'
+PR_DIRECTORY_GROUP_SMS_APP_NUMBER           =   'td.count_app'
+PR_DIRECTORY_GROUP_SMS_TOTAL_NUMBER         =   'td.count_total'
+PR_DIRECTORY_GROUP_SMS_TEXT_FIELD           =   'div.group_sms textarea'
+PR_DIRECTORY_GROUP_SMS_CHECK_BOX            =   'input[name="send_message_copy"]'
+PR_DIRECTORY_GROUP_SMS_COUTRY_CODE          =   '#group_sms > div:nth-child(2) > div > select'
+PR_DIRECTORY_GROUP_SMS_CELL_NUMBER          =   '#group_sms > div:nth-child(2) > div > div > input'
+PR_DIRECTORY_GROUP_SMS_CELL_VALIDATION      =   '#group_sms > div:nth-child(2) > div > div > div'
+PR_DIRECTORY_GROUP_SMS_COUNTER              =   '#character_count'
+PR_DIRECTORY_GROUP_SMS_CANCEL               =   '#group_sms > div.cleared > button.button.left.cancel'
+PR_DIRECTORY_GROUP_SMS_SEND                 =   '#group_sms > div.cleared > button.button.right.submit'
+PR_DIRECTORY_GROUP_SMS_RESULT_DIALOG        =   'div.group_sms_result'
+PR_DIRECTORY_GROUP_SMS_RESULT_TITLE_SUCCESS =   'span.sms_success'
+PR_DIRECTORY_GROUP_SMS_RESULT_TITLE_FAIL    =   'span.sms_error'
+PR_DIRECTORY_GROUP_SMS_RESULT_CLOSE         =   '.group_sms_result .close'
+PR_DIRECTORY_GROUP_SMS_RESULT_SUCCESS       =   'div.sms_success'
+PR_DIRECTORY_GROUP_SMS_RESULT_FAIL          =   'div.sms_error'
+
 
 PR_APPOINTMENT_TITLE                        =   '.appointments h3'
 PR_APPOINTMENT_TITLE_ADD                    =   '.appointments h3 .add'
@@ -665,6 +820,18 @@ PR_ACCOUNT_SHOW_BG                          =   'input[name="prefs.graph_layout"
 PR_ACCOUNT_SHOW_VISIT                       =   'input[name="prefs.graph_layout"][value="3"]'
 
 PR_MANAGE_PRACTICE_TITLE                    =   '.edit_profile h1'
+PR_MANAGE_PRACTICE_YELLOW_AREA              =   'div.yellow'
+PR_MANAGE_PRACTICE_NAME_IN_YELLOW           =   'div.yellow span'
+PR_MANAGE_PRACTICE_STAFF_ENTRY              =   '#directory_table>tbody>tr'
+PR_MANAGE_PRACTICE_ADD_STAFF_BUTTON         =   '#add_guru'
+PR_MANAGE_PRACTICE_INVITE_STAFF_DIALOG      =   'div.add_guru'
+PR_MANAGE_PRACTICE_INVITE_STAFF_NAME        =   'input[name="name"]'
+PR_MANAGE_PRACTICE_INVITE_STAFF_EMAIL       =   'input[name="email"]'
+PR_MANAGE_PRACTICE_INVITE_STAFF_ROLE        =   'select[name="role"]'
+PR_MANAGE_PRACTICE_INVITE_STAFF_LANG        =   'select[name="language"]'
+PR_MANAGE_PRACTICE_INVITE_STAFF_RIGHT       =   'select[name="is_practice_admin"]'
+PR_MANAGE_PRACTICE_INVITE_STAFF_SUBMIT      =   'div.add_guru input.submit'
+PR_MANAGE_PRACTICE_INVITE_STAFF_CLOSE       =   'div.add_guru div.close'
 PR_MANAGE_PRACTICE_PRACTICE_NAME            =   'practice_name'
 PR_MANAGE_PRACTICE_HEIGHT_UNIT              =   'height_units'
 PR_MANAGE_PRACTICE_WEIGHT_UNIT              =   'weight_units'

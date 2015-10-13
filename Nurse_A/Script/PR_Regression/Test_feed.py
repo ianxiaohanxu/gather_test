@@ -63,7 +63,7 @@ class Feed(Case):
         self.pr.click(data.PR_PRESCRIPTION_SAVE)
         self.pr.verify(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         self.pr.click(data.PR_PRESCRIPTION_CONFIRM_SAVE)
-        self.pr.wait_until_not(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
+        self.pr.wait_until_not_present(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         # Check the feed event
         self.pr.click(data.PR_NAV_FEED)
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
@@ -81,7 +81,7 @@ class Feed(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_SMBG_TITLE)
         map(self.pr.click, data.PR_ADD_PATIENT_EVERY)
         self.pr.click(data.PR_BG_GOALS_SAVE_BUTTON)
-        self.pr.wait_until_not(data.PR_PATIENT_RECORD_SMBG_TITLE)
+        self.pr.wait_until_not_present(data.PR_PATIENT_RECORD_SMBG_TITLE)
         # Check the feed event
         self.pr.click(data.PR_NAV_FEED)
         self.assertEqual(self.pr.title, data.PR_FEED_TITLE)
@@ -109,7 +109,7 @@ class Feed(Case):
         Select(self.pr.focus(data.PR_FEED_FORWARD_TO)).select_by_index(1)
         self.pr.enter(notes, data.PR_FEED_FORWARD_NOTE)
         self.pr.click(data.PR_FEED_FORWARD_BUTTON)
-        self.pr.wait_until_not(data.PR_FEED_FIRST_WARNING)
+        self.pr.wait_until_not_present(data.PR_FEED_FIRST_WARNING)
         self.pr.logout()
         self.pr.login(data.NURSE, self.demo[0])
         self.assertTrue(self.pr.is_element_present(data.PR_FEED_WARNING_FORWARD_BY))

@@ -44,7 +44,7 @@ class Visit(Case):
         self.pr.click(location)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM)
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM_Y)
-        self.pr.wait_until_not(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM)
+        self.pr.wait_until_not_present(data.PR_PATIENT_RECORD_VISIT_DELETE_CONFIRM)
     
     def select_one_day_in_last_month(self):
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_DATE)
@@ -361,6 +361,7 @@ class Visit(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_LATEST_HISTORY)
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_LATEST_HISTORY)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NOTES)
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_HEIGHT)
         self.pr.clear(data.PR_PATIENT_RECORD_VISIT_HEIGHT)
         self.enter_data('180', data.PR_PATIENT_RECORD_VISIT_HEIGHT, data.PR_PATIENT_RECORD_VISIT_HEIGHT_CONFIRM)
         self.pr.refresh()
@@ -496,6 +497,50 @@ class Visit(Case):
         self.verify_data('2', data.PR_PATIENT_RECORD_VISIT_EYE)
         self.verify_data('ccc', data.PR_PATIENT_RECORD_VISIT_ECG)
         self.verify_data('', data.PR_PATIENT_RECORD_VISIT_WEIGHT)
+        
+    def test_normal_hard_key(self):
+        '''
+        103017 103009
+        This test is for '103017 Hard key event on Visits page'
+        This test is for '103009 Submit button'
+        '''
+        self.pr.login(data.DOCTOR, self.demo[0])
+        INFO = self.pr.create_new_patient()
+        self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON)
+        self.pr.click(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON)
+        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NOTES)
+        height = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_HEIGHT)
+        height_hook = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_HEIGHT_CONFIRM)
+        weight = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_WEIGHT)
+        waist = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_WAIST)
+        waist_hook = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_WAIST_CONFIRM)
+        self.pr.click(data.PR_PATIENT_RECORD_VISIT_HEIGHT)
+        self.assertEqual(height, self.pr.driver.switch_to_active_element())
+        height.send_keys(Keys.TAB)
+        self.assertEqual(weight, self.pr.driver.switch_to_active_element())
+        weight.send_keys(Keys.SHIFT, Keys.TAB)
+        self.assertEqual(height, self.pr.driver.switch_to_active_element())
+        self.pr.wait_until(lambda: data.GREY_CONFIRM==height_hook.value_of_css_property('background-color'))
+        self.assertFalse(height_hook.is_enabled())
+        height.send_keys('12')
+        self.pr.wait_until(lambda: data.GREY_CONFIRM==height_hook.value_of_css_property('background-color'))
+        self.assertFalse(height_hook.is_enabled())
+        height.send_keys('5')
+        self.pr.wait_until(lambda: data.BLUE_CONFIRM==height_hook.value_of_css_property('background-color'))
+        self.assertTrue(height_hook.is_enabled())
+        height.send_keys(Keys.TAB)
+        self.assertEqual(weight, self.pr.driver.switch_to_active_element())
+        self.pr.wait_until(lambda: data.GREEN_CONFIRM==height_hook.value_of_css_property('background-color'))
+        self.assertFalse(height_hook.is_enabled())
+        waist.send_keys('90')
+        self.pr.wait_until(lambda: data.BLUE_CONFIRM==waist_hook.value_of_css_property('background-color'))
+        self.assertTrue(waist_hook.is_enabled())
+        waist.send_keys(Keys.SHIFT, Keys.TAB)
+        self.assertEqual(weight, self.pr.driver.switch_to_active_element())
+        self.pr.wait_until(lambda: data.GREEN_CONFIRM==waist_hook.value_of_css_property('background-color'))
+        self.assertFalse(waist_hook.is_enabled())
+        
         
 if __name__ == '__main__':
     unittest.main()

@@ -79,6 +79,10 @@ class WEB(Web):
             except:
                 pass
             self.verify(data.PR_LOGIN_FORGOT_PASSWORD, 20)
+            
+    def generate_security_key(self, username, password):
+        auth_hash = base64.b64encode(b'%s:%s' % (username, password)).decode('ascii')
+        return auth_hash
 
     def request_interface(self, url, method, parameter=None, security=data.SECURITY_KEY):
         method = method.upper()
@@ -122,6 +126,27 @@ class WEB(Web):
         assert 'id' in demo_conf
         return demo_conf['key'], demo_conf['id']
         
+    def enroll_new_staff(self, name, email, 
+        practice_id, security_key, role='0', 
+        language='en', is_practice_admin='true'
+    ):
+        staff_data = {
+            'name':                 name,
+            'email':                email,
+            'role':                 role,
+            'language':             language,
+            'is_practice_admin':    is_practice_admin,
+            'practice_id':          practice_id,
+        }
+        staff_conf = self.request_interface('/api/v1/gurus.json', 'POST', parameter=staff_data, security=security_key)
+        assert (staff_conf.code == 201)
+        
+    def get_staff_invitation_email(self, security_key):
+        staff_email = self.request_interface('/slave/invitations', 'GET', security=security_key)
+        assert (staff_email.code == 200)
+        staff_email = eval(staff_email.read())
+        return staff_email
+        
     def create_new_practice(self, billing=True, 
         country=data.INDIA, language=data.ENGLISH, 
         role='0',
@@ -140,7 +165,6 @@ class WEB(Web):
         practice_conf = self.request_interface('/api/v1/practices.json', 'POST', parameter=practice_data)
         assert (practice_conf.code == 200)
         practice_conf = eval(practice_conf.read())
-        import pdb;pdb.set_trace()
         
     def delete_test_demo(self, demo_id):
         demo_id = str(demo_id)
@@ -214,7 +238,7 @@ class WEB(Web):
         self.click(data.PR_DIRECTORY_PATIENT_DELETE %id)
         self.verify(data.PR_DIRECTORY_REMOVE_CONFIRM)
         self.click(data.PR_DIRECTORY_REMOVE_CONFIRM)
-        self.wait_until_not(data.PR_DIRECTORY_PATIENT_ENTRY %id)
+        self.wait_until_not_present(data.PR_DIRECTORY_PATIENT_ENTRY %id)
                     
     def get_surname(self):
         # Return patient surname from PR page
@@ -436,7 +460,7 @@ class WEB(Web):
         self.click(data.PR_PRESCRIPTION_SAVE)
         self.verify(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         self.click(data.PR_PRESCRIPTION_CONFIRM_SAVE)
-        self.wait_until_not(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
+        self.wait_until_not_present(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
                 
     def clear_message_event(self):
         # Clear all message events by 'x'    
@@ -463,3 +487,44 @@ class WEB(Web):
             if item not in list_a:
                 return False
         return True
+        
+    def generate_number(self, length):
+        # Generate valid & invalid numbers with length
+        number = ''
+        while(length > 0):
+            number += '1'
+            length -= 1
+        short_number = number[:-1]
+        long_number = number + '1'
+        letter_number = number[:-1] + 'a'
+        return number, short_number, long_number, letter_number
+        
+    def _number_validation(self, number, length, input_field, error_area, the_button, the_second_button=None):
+        self.clear(input_field)
+        self.enter(number, input_field)
+        assert(self.focus(input_field).get_attribute('data-validate-status')=='invalid')
+        self.verify(error_area)
+        if length == 10:
+            assert(self.text(error_area)==data.EM_SIGN_UP_CELL_NUMBER_IN_US)
+        elif length == 8:
+            assert(self.text(error_area)==data.EM_PR_ACCOUNT_CELL_NUM_HK)
+        else:
+            assert(self.text(error_area)==data.EM_PR_ACCOUNT_CELL_NUM_CH)
+        assert(not self.focus(the_button).is_enabled())
+        if the_second_button is not None:
+            assert(not self.focus(the_second_button).is_enabled())
+        
+    def number_validation_check(self, country_code, length, country_field, input_field, error_area, the_button, the_second_button=None):
+        # Do validation check for different cell number (e.g. for US, country code is 1, length is 10)
+        number, short_number, long_number, letter_number = self.generate_number(length)
+        self.select(country_code, country_field)
+        self._number_validation(short_number, length, input_field, error_area, the_button, the_second_button)
+        self._number_validation(long_number, length, input_field, error_area, the_button, the_second_button)
+        self._number_validation(letter_number, length, input_field, error_area, the_button, the_second_button)
+        self.clear(input_field)
+        self.enter(number, input_field)
+        assert(self.focus(input_field).get_attribute('data-validate-status')=='valid')
+        assert(not self.is_element_present(error_area))
+        assert(self.focus(the_button).is_enabled())
+        if the_second_button is not None:
+            assert(self.focus(the_second_button).is_enabled())

@@ -25,7 +25,6 @@ class Add_new_patient(Case):
         self.demo = setup.demo_data
         
     def tearDown(self):
-        # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
     def calc_age(self, birthday):
@@ -91,20 +90,10 @@ class Add_new_patient(Case):
         self.pr.enter('ccc\n', data.PR_ADD_PATIENT_OTHER_MED)
         self.pr.enter('ddd\n', data.PR_ADD_PATIENT_OTHER_MED)
         PUSH.append(['ccc', 'ddd'])
-        # self.pr.enter('180', data.PR_ADD_PATIENT_HEIGHT)
-        # self.pr.enter('75', data.PR_ADD_PATIENT_WEIGHT)
-        # self.pr.enter('100', data.PR_ADD_PATIENT_WAIST)
-        # self.pr.enter('120', data.PR_ADD_PATIENT_BP_SYS)
-        # self.pr.enter('80', data.PR_ADD_PATIENT_BP_DIA)
-        # self.pr.enter('5', data.PR_ADD_PATIENT_A1C)
         self.pr.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_ID)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
         PULL = self.pr.get_data()
-        # print 'PUSH:\n'
-        # print PUSH
-        # print 'PULL:\n'
-        # print PULL
         self.assertEqual(PUSH, PULL)
         # Delete the patient
         ID = self.pr.text(data.PR_PATIENT_RECORD_ID)
@@ -519,7 +508,6 @@ class Add_new_patient(Case):
         101106
         This test is for '101106 Interrupt invite a normal patient'
         '''
-        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_ADD_PATIENT)
         self.pr.verify(data.PR_ADD_PATIENT_SURNAME)
@@ -530,6 +518,21 @@ class Add_new_patient(Case):
         self.pr.enter('1234567890', data.PR_ADD_PATIENT_P_NUMBER)
         self.pr.driver.get(data.DIRECTORY_PATH)
         self.pr.verify(data.PR_DIRECTORY_TITLE)
+        
+    def test_normal_correct_country_code(self):
+        '''
+        101111
+        This test is for '101111 Change practice name check default country code during add new patient'
+        '''
+        self.pr.login(data.DOCTOR, setup.demo_data1[0])
+        self.pr.click(data.PR_NAV_ADD_PATIENT)
+        self.pr.verify(data.PR_ADD_PATIENT_SURNAME)
+        practice = self.pr.focus(data.PR_ADD_PATIENT_PRACTICE)
+        Select(practice).select_by_index(1)
+        country_code_1 = self.pr.text(data.PR_ADD_PATIENT_P_COUNTRY_CODE)
+        Select(practice).select_by_index(2)
+        country_code_2 = self.pr.text(data.PR_ADD_PATIENT_P_COUNTRY_CODE)
+        self.assertFalse(country_code_1 == country_code_2)
               
         
 if __name__ == '__main__':

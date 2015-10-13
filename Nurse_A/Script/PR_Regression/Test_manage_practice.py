@@ -57,43 +57,28 @@ class Manage_practice(Case):
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
         self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
-        
-    def generate_number(self, length):
-        # Generate valid & invalid numbers with length
-        number = ''
-        while(length > 0):
-            number += '1'
-            length -= 1
-        short_number = number[:-1]
-        long_number = number + '1'
-        letter_number = number[:-1] + 'a'
-        return number, short_number, long_number, letter_number
-        
-    def _number_validation(self, number, length):
-        self.pr.clear(data.PR_MANAGE_PRACTICE_NUMBER)
-        self.pr.enter(number, data.PR_MANAGE_PRACTICE_NUMBER)
-        self.assertEqual(self.pr.focus(data.PR_MANAGE_PRACTICE_NUMBER).get_attribute('data-validate-status'), 'invalid')
-        self.pr.verify(data.PR_MANAGE_PRACTICE_NUMBER_ERROR)
-        if length == 10:
-            self.assertEqual(self.pr.text(data.PR_MANAGE_PRACTICE_NUMBER_ERROR), data.EM_PR_MANAGE_PRACTICE_CELL_NUM_IN_US)
-        elif length == 8:
-            self.assertEqual(self.pr.text(data.PR_MANAGE_PRACTICE_NUMBER_ERROR), data.EM_PR_MANAGE_PRACTICE_CELL_NUM_HK)
-        else:
-            self.assertEqual(self.pr.text(data.PR_MANAGE_PRACTICE_NUMBER_ERROR), data.EM_PR_MANAGE_PRACTICE_CELL_NUM_CH)
-        self.assertFalse(self.pr.focus(data.PR_MANAGE_PRACTICE_SAVE_BUTTON).is_enabled())
-        
-    def number_validation_check(self, country_code, length):
-        # Do validation check for different cell number (e.g. for US, country code is 1, length is 10)
-        number, short_number, long_number, letter_number = self.generate_number(length)
-        self.pr.select(country_code, data.PR_MANAGE_PRACTICE_COUNTRY_CODE)
-        self._number_validation(short_number, length)
-        self._number_validation(long_number, length)
-        self._number_validation(letter_number, length)
-        self.pr.clear(data.PR_MANAGE_PRACTICE_NUMBER)
-        self.pr.enter(number, data.PR_MANAGE_PRACTICE_NUMBER)
-        self.assertEqual(self.pr.focus(data.PR_MANAGE_PRACTICE_NUMBER).get_attribute('data-validate-status'), 'valid')
-        self.assertFalse(self.pr.is_element_present(data.PR_MANAGE_PRACTICE_NUMBER_ERROR))
-        self.assertTrue(self.pr.focus(data.PR_MANAGE_PRACTICE_SAVE_BUTTON).is_enabled())
+    
+    def number_validation_check_on_manage_practice(self):
+        self.pr.number_validation_check(
+                data.US_COUNTRY_CODE, 10, data.PR_MANAGE_PRACTICE_COUNTRY_CODE, 
+                data.PR_MANAGE_PRACTICE_NUMBER, data.PR_MANAGE_PRACTICE_NUMBER_ERROR, 
+                data.PR_MANAGE_PRACTICE_SAVE_BUTTON
+                )
+        self.pr.number_validation_check(
+                data.CH_COUNTRY_CODE, 11, data.PR_MANAGE_PRACTICE_COUNTRY_CODE, 
+                data.PR_MANAGE_PRACTICE_NUMBER, data.PR_MANAGE_PRACTICE_NUMBER_ERROR, 
+                data.PR_MANAGE_PRACTICE_SAVE_BUTTON
+                )
+        self.pr.number_validation_check(
+                data.HK_COUNTRY_CODE, 8, data.PR_MANAGE_PRACTICE_COUNTRY_CODE, 
+                data.PR_MANAGE_PRACTICE_NUMBER, data.PR_MANAGE_PRACTICE_NUMBER_ERROR, 
+                data.PR_MANAGE_PRACTICE_SAVE_BUTTON
+                )
+        self.pr.number_validation_check(
+                data.IN_COUNTRY_CODE, 10, data.PR_MANAGE_PRACTICE_COUNTRY_CODE, 
+                data.PR_MANAGE_PRACTICE_NUMBER, data.PR_MANAGE_PRACTICE_NUMBER_ERROR, 
+                data.PR_MANAGE_PRACTICE_SAVE_BUTTON
+                )
         
         
     def test_urgent_update_bg_unit(self):
@@ -154,18 +139,15 @@ class Manage_practice(Case):
         
     def test_urgent_update_practice_number(self):
         '''
-        106011
+        106011 106012
         This test is for '106011 Update practice phone'
+        This test is for '106012 Practice phone number validation check'
         '''
-        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
         self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
-        self.number_validation_check(data.CH_COUNTRY_CODE, 11)
-        self.number_validation_check(data.US_COUNTRY_CODE, 10)
-        self.number_validation_check(data.HK_COUNTRY_CODE, 8)
-        self.number_validation_check(data.IN_COUNTRY_CODE, 10)
+        self.number_validation_check_on_manage_practice()
         self.pr.click(data.PR_MANAGE_PRACTICE_SAVE_BUTTON)
         self.pr.verify(data.PR_MANAGE_PRACTICE_SAVE_SUCCESS)
         
@@ -221,6 +203,82 @@ class Manage_practice(Case):
         self.assertEqual(original_number, self.pr.text(data.PR_MANAGE_PRACTICE_NUMBER))
         self.assertEqual(original_group_unit, self.pr.text(data.PR_MANAGE_PRACTICE_UNIT_GROUP))
         
+    def test_urgent_invite_another_practice_staff(self):
+        '''
+        106014
+        This test is for '106014 Invite an another practice's staff to the practice'
+        '''
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_STAFF_ENTRY)
+        ORIGINAL_STAFF_COUNT =  len(self.pr.find(data.PR_MANAGE_PRACTICE_STAFF_ENTRY))
+        self.pr.verify(data.PR_MANAGE_PRACTICE_ADD_STAFF_BUTTON)
+        self.pr.click(data.PR_MANAGE_PRACTICE_ADD_STAFF_BUTTON)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_INVITE_STAFF_DIALOG)
+        self.pr.enter('doctor_fake', data.PR_MANAGE_PRACTICE_INVITE_STAFF_NAME)
+        self.pr.enter(setup.doctor_account_demo2, data.PR_MANAGE_PRACTICE_INVITE_STAFF_EMAIL)
+        self.pr.select('0', data.PR_MANAGE_PRACTICE_INVITE_STAFF_ROLE)
+        self.pr.select(data.ENGLISH, data.PR_MANAGE_PRACTICE_INVITE_STAFF_LANG)
+        self.pr.select('true', data.PR_MANAGE_PRACTICE_INVITE_STAFF_RIGHT)
+        self.pr.click(data.PR_MANAGE_PRACTICE_INVITE_STAFF_SUBMIT)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_STAFF_ENTRY)
+        NOW_STAFF_COUNT =  len(self.pr.find(data.PR_MANAGE_PRACTICE_STAFF_ENTRY))
+        self.assertEqual(ORIGINAL_STAFF_COUNT+1, NOW_STAFF_COUNT)
+        self.pr.logout()
+        self.pr.login(data.DOCTOR, setup.demo_data2[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        PRACTICE_LIST = self.pr.find(data.PR_NAV_OPTION_MENU_PRACTICE)
+        self.assertEqual(len(PRACTICE_LIST), 2)
+        
+    def test_urgent_open_manage_practice(self):
+        '''
+        106013
+        This test is for '106013 Open manage practice page'
+        '''
+        self.demo = setup.demo_data1
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        PRACTICE_LIST = self.pr.find(data.PR_NAV_OPTION_MENU_PRACTICE)
+        self.assertEqual(len(PRACTICE_LIST), 2)
+        PRACTICE_LIST[0].click()
+        self.pr.verify(data.PR_MANAGE_PRACTICE_YELLOW_AREA)
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        PRACTICE_LIST = self.pr.find(data.PR_NAV_OPTION_MENU_PRACTICE)
+        PRACTICE_LIST[1].click()
+        self.pr.verify(data.PR_MANAGE_PRACTICE_YELLOW_AREA)
+        
+    def test_normal_change_practice_name(self):
+        '''
+        106004
+        This test is for '106004 Change Practice Name'
+        '''
+        self.demo = setup.demo_data1
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        self.pr.clear(data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        NEW_NAME = 'New_name%s' % str(int(time()))
+        self.pr.enter(NEW_NAME, data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        self.pr.click(data.PR_MANAGE_PRACTICE_SAVE_BUTTON)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_SAVE_SUCCESS)
+        self.pr.refresh()
+        self.pr.verify(data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        self.assertTrue(NEW_NAME in self.pr.text(data.PR_MANAGE_PRACTICE_PRACTICE_NAME))
+        self.assertTrue(NEW_NAME in self.pr.text(data.PR_MANAGE_PRACTICE_NAME_IN_YELLOW))
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        PRACTICE_LIST = self.pr.find(data.PR_NAV_OPTION_MENU_PRACTICE)
+        for PRACTICE in PRACTICE_LIST:
+            if 'New_name' in PRACTICE.text:
+                continue
+            else:
+                PRACTICE.click()
+                break
+        self.pr.verify(data.PR_MANAGE_PRACTICE_PRACTICE_NAME)
+        self.assertFalse(NEW_NAME in self.pr.text(data.PR_MANAGE_PRACTICE_PRACTICE_NAME))
+        self.assertFalse(NEW_NAME in self.pr.text(data.PR_MANAGE_PRACTICE_NAME_IN_YELLOW))
         
 if __name__ == '__main__':
     unittest.main()

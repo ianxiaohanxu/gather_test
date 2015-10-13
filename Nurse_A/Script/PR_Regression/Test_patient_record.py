@@ -62,8 +62,9 @@ class Patient_record(Case):
 
     def test_urgent_add_bg_goals(self):
         '''
-        111020
+        111020 111021
         This test is for '111020 Add BG Goals'
+        This test is for '111021 Edit BG Goals'
         '''
         # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -74,12 +75,21 @@ class Patient_record(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_SMBG_TITLE)
         map(self.pr.click, data.PR_ADD_PATIENT_EVERY)
         self.pr.click(data.PR_BG_GOALS_SAVE_BUTTON)
-        self.pr.wait_until_not(data.PR_PATIENT_RECORD_SMBG_TITLE)
+        self.pr.wait_until_not_present(data.PR_PATIENT_RECORD_SMBG_TITLE)
         self.pr.refresh()
         self.pr.verify(data.PR_PATIENT_RECORD_INFO)
         self.pr.click(data.PR_PATIENT_RECORD_INFO)
         self.assertTrue('49' in self.pr.text(data.PR_PATIENT_RECORD_SMBG_COUNTER))
-
+        self.pr.click(data.PR_PATIENT_RECORD_SMBG)
+        self.pr.verify(data.PR_PATIENT_RECORD_SMBG_TITLE)
+        self.pr.click(data.PR_ADD_PATIENT_EVERY_PRE_BRK)
+        self.pr.click(data.PR_ADD_PATIENT_EVERY_NIGHT)
+        self.pr.click(data.PR_BG_GOALS_SAVE_BUTTON)
+        self.pr.wait_until_not_present(data.PR_PATIENT_RECORD_SMBG_TITLE)
+        self.pr.refresh()
+        self.pr.verify(data.PR_PATIENT_RECORD_INFO)
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.assertTrue('35' in self.pr.text(data.PR_PATIENT_RECORD_SMBG_COUNTER))
 
     def test_urgent_delete_med_goals(self):
         '''
@@ -111,7 +121,7 @@ class Patient_record(Case):
         self.pr.click(data.PR_PRESCRIPTION_SAVE)
         self.pr.verify(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         self.pr.click(data.PR_PRESCRIPTION_CONFIRM_SAVE)
-        self.pr.wait_until_not(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
+        self.pr.wait_until_not_present(data.PR_PRESCRIPTION_CONFIRM_DIALOG)
         goals = self.pr.get_med_goals()
         original_goals = original_goals[:-1]
         original_goals[-1][8] = ''
@@ -256,6 +266,31 @@ class Patient_record(Case):
         self.assertFalse(self.pr.focus(data.PR_PRESCRIPTION_SAVE).is_enabled())
         entry.find_element_by_css_selector(data.PR_PRESCRIPTION_ENTRY_DOSAGE_TIME).clear()
         
+    def test_normal_edit_patient_name(self):
+        '''
+        111003
+        This test is for '111003 Modify patient name'
+        '''
+        self.pr.login(data.DOCTOR, self.demo[0])
+        INFO = self.pr.create_new_patient()
+        self.pr.verify(data.PR_PATIENT_RECORD_NAME)
+        self.pr.click(data.PR_PATIENT_RECORD_NAME)
+        self.pr.verify(data.PR_PATIENT_RECORD_NAME_DIALOG)
+        self.pr.clear(data.PR_PATIENT_RECORD_NAME_SURNAME)
+        self.pr.enter('patient_surname', data.PR_PATIENT_RECORD_NAME_SURNAME)
+        self.pr.clear(data.PR_PATIENT_RECORD_NAME_GIVEN_NAME)
+        self.pr.enter('patient_given', data.PR_PATIENT_RECORD_NAME_GIVEN_NAME)
+        self.pr.click(data.PR_PATIENT_RECORD_NAME_SAVE)
+        self.pr.wait_until_not_present(data.PR_PATIENT_RECORD_NAME_DIALOG)
+        self.pr.refresh()
+        self.pr.verify(data.PR_PATIENT_RECORD_NAME)
+        self.assertTrue('patient_given'+' '+'patient_surname' in self.pr.text(data.PR_PATIENT_RECORD_NAME))
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        last_name = [item.text for item in self.pr.find(data.PR_DIRECTORY_LAST_NAME)]
+        first_name = [item.text for item in self.pr.find(data.PR_DIRECTORY_FIRST_NAME)]
+        self.assertTrue('patient_surname' in last_name)
+        self.assertTrue('patient_given' in first_name)
 
 if __name__ == '__main__':
     unittest.main()

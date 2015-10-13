@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import requests, urllib2, urllib
+import requests, urllib2, urllib, base64
 import simplejson as json
 import data
 
@@ -52,4 +52,30 @@ def delete_test_demo(demo_id):
     response = request_interface(url, 'DELETE')
     assert (response.code == 204)
     
+def generate_security_key(username, password):
+    auth_hash = base64.b64encode(b'%s:%s' % (username, password)).decode('ascii')
+    return auth_hash
+    
+def enroll_new_staff(name, email, practice_id, security_key, role='0', language='en', is_practice_admin='true'):
+    staff_data = {
+        'name':                 name,
+        'email':                email,
+        'role':                 role,
+        'language':             language,
+        'is_practice_admin':    is_practice_admin,
+        'practice_id':          practice_id,
+    }
+    staff_conf = request_interface('/api/v1/gurus.json', 'POST', parameter=staff_data, security=security_key)
+    assert (staff_conf.code == 201)
+
+    
 demo_data = generate_test_demo()
+demo_data1 = generate_test_demo()
+demo_data2 = generate_test_demo(country=data.US)
+doctor_account_demo1 = 'doctor-%s@gatherhealth.com' %demo_data1[0]
+doctor_account_demo2 = 'doctor-%s@gatherhealth.com' %demo_data2[0]
+demo2_security = generate_security_key('doctor@gatherhealth.com', demo_data2[0])
+# Enroll demo1 doctor to demo2
+enroll_new_staff('doctor2', doctor_account_demo1, demo_data2[1], demo2_security)
+
+

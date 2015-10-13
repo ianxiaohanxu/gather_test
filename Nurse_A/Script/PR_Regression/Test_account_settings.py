@@ -29,44 +29,27 @@ class Account_settings(Case):
         # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
-    def generate_number(self, length):
-        # Generate valid & invalid numbers with length
-        number = ''
-        while(length > 0):
-            number += '1'
-            length -= 1
-        short_number = number[:-1]
-        long_number = number + '1'
-        letter_number = number[:-1] + 'a'
-        return number, short_number, long_number, letter_number
-        
-    def _number_validation(self, number, length):
-        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
-        self.pr.enter(number, data.PR_ACCOUNT_CELL_NUMBER)
-        self.assertEqual(self.pr.focus(data.PR_ACCOUNT_CELL_NUMBER).get_attribute('data-validate-status'), 'invalid')
-        self.pr.verify(data.PR_ACCOUNT_CELL_ERROR)
-        if length == 10:
-            self.assertEqual(self.pr.text(data.PR_ACCOUNT_CELL_ERROR), data.EM_PR_ACCOUNT_CELL_NUM_IN_US)
-        elif length == 8:
-            self.assertEqual(self.pr.text(data.PR_ACCOUNT_CELL_ERROR), data.EM_PR_ACCOUNT_CELL_NUM_HK)
-        else:
-            self.assertEqual(self.pr.text(data.PR_ACCOUNT_CELL_ERROR), data.EM_PR_ACCOUNT_CELL_NUM_CH)
-        self.assertFalse(self.pr.focus(data.PR_ACCOUNT_SEND_SMS_BUTTON).is_enabled())
-        self.assertFalse(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
-        
-    def number_validation_check(self, country_code, length):
-        # Do validation check for different cell number (e.g. for US, country code is 1, length is 10)
-        number, short_number, long_number, letter_number = self.generate_number(length)
-        self.pr.select(country_code, data.PR_ACCOUNT_COUNTRY_CODE)
-        self._number_validation(short_number, length)
-        self._number_validation(long_number, length)
-        self._number_validation(letter_number, length)
-        self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
-        self.pr.enter(number, data.PR_ACCOUNT_CELL_NUMBER)
-        self.assertEqual(self.pr.focus(data.PR_ACCOUNT_CELL_NUMBER).get_attribute('data-validate-status'), 'valid')
-        self.assertFalse(self.pr.is_element_present(data.PR_ACCOUNT_CELL_ERROR))
-        self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SEND_SMS_BUTTON).is_enabled())
-        self.assertTrue(self.pr.focus(data.PR_ACCOUNT_SAVE_ALL_BUTTON).is_enabled())
+    def number_validation_check_on_account_settings(self):
+        self.pr.number_validation_check(
+                data.CH_COUNTRY_CODE, 11, data.PR_ACCOUNT_COUNTRY_CODE, 
+                data.PR_ACCOUNT_CELL_NUMBER, data.PR_ACCOUNT_CELL_ERROR, 
+                data.PR_ACCOUNT_SAVE_ALL_BUTTON, data.PR_ACCOUNT_SEND_SMS_BUTTON
+                )
+        self.pr.number_validation_check(
+                data.US_COUNTRY_CODE, 10, data.PR_ACCOUNT_COUNTRY_CODE, 
+                data.PR_ACCOUNT_CELL_NUMBER, data.PR_ACCOUNT_CELL_ERROR, 
+                data.PR_ACCOUNT_SAVE_ALL_BUTTON, data.PR_ACCOUNT_SEND_SMS_BUTTON
+                )
+        self.pr.number_validation_check(
+                data.HK_COUNTRY_CODE, 8, data.PR_ACCOUNT_COUNTRY_CODE, 
+                data.PR_ACCOUNT_CELL_NUMBER, data.PR_ACCOUNT_CELL_ERROR, 
+                data.PR_ACCOUNT_SAVE_ALL_BUTTON, data.PR_ACCOUNT_SEND_SMS_BUTTON
+                )
+        self.pr.number_validation_check(
+                data.IN_COUNTRY_CODE, 10, data.PR_ACCOUNT_COUNTRY_CODE, 
+                data.PR_ACCOUNT_CELL_NUMBER, data.PR_ACCOUNT_CELL_ERROR, 
+                data.PR_ACCOUNT_SAVE_ALL_BUTTON, data.PR_ACCOUNT_SEND_SMS_BUTTON
+                )
         
     def test_urgent_reset_password(self):
         '''
@@ -113,7 +96,6 @@ class Account_settings(Case):
         107007
         This test is for '107007 Change cell phone'
         '''
-        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
@@ -121,16 +103,7 @@ class Account_settings(Case):
         self.pr.select('91', data.PR_ACCOUNT_COUNTRY_CODE)
         self.pr.clear(data.PR_ACCOUNT_CELL_NUMBER)
         self.pr.enter('1234567890', data.PR_ACCOUNT_CELL_NUMBER)
-        self.pr.click(data.PR_ACCOUNT_SAVE_ALL_BUTTON)
-        self.pr.verify(data.PR_ACCOUNT_TITLE)
-        # Validation check for US number
-        self.number_validation_check('1', 10)
-        # Validation check for India number
-        self.number_validation_check('91', 10)
-        # Validation check for HK number
-        self.number_validation_check('852', 8)
-        # Validation check for China number
-        self.number_validation_check('86', 11)
+        self.number_validation_check_on_account_settings()
         
         # Save for number change
         self.pr.select('91', data.PR_ACCOUNT_COUNTRY_CODE)
@@ -255,7 +228,6 @@ class Account_settings(Case):
         107002
         This test is for '107002 Change Language'
         '''
-        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
@@ -290,6 +262,32 @@ class Account_settings(Case):
         self.pr.verify(data.PR_ACCOUNT_LANGUAGE)
         self.assertEqual(data.ACCOUNT_US.decode('utf-8'), self.pr.text(data.PR_ACCOUNT_TITLE))
         self.assertEqual(data.ENGLISH, self.pr.text(data.PR_ACCOUNT_LANGUAGE))
+        
+    def test_normal_interrupt_edit_account_settings(self):
+        '''
+        107015
+        This test is for '107015 Interrupt editing account settings'
+        '''
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SURNAME)
+        self.pr.clear(data.PR_ACCOUNT_SURNAME)
+        self.pr.enter('123', data.PR_ACCOUNT_SURNAME)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        Alert(self.pr.driver).accept()
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.click(data.PR_NAV_OPTION_MENU)
+        self.pr.click(data.PR_NAV_OPTION_MENU_ACCOUNT)
+        self.pr.verify(data.PR_ACCOUNT_SURNAME)
+        self.assertFalse('123' in self.pr.text(data.PR_ACCOUNT_SURNAME))
+        self.pr.clear(data.PR_ACCOUNT_SURNAME)
+        self.pr.enter('123', data.PR_ACCOUNT_SURNAME)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        Alert(self.pr.driver).dismiss()
+        self.pr.verify(data.PR_ACCOUNT_SURNAME)
+        self.pr.refresh()
+        Alert(self.pr.driver).accept()
         
 if __name__ == '__main__':
     unittest.main()

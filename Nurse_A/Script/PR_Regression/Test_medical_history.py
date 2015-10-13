@@ -354,8 +354,9 @@ class Medical_history(Case):
         
     def test_normal_data_sync(self):
         '''
-        111067
+        111067 111004
         This test is for '111067 Sync data from Medical History tab'
+        This test is for '111004 Modify patient gender'
         '''
         # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])

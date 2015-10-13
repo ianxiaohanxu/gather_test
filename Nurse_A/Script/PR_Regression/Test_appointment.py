@@ -29,13 +29,16 @@ class Appointment(Case):
         # self.pr.delete_test_demo(self.demo[1])
         self.pr.teardown()
         
-    def create_simple_appointment(self):
+    def create_simple_appointment(self, WHEN = data.PR_APPOINTMENT_SIX_MONTH):
         today = datetime.datetime.now()
+        today_after_90 = today + datetime.timedelta(days=90)
+        today_after_90 = today_after_90.strftime('%Y-%m-%d')
+        today_after_90_slash = today_after_90.replace('-', '/')
         today_after_180 = today + datetime.timedelta(days=180)
         today_after_180 = today_after_180.strftime('%Y-%m-%d')
         today_after_180_slash = today_after_180.replace('-', '/')
-        # self.demo = self.pr.generate_test_demo()
-        self.pr.login(data.DOCTOR, self.demo[0])
+        today = today.strftime('%Y-%m-%d')
+        today_slash = today.replace('-', '/')
         INFO = self.pr.create_new_patient()
         INFO = list(INFO)
         INFO.append(today_after_180_slash)
@@ -43,11 +46,16 @@ class Appointment(Case):
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
         self.pr.verify(data.PR_APPOINTMENT_TITLE_ADD)
-        self.pr.click(data.PR_APPOINTMENT_SIX_MONTH)
+        self.pr.click(WHEN)
         self.pr.click(data.PR_APPOINTMENT_SAVE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
-        self.assertTrue(today_after_180_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        if WHEN == data.PR_APPOINTMENT_TODAY:
+            self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        elif WHEN == data.PR_APPOINTMENT_THREE_MONTH:
+            self.assertTrue(today_after_90_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        else:
+            self.assertTrue(today_after_180_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         return INFO
         
     def test_urgent_add_appointment_with_full_info(self):
@@ -75,7 +83,7 @@ class Appointment(Case):
         self.pr.enter(time_str, data.PR_APPOINTMENT_TIME)
         self.pr.enter(notes, data.PR_APPOINTMENT_NOTE)
         self.pr.click(data.PR_APPOINTMENT_SAVE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
@@ -85,6 +93,7 @@ class Appointment(Case):
         This test is for '197002 Add a new appointment without time set'
         This test is for '197006 Add a new appointment with date shortcut'
         '''
+        self.pr.login(data.DOCTOR, self.demo[0])
         self.create_simple_appointment()
         
     def test_urgent_edit_appointment(self):
@@ -98,6 +107,7 @@ class Appointment(Case):
         date_after_90_slash = date_after_90.replace('-', '/')
         time_str = '12:30'
         notes = 'Hello world!'
+        self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.create_simple_appointment()
         # Edit appointment
         self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
@@ -106,7 +116,7 @@ class Appointment(Case):
         self.pr.enter(time_str, data.PR_APPOINTMENT_TIME)
         self.pr.enter(notes, data.PR_APPOINTMENT_NOTE)
         self.pr.click(data.PR_APPOINTMENT_SAVE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(date_after_90_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
@@ -116,12 +126,13 @@ class Appointment(Case):
         197005
         This test is for '197005 Delete an appointment'
         '''
+        self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.create_simple_appointment()
         # Delete appointment
         self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
         self.pr.verify(data.PR_APPOINTMENT_TITLE_EDIT)
         self.pr.click(data.PR_APPOINTMENT_DELETE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(INFO[2] not in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         
@@ -130,12 +141,13 @@ class Appointment(Case):
         197008
         This test is for '197008 Mark an appointment as complete'
         '''
+        self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.create_simple_appointment()
         # Complete appointment
         self.pr.click(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1])
         self.pr.verify(data.PR_APPOINTMENT_TITLE_EDIT)
         self.pr.click(data.PR_APPOINTMENT_COMPLETE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(INFO[2] not in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         self.assertTrue(INFO[2] in self.pr.text(data.PR_DIRECTORY_PATIENT_LAST_APPT %INFO[1]))
@@ -161,7 +173,7 @@ class Appointment(Case):
         self.pr.enter(time_str, data.PR_APPOINTMENT_TIME)
         self.pr.enter(notes, data.PR_APPOINTMENT_NOTE)
         self.pr.click(data.PR_APPOINTMENT_SAVE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
@@ -174,10 +186,35 @@ class Appointment(Case):
         self.pr.enter(time_str, data.PR_APPOINTMENT_TIME)
         self.pr.enter(notes, data.PR_APPOINTMENT_NOTE)
         self.pr.click(data.PR_APPOINTMENT_SAVE)
-        self.pr.wait_until_not(data.PR_APPOINTMENT_TITLE)
+        self.pr.wait_until_not_present(data.PR_APPOINTMENT_TITLE)
         self.pr.verify(data.PR_DIRECTORY_PATIENT_ENTRY %INFO[1])
         self.assertTrue(today_slash in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
         self.assertTrue(time_str in self.pr.text(data.PR_DIRECTORY_PATIENT_NEXT_APPT %INFO[1]))
+        
+    def test_normal_search_by_next_appt(self):
+        '''
+        197016
+        This test is for '197016 Search patient by "Next Appointment"'
+        '''
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.create_simple_appointment()
+        self.create_simple_appointment(data.PR_APPOINTMENT_TODAY)
+        self.pr.verify(data.PR_DIRECTORY_FILTER)
+        self.pr.select(data.FILTER_NEXT_APPOINTMENT, data.PR_DIRECTORY_FILTER)
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        count_all_appt = len(self.pr.find(data.PR_DIRECTORY_LAST_NAME))
+        self.pr.clear(data.PR_DIRECTORY_SEARCH_FIELD)
+        self.pr.enter('NextAppointment=today', data.PR_DIRECTORY_SEARCH_FIELD)
+        self.pr.click(data.PR_DIRECTORY_SEARCH_BUTTON)
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        count_today_appt = len(self.pr.find(data.PR_DIRECTORY_LAST_NAME))
+        self.pr.clear(data.PR_DIRECTORY_SEARCH_FIELD)
+        self.pr.enter('NextAppointment>today', data.PR_DIRECTORY_SEARCH_FIELD)
+        self.pr.click(data.PR_DIRECTORY_SEARCH_BUTTON)
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        count_after_today_appt = len(self.pr.find(data.PR_DIRECTORY_LAST_NAME))
+        self.assertEqual(count_all_appt, count_today_appt+count_after_today_appt)
+        
 
 if __name__ == '__main__':
     unittest.main()

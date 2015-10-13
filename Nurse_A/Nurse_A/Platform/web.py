@@ -24,6 +24,11 @@ class Web(object):
             self.driver.quit()
         elif HOMEPAGE == True:
             self.driver.get(self.HOMEPAGE)
+            # If an alert pops up, accept it.
+            try:
+                Alert(self.driver).accept()
+            except:
+                pass
         else:
             return
         
@@ -165,25 +170,31 @@ class Web(object):
         except AssertionError:
             return False
             
-    def wait_until(self, what, WAITTIME = 10):
-        # Wait until element is present.
+    def wait_until(self, condition, WAITTIME):
         TIME = time() + WAITTIME
         while(time() < TIME):
             try:
-                element = self.focus(what)
-                if element.is_displayed():
+                if condition():
                     return
-            except NoSuchElementException:
+            except:
                 pass
         raise TimeoutException
         
-    def wait_until_not(self, what, WAITTIME = 10):
-        # Wait until element is not present.
+    def wait_until_not(self, condition, WAITTIME):
         TIME = time() + WAITTIME
         while(time() < TIME):
-            if self.is_element_present(what):
+            try:
+                if not condition():
+                    return
+            except:
                 pass
-            else:
-                return
         raise TimeoutException
+        
+    def wait_until_present(self, what, WAITTIME = 10):
+        # Wait until element is present.
+        self.wait_until(lambda: self.is_element_present(what), WAITTIME)
+        
+    def wait_until_not_present(self, what, WAITTIME = 10):
+        # Wait until element is not present.
+        self.wait_until_not(lambda: self.is_element_present(what), WAITTIME)
             
