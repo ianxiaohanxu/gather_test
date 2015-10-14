@@ -332,7 +332,13 @@ class Visit(Case):
         '''
         # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
-        self.pr.click(data.PR_FEED_FIRST_WARNING)
+        self.pr.driver.get(data.DIRECTORY_PATH)
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.pr.enter('Daya', data.PR_DIRECTORY_SEARCH_FIELD)
+        self.pr.click(data.PR_DIRECTORY_SEARCH_BUTTON)
+        self.pr.verify(data.PR_DIRECTORY_FIRST_PATIENT)
+        self.assertEqual(len(self.pr.find(data.PR_DIRECTORY_LAST_NAME)), 1)
+        self.pr.click(data.PR_DIRECTORY_FIRST_PATIENT)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_TAG)
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_ECG)
@@ -377,7 +383,6 @@ class Visit(Case):
         103008
         This test is for '103008 Add a new visit'
         '''
-        # self.demo = self.pr.generate_test_demo()
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)

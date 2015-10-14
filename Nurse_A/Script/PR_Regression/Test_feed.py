@@ -35,6 +35,7 @@ class Feed(Case):
         '''
         MES = 'hello, world!'
         self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT)
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)
@@ -54,6 +55,7 @@ class Feed(Case):
         This test is for '108003 Complete the event by update MED goals'
         '''
         self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_PRESCRIPTION)
         self.pr.click(data.PR_PATIENT_RECORD_PRESCRIPTION)
@@ -75,6 +77,7 @@ class Feed(Case):
         This test is for '108004 Complete the event by update BG goals'
         '''
         self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.click(data.PR_FEED_FIRST_WARNING)
         self.pr.verify(data.PR_PATIENT_RECORD_SMBG)
         self.pr.click(data.PR_PATIENT_RECORD_SMBG)
@@ -93,6 +96,7 @@ class Feed(Case):
         This test is for '108005 Delete event in feed'
         '''
         self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.click(data.PR_FEED_CLOSE)
         self.pr.refresh()
         self.assertFalse(self.pr.is_element_present(data.PR_FEED_FIRST_WARNING))
@@ -104,6 +108,7 @@ class Feed(Case):
         '''
         notes = 'It is up to you.'
         self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.click(data.PR_FEED_FORWARD)
         self.pr.verify(data.PR_FEED_FORWARD_TO)
         Select(self.pr.focus(data.PR_FEED_FORWARD_TO)).select_by_index(1)
@@ -120,6 +125,7 @@ class Feed(Case):
         This test is for '106013 Delete messages event in Feed'
         '''
         self.pr.login(data.NURSE, self.demo[0])
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.clear_message_event()
         self.pr.logout()
         self.pr.login(data.DOCTOR, self.demo[0])
@@ -133,6 +139,7 @@ class Feed(Case):
         self.pr.login(data.NURSE, self.demo[0])
         MES = 'hello, world!'
         NAME = 'Uttam'
+        self.pr.verify(data.PR_FEED_FIRST_WARNING)
         self.pr.click(data.PR_FEED_FIRST_MESSAGE)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT)
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)

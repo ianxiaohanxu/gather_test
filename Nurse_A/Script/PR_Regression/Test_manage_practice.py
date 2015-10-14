@@ -223,6 +223,8 @@ class Manage_practice(Case):
         self.pr.select(data.ENGLISH, data.PR_MANAGE_PRACTICE_INVITE_STAFF_LANG)
         self.pr.select('true', data.PR_MANAGE_PRACTICE_INVITE_STAFF_RIGHT)
         self.pr.click(data.PR_MANAGE_PRACTICE_INVITE_STAFF_SUBMIT)
+        self.pr.wait_until_not_present(data.PR_MANAGE_PRACTICE_INVITE_STAFF_DIALOG)
+        self.pr.refresh()
         self.pr.verify(data.PR_MANAGE_PRACTICE_STAFF_ENTRY)
         NOW_STAFF_COUNT =  len(self.pr.find(data.PR_MANAGE_PRACTICE_STAFF_ENTRY))
         self.assertEqual(ORIGINAL_STAFF_COUNT+1, NOW_STAFF_COUNT)
