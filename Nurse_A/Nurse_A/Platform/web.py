@@ -170,7 +170,7 @@ class Web(object):
         except AssertionError:
             return False
             
-    def wait_until(self, condition, WAITTIME):
+    def wait_until(self, condition, WAITTIME = 10):
         TIME = time() + WAITTIME
         while(time() < TIME):
             try:
@@ -180,7 +180,7 @@ class Web(object):
                 pass
         raise TimeoutException
         
-    def wait_until_not(self, condition, WAITTIME):
+    def wait_until_not(self, condition, WAITTIME = 10):
         TIME = time() + WAITTIME
         while(time() < TIME):
             try:
