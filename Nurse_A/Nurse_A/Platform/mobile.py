@@ -67,12 +67,7 @@ class MOB(object):
     def clear(self, where):
         # Clear the edit field
         element = self.focus(where)
-        element.click()
-        sleep(constant.INTERVAL_1)
-        # Select all and delete
-        self.driver.press_keycode(keycode.KEYCODE_A,keycode.META_CTRL_MASK)
-        sleep(constant.INTERVAL_1)
-        self.driver.press_keycode(keycode.KEYCODE_FORWARD_DEL)
+        element.clear()
         
     def drag(self, origin_el = None, target_el = None, x = None, y = None):
         # Drag something to somewhere
@@ -93,7 +88,7 @@ class MOB(object):
                 release().\
                 perform()
                 
-    def swip(self, start_x = None, start_y = None, end_x = None, end_y = None):
+    def swipe(self, start_x = None, start_y = None, end_x = None, end_y = None):
         # Swip from somewhere to somewhere
         if (start_x == None) | (start_y == None) | \
             (start_x > self.X) | (start_y > self.Y) | \
@@ -101,11 +96,27 @@ class MOB(object):
             (end_x > self.X) | (end_y > self.Y):
                 raise AssertionError('Please input a correct coordinate')
         action = TouchAction(self.driver)
-        action.\
-            press(x = start_x, y = start_y).\
-            move_to(x = end_x, y = end_y).\
-            release().\
-            perform()
+        action\
+            .press(x = start_x, y = start_y)\
+            .move_to(x = end_x, y = end_y)\
+            .release()\
+            .perform()
+            
+    def vswipe(self, start_y = None, end_y = None):
+        # Vertically swipe
+        self.swipe(self.X/2, start_y, self.X/2, end_y)
+
+    def swipe_up(self):
+        # Vertically swipe up
+        start_y = self.Y/2 + self.Y/5
+        end_y = self.Y/2 - self.Y/5
+        self.vswipe(start_y, end_y)
+
+    def swipe_down(self):
+        # Vertically swipe down
+        start_y = self.Y/2 - self.Y/5
+        end_y = self.Y/2 + self.Y/5
+        self.vswipe(start_y, end_y)
             
     def zoom_in(self, element = None, percent = 200, steps = 50):
         # Zoom in
