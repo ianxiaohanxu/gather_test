@@ -513,8 +513,9 @@ class Visit(Case):
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_VISIT_TAG)
         self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON)
-        self.pr.click(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON)
-        self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NOTES)
+        if 'active' not in self.pr.focus(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON).get_attribute('class'):
+            self.pr.click(data.PR_PATIENT_RECORD_VISIT_NEW_BUTTON)
+            self.pr.verify(data.PR_PATIENT_RECORD_VISIT_NOTES)
         height = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_HEIGHT)
         height_hook = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_HEIGHT_CONFIRM)
         weight = self.pr.focus(data.PR_PATIENT_RECORD_VISIT_WEIGHT)
