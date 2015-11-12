@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOmdhb3h1MTIz'
-SECURITY_KEY                =   u'YWxleEBnYXRoZXJoZWFsdGguY29tOjEyMzQ1Ng=='
+SECURITY_KEY                =   u'Basic YWxleEBnYXRoZXJoZWFsdGguY29tOjEyMzQ1Ng=='
 HK_DOCTOR                   =   'alex+hk@gatherhealth.com'
 HK_NURSE                    =   'alex+hk+n@gatherhealth.com'
 INDIA_DOCTOR                =   'alex+in@gatherhealth.com'
@@ -23,11 +23,11 @@ Production                  =   'https://www.gatherhealth.com/provider'
 Localhost                   =   'http://localhost:8000/provider'
 SERVER                      =   Localhost
 
-if SERVER == Localhost:
-    HOST                    =   'http://localhost:8081'
-else:
-    HOST                    =   SERVER[:-9]
-    
+# if SERVER == Localhost:
+#     HOST                    =   'http://localhost:8081'
+# else:
+HOST                        =   SERVER[:-9]
+
 DIRECTORY_PATH              =   SERVER+'/directory'
 FEED_PATH                   =   SERVER+'/feed'
 
@@ -153,6 +153,18 @@ MED_GOALS                   =   [
                                  ['G14', '16', '5', '1', 'abc', '8', '0', '5', '6', '5', '5', '5', '09:00'],
                                 ]
 
+SMALL_MED_GOALS             =   [
+                                 ['G1', '2', '', '4', 'abc', '8', '0', '5', '', '', '', '', '09:00'],
+                                 ['G2', '4', '5', '1', 'abc', '9', '0', '', '6', '', '', '', '09:00'],
+                                ]
+
+SPECIAL_MED_GOALS           =   [
+                                 ['G1', '2', '2+2', '2', 'abc', '8', '0', '5+2', '', '', '', '', '09:00'],
+                                 ['G2', '4', '4/3', '1', 'abc', '9', '0', '', '6/4', '', '', '', '09:00'],
+                                 ['G3', '4', '4.3', '3', 'abc', '9', '0', '', '6.5', '', '', '', '09:00'],
+                                 ['G4', '4', '4,3', '5', 'abc', '9', '0', '', '6,3', '', '', '', '09:00'],
+                                ]
+
 WEEKDAY                     =   ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 MEAL                        =   ['brk', 'lun', 'din']
 NIGHT                       =   'night'
@@ -268,7 +280,8 @@ PR_ADD_PATIENT_EVERY                        =   [PR_ADD_PATIENT_EVERY_PRE_BRK, P
                                                  PR_ADD_PATIENT_EVERY_PRE_LUN, PR_ADD_PATIENT_EVERY_POST_LUN,
                                                  PR_ADD_PATIENT_EVERY_PRE_DIN, PR_ADD_PATIENT_EVERY_POST_DIN,
                                                  PR_ADD_PATIENT_EVERY_NIGHT,]
-PR_ADD_PATIENT_OTHER_MED                    =   '.other_meds'                                                 
+SMALL_BG_GOALS                              =   [PR_ADD_PATIENT_EVERY_PRE_BRK, PR_ADD_PATIENT_EVERY_POST_LUN]
+PR_ADD_PATIENT_OTHER_MED                    =   '.other_meds'
 PR_ADD_PATIENT_MED_GOALS_BUTTON             =   '.med button'
 PR_ADD_PATIENT_HEIGHT                       =   'input[name="height"]'
 PR_ADD_PATIENT_WEIGHT                       =   'weight'
@@ -852,4 +865,184 @@ PR_LOGIN_USERNAME                           =   'id_username'
 PR_LOGIN_PASSWORD                           =   'id_password'
 PR_LOGIN_SUBMIT                             =   'input[name="submit"]'
 PR_LOGIN_FORGOT_PASSWORD                    =   '.forgotpw'
+
+
+### Patient App elements
+## Android
+
+# Welcome page
+DM_AND_WELCOME_ENTER                        =   'intro_skip_button'
+DM_AND_WELCOME_MES_1                        =   'Better health\nin the flow of your life'
+DM_AND_WELCOME_MES_2                        =   'Easy logging of your\nhealth data'
+DM_AND_WELCOME_MES_3                        =   'Friends and family\nkeep you motivated'
+DM_AND_WELCOME_MES_4                        =   'Your doctor and nurse\nsupport you anywhere'
+
+# Sign in page
+DM_AND_SIGN_IN_TITLE                        =   'Sign In'
+DM_AND_SIGN_IN_BACK                         =   'back_rl'
+DM_AND_SIGN_IN_FIELD                        =   'login_email_et'
+DM_AND_SIGN_IN_ERROR                        =   'error_tv'
+EM_DM_SIGN_IN_INVALID_EMAIL                 =   'Please enter a valid email address.'
+EM_DM_SIGN_IN_NOT_REGISTER_EMAIL            =   "Are you sure you entered the correct e-mail address? We couldn't find this one in our records."
+DM_AND_SIGN_IN_BUTTON                       =   'next_button'
+
+# Enter password page
+DM_AND_PASSWORD_TITLE                       =   'Enter password'
+DM_AND_PASSWORD_BACK                        =   'back_rl'
+DM_AND_PASSWORD_FIELD                       =   'login_pwd_et'
+DM_AND_PASSWORD_ERROR                       =   'error_tv'
+EM_DM_PASSWORD_NOT_MATCH                    =   'The password you entered does not match the e-mail address. Please double-check it.'
+EM_DM_PASSWORD_INVALID_INPUT                =   "Sorry, we can't accept the password you entered. Please use only letters, numbers, and underscores."
+DM_AND_PASSWORD_FORGOT_PW                   =   'login_reset'
+DM_AND_PASSWORD_SIGN_IN_BTN                 =   'next_button'
+
+# Forgot password dialog
+DM_AND_FORGOT_PW_FIELD                      =   'resetpw_email'
+DM_AND_FORGOT_PW_CANCEL_BTN                 =   'resetpw_cancel'
+DM_AND_FORGOT_PW_RESET_BTN                  =   'resetpw_submit'
+# Reset fail dialog
+DM_AND_PW_RESET_FAIL_MESSAGE                =   'Sorry, it looks like that address is not registered in our system.'
+DM_AND_PW_RESET_FAIL_BTN                    =   'button1'
+# Reset success dialog
+DM_AND_PW_RESET_SUCCESS_MESSAGE             =   'An email has been sent to %s with password reset instructions.'
+DM_AND_PW_RESET_SUCCESS_BTN                 =   'button1'
+
+# Set password page
+DM_AND_SET_PASSWORD_TITLE                   =   'Create A Password'
+DM_AND_SET_PASSWORD_BACK                    =   'back_rl'
+DM_AND_SET_PASSWORD_PASSWORD_FIELD          =   'enter_pwd_et'
+DM_AND_SET_PASSWORD_CONFIRM_FIELD           =   'reenter_pwd_et'
+DM_AND_SET_PASSWORD_FIRST_FIELD_ERROR       =   'pwd_error_tv'
+DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR      =   'repwd_error_tv'
+EM_DM_SET_PASSWORD_SHORT_ERROR              =   'Please choose a password with a minimum length of 6 characters.'
+EM_DM_SET_PASSWORD_NOT_MATCH                =   'The passwords you entered do not match. Please double-check them.'
+DM_AND_SET_PASSWORD_BUTTON                  =   'next_button'
+
+# Personal info page
+DM_AND_PERSONAL_INFO_TITLE                  =   'Personal Info'
+DM_AND_PERSONAL_INFO_BACK                   =   'back_rl'
+DM_AND_PERSONAL_INFO_COUNTRY_CODE           =   'country_code_ccs'
+DM_AND_PERSONAL_INFO_COUNTRY_CODE_TEXT      =   '//android.widget.RelativeLayout[@resource-id="com.gatherhealth.gatherdm:id/country_code_ccs"]//android.widget.TextView'
+DM_AND_PERSONAL_INFO_COUNTRY_HK             =   'Hong Kong (+852)'
+DM_AND_PERSONAL_INFO_COUNTRY_IN             =   'India (+91)'
+DM_AND_PERSONAL_INFO_COUNTRY_US             =   'USA (+1)'
+DM_AND_PERSONAL_INFO_COUNTRY_CH             =   'China (+86)'
+DM_AND_PERSONAL_INFO_CELL_NUMBER            =   'cell_number_et'
+DM_AND_PERSONAL_INFO_CELL_ERROR             =   'error_tv'
+EM_DM_PERSONAL_INFO_INVALID_NUMBER          =   'Please enter a valid phone number.'
+DM_AND_PERSONAL_INFO_GENDER                 =   'gender_gs'
+DM_AND_PERSONAL_INFO_GENDER_TEXT            =   '//android.widget.RelativeLayout[@resource-id="com.gatherhealth.gatherdm:id/gender_gs"]//android.widget.TextView'
+DM_AND_PERSONAL_INFO_MALE                   =   'Male'
+DM_AND_PERSONAL_INFO_FEMALE                 =   'Female'
+DM_AND_PERSONAL_INFO_BIRTHDAY               =   'birthdate_bs'
+DM_AND_PERSONAL_INFO_BIRTHDAY_TEXT          =   '//android.widget.RelativeLayout[@resource-id="com.gatherhealth.gatherdm:id/birthdate_bs"]//android.widget.TextView'
+DM_AND_PERSONAL_INFO_DATE_MONTH_UP          =   '//android.widget.NumberPicker[1]/android.widget.Button[1]'
+DM_AND_PERSONAL_INFO_DATE_MONTH             =   '//android.widget.NumberPicker[1]/android.widget.EditText'
+DM_AND_PERSONAL_INFO_DATE_MONTH_DOWN        =   '//android.widget.NumberPicker[1]/android.widget.Button[2]'
+DM_AND_PERSONAL_INFO_DATE_DAY_UP            =   '//android.widget.NumberPicker[2]/android.widget.Button[1]'
+DM_AND_PERSONAL_INFO_DATE_DAY               =   '//android.widget.NumberPicker[2]/android.widget.EditText'
+DM_AND_PERSONAL_INFO_DATE_DAY_DOWN          =   '//android.widget.NumberPicker[2]/android.widget.Button[2]'
+DM_AND_PERSONAL_INFO_DATE_YEAR_UP           =   '//android.widget.NumberPicker[3]/android.widget.Button[1]'
+DM_AND_PERSONAL_INFO_DATE_YEAR              =   '//android.widget.NumberPicker[3]/android.widget.EditText'
+DM_AND_PERSONAL_INFO_DATE_YEAR_DOWN         =   '//android.widget.NumberPicker[3]/android.widget.Button[2]'
+DM_AND_PERSONAL_INFO_DATE_SET_BTN           =   'button1'
+DM_AND_PERSONAL_INFO_CHOOSE_PHOTO_BUTTON    =   'select_pic_btn'
+DM_AND_PERSONAL_INFO_BUTTON                 =   'next_button'
+
+# Loved one info
+DM_AND_LOVED_ONE_TITLE                      =   'Loved One Info'
+DM_AND_LOVED_ONE_BACK                       =   'back_rl'
+DM_AND_LOVED_ONE_LAST_NAME                  =   'last_name_et'
+DM_AND_LOVED_ONE_FIRST_NAME                 =   'first_name_et'
+DM_AND_LOVED_ONE_EMAIL                      =   'email_et'
+DM_AND_LOVED_ONE_EMAIL_ERROR                =   'lo_email_error_tv'
+EM_DM_LOVED_ONE_INVALID_EMAIL               =   'Please enter a valid email address.'
+DM_AND_LOVED_ONE_COUNTRY_CODE               =   'country_code_ccs'
+DM_AND_LOVED_ONE_COUNTRY_HK                 =   DM_AND_PERSONAL_INFO_COUNTRY_HK
+DM_AND_LOVED_ONE_COUNTRY_IN                 =   DM_AND_PERSONAL_INFO_COUNTRY_IN
+DM_AND_LOVED_ONE_COUNTRY_US                 =   DM_AND_PERSONAL_INFO_COUNTRY_US
+DM_AND_LOVED_ONE_COUNTRY_CH                 =   DM_AND_PERSONAL_INFO_COUNTRY_CH
+DM_AND_LOVED_ONE_CELL_NUMBER                =   'cell_number_et'
+DM_AND_LOVED_ONE_CELL_ERROR                 =   'lo_cell_error_tv'
+EM_DM_LOVED_ONE_INVALID_NUMBER              =   'Please enter a valid phone number.'
+EM_DM_LOVED_ONE_CONFLICT_NUMBER             =   'You are already using this number as your personal phone number. Please enter a different phone number.'
+DM_AND_LOVED_ONE_NEXT_BUTTON                =   'next_button'
+DM_AND_LOVED_ONE_SKIP_BUTTON                =   'skip_button'
+
+# Set mealtimes page
+DM_AND_SET_MEALTIME_TITLE                   =   'Set Mealtimes'
+DM_AND_SET_MEALTIME_BACK                    =   'back_rl'
+DM_AND_SET_MEALTIME_BRK                     =   'breakfast_ms'
+DM_AND_SET_MEALTIME_BRK_ERROR               =   'breakfast_error_tv'
+EM_DM_SET_MEALTIME_BRK_AFTER_LUN            =   'Breakfast cannot be after lunch.'
+EM_DM_SET_MEALTIME_BRK_AFTER_DIN            =   'Breakfast cannot be after dinner.'
+EM_DM_SET_MEALTIME_BRK_AFTER_NIG            =   'Breakfast cannot be after night.'
+DM_AND_SET_MEALTIME_HOUR                    =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.NumberPicker[1]/android.widget.EditText'
+DM_AND_SET_MEALTIME_MINUTE                  =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.NumberPicker[2]/android.widget.EditText'
+DM_AND_SET_MEALTIME_APM                     =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.NumberPicker/android.widget.EditText'
+DM_AND_SET_MEALTIME_SET_BTN                 =   'button1'
+DM_AND_SET_MEALTIME_LUN                     =   'lunch_ms'
+DM_AND_SET_MEALTIME_LUN_ERROR               =   'lunch_error_tv'
+EM_DM_SET_MEALTIME_LUN_AFTER_DIN            =   'Lunch cannot be after dinner.'
+EM_DM_SET_MEALTIME_LUN_AFTER_NIG            =   'Lunch cannot be after night.'
+DM_AND_SET_MEALTIME_DIN                     =   'dinner_ms'
+DM_AND_SET_MEALTIME_DIN_ERROR               =   'dinner_error_tv'
+EM_DM_SET_MEALTIME_DIN_AFTER_NIG            =   'Dinner cannot be after night.'
+DM_AND_SET_MEALTIME_NIG                     =   'night_ms'
+DM_AND_SET_MEALTIME_NEXT_BUTTON             =   'next_button'
+VALUE_DM_SET_MEALTIME_BRK_IN                =   '8:00 AM'
+VALUE_DM_SET_MEALTIME_LUN_IN                =   '1:30 PM'
+VALUE_DM_SET_MEALTIME_DIN_IN                =   '9:00 PM'
+VALUE_DM_SET_MEALTIME_NIG_IN                =   '11:30 PM'
+
+# User agreement page
+DM_AND_USER_AGREE_TITLE                     =   'User Agreement'
+DM_AND_USER_AGREE_BACK                      =   'back_rl'
+DM_AND_USER_AGREE_CHECK_BOX                 =   'checkbox__ll'
+DM_AND_USER_AGREE_SIGN_IN_BUTTON            =   'next_button'
+DM_AND_SOMETHING_WENT_WRONG_DIALOG_MES      =   'Something went wrong. Please try again later.'
+DM_AND_SOMETHING_WENT_WRONG_DIALOG_OK       =   'button2'
+DM_AND_SOMETHING_WENT_WRONG_DIALOG_CANCEL   =   'button1'
+
+# Tutorial page
+DM_AND_TUTORIAL_TITLE_1                     =   'titleStep1'
+DM_AND_TUTORIAL_DESC_1                      =   'descStep1'
+DM_AND_TUTORIAL_NEXT_BUTTON_1               =   'nextStep1'
+DM_AND_TUTORIAL_TITLE_2                     =   'titleStep2'
+DM_AND_TUTORIAL_DESC_2                      =   'descStep2'
+DM_AND_TUTORIAL_NEXT_BUTTON_2               =   'nextStep2'
+DM_AND_TUTORIAL_TITLE_3                     =   'titleStep3'
+DM_AND_TUTORIAL_DESC_3                      =   'descStep3'
+DM_AND_TUTORIAL_NEXT_BUTTON_3               =   'nextStep3'
+DM_AND_TUTORIAL_TITLE_4                     =   'titleStep4'
+DM_AND_TUTORIAL_DESC_4                      =   'descStep4'
+DM_AND_TUTORIAL_NEXT_BUTTON_4               =   'nextStep4'
+
+# Medication change confirmation page
+DM_AND_MED_CHANGE_DECLINE_BUTTON            =   'medconf_decline_button'
+DM_AND_MED_CHANGE_CONFIRM_BUTTON            =   'medconf_continue_button'
+
+# Goals list page
+DM_AND_GOAL_DATE                            =   'dateInfo'
+
+# Options menu
+DM_AND_OPTIONS_MENU_BTN                     =   'home'
+DM_AND_OPTIONS_MY_DATA                      =   'patientInfo'
+DM_AND_OPTIONS_MANAGE_LO                    =   'Manage my Loved Ones'
+DM_AND_OPTIONS_TUTORIAL                     =   'Tutorial'
+DM_AND_OPTIONS_FAQ                          =   'FAQ'
+DM_AND_OPTIONS_APP_SUPPORT                  =   'App Support'
+DM_AND_OPTIONS_SETTINGS                     =   'Settings'
+
+# Settings page
+DM_AND_SETTINGS_LOG_OUT                     =   'Log out'
+
+# Server settings dialog
+DM_AND_SERVER_ADDRESS                       =   'debugserver_uri'
+DM_AND_SERVER_SUBMIT                        =   'debugserver_submit'
+
+
+
+
+
 

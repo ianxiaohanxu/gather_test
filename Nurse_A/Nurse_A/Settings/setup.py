@@ -4,25 +4,24 @@ import requests, urllib2, urllib, base64
 import simplejson as json
 import data
 
-def request_interface(url, method, parameter=None, security=data.SECURITY_KEY):
-    method = method.upper()
-    if method not in ['GET', 'POST', 'DELETE']:
-        raise Exception('Method %s not yet supported.' % method)
+def request_interface(url, method, parameter=None, DATA=None, security=data.SECURITY_KEY):
+    method = method.lower()
     full_url = '%s%s' %(data.HOST, url)
-    auth = 'Basic %s' %security
-    req = urllib2.Request(full_url)
-    req.add_header('Authorization', auth)
-    if parameter != None:
-        req.add_data(urllib.urlencode(parameter))
-    if method == 'DELETE':
-        req.get_method = lambda: 'DELETE'
-    response = urllib2.urlopen(req)
+    header = {
+              'Authorization':  security,
+              #'Content-type':   'application/json'
+             }
+    response = getattr(requests, method)(full_url, params=parameter, json=DATA, headers=header)
     return response
     
-                             
-def generate_test_demo(billing=True, 
-    country=data.INDIA, bg_unit=data.MG_DL, 
-    height_unit=data.CM, validity=12, 
+def generate_security_key(username, password):
+    auth_hash = base64.b64encode(b'%s:%s' % (username, password)).decode('ascii')
+    auth_hash = "Basic %s" %auth_hash
+    return auth_hash
+    
+def generate_test_demo(billing=True,
+    country=data.INDIA, bg_unit=data.MG_DL,
+    height_unit=data.CM, validity=12,
     language=data.ENGLISH, demo_conf=data.DEMO_TEST
 ):
     demo_data = {
@@ -38,9 +37,9 @@ def generate_test_demo(billing=True,
         'notes':            'abc'
     }
     
-    demo_conf = request_interface('/api/v1/demo.json', 'POST', parameter=demo_data)
-    assert (demo_conf.code == 200)
-    demo_conf = eval(demo_conf.read())
+    demo_conf = request_interface('/api/v1/demo.json', 'POST', DATA=demo_data)
+    assert (demo_conf.status_code == 200)
+    demo_conf = eval(demo_conf.text)
     # Grab the password
     assert 'key' in demo_conf
     assert 'id' in demo_conf
@@ -50,11 +49,7 @@ def delete_test_demo(demo_id):
     demo_id = str(demo_id)
     url = '/api/v1/demo/%s.json' %demo_id
     response = request_interface(url, 'DELETE')
-    assert (response.code == 204)
-    
-def generate_security_key(username, password):
-    auth_hash = base64.b64encode(b'%s:%s' % (username, password)).decode('ascii')
-    return auth_hash
+    assert (response.status_code == 204)
     
 def enroll_new_staff(name, email, practice_id, security_key, role='0', language='en', is_practice_admin='true'):
     staff_data = {
@@ -65,9 +60,14 @@ def enroll_new_staff(name, email, practice_id, security_key, role='0', language=
         'is_practice_admin':    is_practice_admin,
         'practice_id':          practice_id,
     }
-    staff_conf = request_interface('/api/v1/gurus.json', 'POST', parameter=staff_data, security=security_key)
-    assert (staff_conf.code == 201)
+    staff_conf = request_interface('/api/v1/gurus.json', 'POST', DATA=staff_data, security=security_key)
+    assert (staff_conf.status_code == 201)
 
+def get_staff_invitation_email(security_key):
+    staff_email = request_interface('/slave/invitations', 'GET', security=security_key)
+    assert (staff_email.status_code == 200)
+    staff_email = json.loads(staff_email.text)
+    return staff_email
     
 demo_data = generate_test_demo()
 demo_data1 = generate_test_demo()
