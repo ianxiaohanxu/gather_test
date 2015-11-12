@@ -100,7 +100,6 @@ class Sign_up(Case):
         self.assertEqual(data.EM_DM_SIGN_IN_NOT_REGISTER_EMAIL, self.phone.text(data.DM_AND_SIGN_IN_ERROR))
 
         self.phone.clear(data.DM_AND_SIGN_IN_FIELD)
-        #self.phone.enter(mobile_setup.patient_clean['email'], data.DM_AND_SIGN_IN_FIELD)
         self.phone.enter(mobile_setup.patient_clean['email'], data.DM_AND_SIGN_IN_FIELD)
         self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
         self.phone.verify(data.DM_AND_PASSWORD_TITLE)

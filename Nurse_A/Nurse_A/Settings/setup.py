@@ -51,17 +51,17 @@ def delete_test_demo(demo_id):
     response = request_interface(url, 'DELETE')
     assert (response.status_code == 204)
     
-def enroll_new_staff(name, email, practice_id, security_key, role='0', language='en', is_practice_admin='true'):
+def enroll_new_staff(name, email, practice_id, security_key, role='0', language='en', is_practice_admin=True):
     staff_data = {
         'name':                 name,
         'email':                email,
         'role':                 role,
         'language':             language,
         'is_practice_admin':    is_practice_admin,
-        'practice_id':          practice_id,
+        'practice_id':          "%d" %practice_id,
     }
     staff_conf = request_interface('/api/v1/gurus.json', 'POST', DATA=staff_data, security=security_key)
-    assert (staff_conf.status_code == 201)
+    assert (staff_conf.status_code == 201), 'Respones status code is %s' %staff_conf.status_code
 
 def get_staff_invitation_email(security_key):
     staff_email = request_interface('/slave/invitations', 'GET', security=security_key)
