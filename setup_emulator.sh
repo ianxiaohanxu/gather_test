@@ -15,6 +15,6 @@ if [[ $(uname -s)=='Darwin' ]]; then
 fi
 
 # Verify emulators available
-#sleep 5
-(( $(adb devices | grep -c device)==3 )) && echo 'Emulators available now.'
+sleep 10
+(( $(adb devices | grep -c device$)==2 )) || exit 1
 

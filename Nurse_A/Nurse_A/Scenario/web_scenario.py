@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import base64
+import base64, random
 import requests, urllib2, urllib
 import simplejson as json
 from selenium import webdriver
@@ -17,7 +17,7 @@ from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import NoSuchWindowException
 from time import sleep, time, localtime
 from Nurse_A.Platform.web import Web
-from Nurse_A.Settings import data
+from Nurse_A.Settings import data, setup
 
 
 class WEB(Web):
@@ -38,8 +38,8 @@ class WEB(Web):
         
     def generate_info(self):
         # Generate first name, last name, email, cell number
-        TIME_STRING = str(int(time()))
-        SURNAME = 'test' + TIME_STRING
+        RAND_STRING = str(int(time())) + str(random.randint(0,1000))
+        SURNAME = 'test' + RAND_STRING
         GIVENAME = 'test'
         EMAIL = SURNAME + '@test.com'
         CELL_NUM_US = '1234567890'
@@ -81,98 +81,51 @@ class WEB(Web):
             self.verify(data.PR_LOGIN_FORGOT_PASSWORD, 20)
             
     def generate_security_key(self, username, password):
-        auth_hash = base64.b64encode(b'%s:%s' % (username, password)).decode('ascii')
-        return auth_hash
+        return setup.generate_security_key(username, password)
 
-    def request_interface(self, url, method, parameter=None, security=data.SECURITY_KEY):
-        method = method.upper()
-        if method not in ['GET', 'POST', 'DELETE']:
-            raise Exception('Method %s not yet supported.' % method)
-        full_url = '%s%s' %(data.HOST, url)
-        auth = 'Basic %s' %security
-        req = urllib2.Request(full_url)
-        req.add_header('Authorization', auth)
-        if parameter != None:
-            req.add_data(urllib.urlencode(parameter))
-        if method == 'DELETE':
-            req.get_method = lambda: 'DELETE'
-        response = urllib2.urlopen(req)
+    def request_interface(self, url, method, parameter=None, DATA=None, security=data.SECURITY_KEY):
+        response = setup.request_interface(url, method, parameter=parameter, DATA=DATA, security=security)
         return response
         
-                                 
     def generate_test_demo(self, billing=True, 
         country=data.INDIA, bg_unit=data.MG_DL, 
         height_unit=data.CM, validity=12, 
         language=data.ENGLISH, demo_conf=data.DEMO_TEST
     ):
-        demo_data = {
-            'doctor_name':      'doctor_test',
-            'nurse_name':       'nurse_test',
-            'bg_units':         bg_unit,
-            'height_units':     height_unit,
-            'language_code':    language,
-            'country':          country,
-            'period':           validity,
-            'data':             demo_conf,
-            'billing_enabled':  billing,
-            'notes':            'abc'
-        }
-        
-        demo_conf = self.request_interface('/api/v1/demo.json', 'POST', parameter=demo_data)
-        assert (demo_conf.code == 200)
-        demo_conf = eval(demo_conf.read())
-        # Grab the password
-        assert 'key' in demo_conf
-        assert 'id' in demo_conf
-        return demo_conf['key'], demo_conf['id']
+        return setup.generate_test_demo(billing=billing, country=data.INDIA, bg_unit=data.MG_DL, height_unit=data.CM, validity=validity, language=language, demo_conf=demo_conf)
         
     def enroll_new_staff(self, name, email, 
         practice_id, security_key, role='0', 
         language='en', is_practice_admin='true'
     ):
-        staff_data = {
-            'name':                 name,
-            'email':                email,
-            'role':                 role,
-            'language':             language,
-            'is_practice_admin':    is_practice_admin,
-            'practice_id':          practice_id,
-        }
-        staff_conf = self.request_interface('/api/v1/gurus.json', 'POST', parameter=staff_data, security=security_key)
-        assert (staff_conf.code == 201)
-        
+        setup.enroll_new_staff(name=name, email=email, practice_id=practice_id, security_key=security_key, role=role, language=language, is_practice_admin=is_practice_admin)
+
     def get_staff_invitation_email(self, security_key):
-        staff_email = self.request_interface('/slave/invitations', 'GET', security=security_key)
-        assert (staff_email.code == 200)
-        staff_email = eval(staff_email.read())
-        return staff_email
-        
-    def create_new_practice(self, billing=True, 
-        country=data.INDIA, language=data.ENGLISH, 
-        role='0',
-    ):
-        INFO = self.generate_info()
-        practice_data = {
-            'admin_name':       'Alex',
-            'admin_email':      INFO['email'],
-            'practice_name':    INFO['surname'],
-            'language':         language,
-            'country':          country,
-            'billing_enabled':  billing,
-            'role':             role,
-        }
-        
-        practice_conf = self.request_interface('/api/v1/practices.json', 'POST', parameter=practice_data)
-        assert (practice_conf.code == 200)
-        practice_conf = eval(practice_conf.read())
+        return setup.get_staff_invitation_email(security_key)
+
+    #def create_new_practice(self, billing=True, 
+    #    country=data.INDIA, language=data.ENGLISH, 
+    #    role='0',
+    #):
+    #    INFO = self.generate_info()
+    #    practice_data = {
+    #        'admin_name':       'Alex',
+    #        'admin_email':      INFO['email'],
+    #        'practice_name':    INFO['surname'],
+    #        'language':         language,
+    #        'country':          country,
+    #        'billing_enabled':  billing,
+    #        'role':             role,
+    #    }
+    #    
+    #    practice_conf = self.request_interface('/api/v1/practices.json', 'POST', DATA=practice_data)
+    #    assert (practice_conf.status_code == 200)
+    #    practice_conf = eval(practice_conf.text)
         
     def delete_test_demo(self, demo_id):
-        demo_id = str(demo_id)
-        url = '/api/v1/demo/%s.json' %demo_id
-        response = self.request_interface(url, 'DELETE')
-        assert (response.code == 204)
-                                 
-    def create_new_patient(self, email=None):
+        setup.delete_test_demo(demo_id=demo_id)
+
+    def create_new_patient(self, email=None, bg_goal=None, med_goal=None):
         # Create a new patient
         self.driver.get(self.HOMEPAGE)
         # If an alert pops up, accept it.
@@ -191,18 +144,33 @@ class WEB(Web):
         self.click(data.PR_ADD_PATIENT_APP_PATIENT)
         self.verify(data.PR_ADD_PATIENT_EMAIL)
         if email is None:
-            self.enter(INFO['email'], data.PR_ADD_PATIENT_EMAIL)
-        else:
-            self.enter(email, data.PR_ADD_PATIENT_EMAIL)
+            email = INFO['email']
+        self.enter(email, data.PR_ADD_PATIENT_EMAIL)
         self.select('en', data.PR_ADD_PATIENT_LANGUAGE)
         if self.is_element_present(data.PR_ADD_PATIENT_PREMIUM_TRIAL):
             self.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
         self.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
+        self.verify(data.PR_ADD_PATIENT_PATIENT_TYPE)
+        self.select('1', data.PR_ADD_PATIENT_PATIENT_TYPE)
+        self.driver.execute_script('document.getElementsByName("diagnosis_date")[0].value="2010-01-01"')
+        self.enter('abc', data.PR_ADD_PATIENT_PATIENT_NOTES)
+        self.select('80', data.PR_ADD_PATIENT_PRE_LOWER_LIMIT)
+        self.select('140', data.PR_ADD_PATIENT_PRE_UPPER_LIMIT)
+        self.select('80', data.PR_ADD_PATIENT_POST_LOWER_LIMIT)
+        self.select('140', data.PR_ADD_PATIENT_POST_UPPER_LIMET)
+        if bg_goal != None:
+            for item in bg_goal:
+                self.verify(item)
+                self.click(item)
+        if  med_goal != None:
+            self.verify(data.PR_ADD_PATIENT_MED_GOALS_BUTTON)
+            self.click(data.PR_ADD_PATIENT_MED_GOALS_BUTTON)
+            self.add_med_goals(med_goal)
         self.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)
         self.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
         self.verify(data.PR_PATIENT_RECORD_ID, 20)
         ID = self.text(data.PR_PATIENT_RECORD_ID)
-        return INFO['email'], ID
+        return email, ID
         
     def create_new_EHR_patient(self):
         # Create a new EHR patient
