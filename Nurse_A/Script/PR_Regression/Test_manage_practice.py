@@ -118,15 +118,6 @@ class Manage_practice(Case):
         self.pr.click(data.PR_NAV_OPTION_MENU)
         self.pr.click(data.PR_NAV_OPTION_MENU_FIRST_PRACTICE)
         self.pr.verify(data.PR_MANAGE_PRACTICE_TITLE)
-        # Update critical BG range with unit mg/dL
-        self.pr.select(data.MG_DL, data.PR_MANAGE_PRACTICE_BG_UNIT)
-        self.pr.verify(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG)
-        self.pr.select('90', data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MG)
-        self.pr.select('300', data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG)
-        self.pr.click(data.PR_MANAGE_PRACTICE_SAVE_BUTTON)
-        self.pr.verify(data.PR_MANAGE_PRACTICE_SAVE_SUCCESS)
-        self.assertTrue('90' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MG))
-        self.assertTrue('300' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG))
         # Update critical BG range with unit mmol/L
         self.pr.select(data.MMO_L, data.PR_MANAGE_PRACTICE_BG_UNIT)
         self.pr.verify(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MMO)
@@ -136,6 +127,15 @@ class Manage_practice(Case):
         self.pr.verify(data.PR_MANAGE_PRACTICE_SAVE_SUCCESS)
         self.assertTrue('3.0' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MMO))
         self.assertTrue('20.0' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MMO))
+        # Update critical BG range with unit mg/dL
+        self.pr.select(data.MG_DL, data.PR_MANAGE_PRACTICE_BG_UNIT)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG)
+        self.pr.select('90', data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MG)
+        self.pr.select('300', data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG)
+        self.pr.click(data.PR_MANAGE_PRACTICE_SAVE_BUTTON)
+        self.pr.verify(data.PR_MANAGE_PRACTICE_SAVE_SUCCESS)
+        self.assertTrue('90' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_LOW_MG))
+        self.assertTrue('300' in self.pr.text(data.PR_MANAGE_PRACTICE_CRITICAL_UPPER_MG))
         
     def test_urgent_update_practice_number(self):
         '''
