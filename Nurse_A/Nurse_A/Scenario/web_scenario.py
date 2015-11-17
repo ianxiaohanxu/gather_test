@@ -486,6 +486,7 @@ class WEB(Web):
         # Do validation check for different cell number (e.g. for US, country code is 1, length is 10)
         number, short_number, long_number, letter_number = self.generate_number(length)
         self.select(country_code, country_field)
+        self.enter(number, input_field)
         self._number_validation(short_number, length, input_field, error_area, the_button, the_second_button)
         self._number_validation(long_number, length, input_field, error_area, the_button, the_second_button)
         self._number_validation(letter_number, length, input_field, error_area, the_button, the_second_button)
