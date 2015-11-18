@@ -1,6 +1,6 @@
 # Install all below modules to be able to run the tests.
 
-selenium
+selenium==2.47.1
 requests
 simplejson
 Appium-Python-Client
