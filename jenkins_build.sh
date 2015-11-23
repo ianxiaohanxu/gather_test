@@ -24,7 +24,7 @@ export DISPLAY=:98
 
 # Run test scripts
 pushd Nurse_A/Script/Suites
-python PR_R_U.py
+python PR_R_A.py
 # python Nurse_A/Script/PR_Regression/Test_account_settings.py
 popd
 

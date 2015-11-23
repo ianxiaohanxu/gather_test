@@ -22,5 +22,5 @@ popd
 # Run test scripts
 pushd Nurse_A/Script/Suites
 rm -rf ../reports/*
-python PR_R_U.py
+python PR_R_A.py
 
