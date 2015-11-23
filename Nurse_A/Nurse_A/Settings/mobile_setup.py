@@ -4,21 +4,6 @@ import data, setup
 import datetime, random
 import simplejson as json
 from time import sleep, time
-import Nurse_A.Scenario.android_scenario
-
-'''
-Rewrite this method to set_server automatically
-'''
-def set_server(server='http://192.168.0.135:8000' , PORT=4723):
-    phone = Nurse_A.Scenario.android_scenario.ANDROID(PORT=PORT)
-    phone.verify(data.DM_AND_WELCOME_ENTER)
-    phone.press('Back')
-    phone.verify(data.DM_AND_SERVER_ADDRESS)
-    phone.clear(data.DM_AND_SERVER_ADDRESS)
-    phone.enter(server)
-    phone.click(data.DM_AND_SERVER_SUBMIT)
-    phone.verify(data.DM_AND_WELCOME_ENTER)
-    phone.teardown()
 
 def set_bg_goal(goals, patient_id, ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0]):
     security_key = setup.generate_security_key(ACCOUNT, PASSWORD)
@@ -304,4 +289,3 @@ patient_med = get_new_patient_account(name='patient_med', med=0b100, after_sign_
 patient_bg_med = get_new_patient_account(name='patient_bg_med', bg=0b1000000, med=0b100, after_sign_up=True)
 patient_smed = get_new_patient_account(name='patient_smed', med=0b1000, after_sign_up=True)
 
-#set_server()

@@ -121,4 +121,16 @@ class ANDROID(AND):
         self.start_app()
         self.verify(data.DM_AND_GOAL_DATE)
 
+    '''
+    Rewrite this method to set_server automatically
+    '''
+    def set_server(self, server='http://192.168.0.135:8000'):
+        self.verify(data.DM_AND_WELCOME_ENTER)
+        self.press('Back')
+        self.verify(data.DM_AND_SERVER_ADDRESS)
+        self.clear(data.DM_AND_SERVER_ADDRESS)
+        self.enter(server, data.DM_AND_SERVER_ADDRESS)
+        self.click(data.DM_AND_SERVER_SUBMIT)
+        self.verify(data.DM_AND_WELCOME_ENTER)
+        self.teardown()
 

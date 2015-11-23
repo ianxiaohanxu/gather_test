@@ -14,7 +14,7 @@ function setup_emulator(){
     done
     # Verify emulators available
     sleep 60
-    (( $(adb devices | grep -c device$)==2 )) || exit 1
+    (( $(adb devices | grep -c device$)==$# )) || exit 1
 }
 
 function install_apps(){
@@ -46,7 +46,7 @@ function start_appium(){
     done
 }
 
-setup_emulator 4.4.4 5.0.0 || exit 1
-install_apps ~/Desktop/app-debug.apk ~/Desktop/doctor.apk || exit 1
-start_appium
+setup_emulator 4.4.4 || exit 1
+install_apps ~/Desktop/app-debug.apk || exit 1
+start_appium &>/dev/null &
 
