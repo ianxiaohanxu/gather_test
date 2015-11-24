@@ -21,7 +21,7 @@ def generate_security_key(username, password):
     
 def generate_test_demo(billing=True,
     country=data.INDIA, bg_unit=data.MG_DL,
-    height_unit=data.CM, validity=12,
+    height_unit=data.CM, validity=12, branding=data.GH_BRAND,
     language=data.ENGLISH, demo_conf=data.DEMO_TEST
 ):
     demo_data = {
@@ -34,6 +34,7 @@ def generate_test_demo(billing=True,
         'period':           validity,
         'data':             demo_conf,
         'billing_enabled':  billing,
+        'app_branding':     branding,
         'notes':            'abc'
     }
     
@@ -71,12 +72,12 @@ def get_staff_invitation_email(security_key):
     return staff_email
     
 demo_data = generate_test_demo()
-demo_data1 = generate_test_demo()
-demo_data2 = generate_test_demo(country=data.US)
-doctor_account_demo1 = 'doctor-%s@gatherhealth.com' %demo_data1[0]
-doctor_account_demo2 = 'doctor-%s@gatherhealth.com' %demo_data2[0]
-demo2_security = generate_security_key('doctor@gatherhealth.com', demo_data2[0])
-# Enroll demo1 doctor to demo2
-enroll_new_staff('doctor2', doctor_account_demo1, demo_data2[1], demo2_security)
+#demo_data1 = generate_test_demo()
+#demo_data2 = generate_test_demo(country=data.US)
+#doctor_account_demo1 = 'doctor-%s@gatherhealth.com' %demo_data1[0]
+#doctor_account_demo2 = 'doctor-%s@gatherhealth.com' %demo_data2[0]
+#demo2_security = generate_security_key('doctor@gatherhealth.com', demo_data2[0])
+## Enroll demo1 doctor to demo2
+#enroll_new_staff('doctor2', doctor_account_demo1, demo_data2[1], demo2_security)
 
 

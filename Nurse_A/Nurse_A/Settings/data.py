@@ -42,6 +42,9 @@ US                          =   'US'
 CHINA                       =   'CN'
 HK                          =   'HK'
 
+# Branding
+GH_BRAND                    =   'gather-health'
+
 # Language
 ENGLISH                     =   'en'
 SIMPLE_CHINESE              =   'zh-cn'
