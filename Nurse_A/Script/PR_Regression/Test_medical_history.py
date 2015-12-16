@@ -219,7 +219,7 @@ class Medical_history(Case):
                 
     def data_sync_check(self, gender, dob, dia_type, year):
         gender_str = {
-                      '0':'Male', '1':'Female', '2':'Other',
+                      '0':'Male', '1':'Female', '2':'Not specified',
                      }
         type_str = {
                     '0':'Pre-diabetic', '1':'Type 1', '2':'Type 2', '3':'Other', '4':'Gestational',

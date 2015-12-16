@@ -100,19 +100,20 @@ FILTER_EXPIRED              =   'DaysLeft < 0 AND IsOnStudy = \"False\"'
 LAST                        =   '1'
 FIRST                       =   '2'
 MED_ADH                     =   '3'
-BG_CONTROL                  =   '4'
-PRACTICE_NAME               =   '5'
-NEXT_APPT                   =   '6'
-LAST_APPT                   =   '7'
-STATUS                      =   '8'
-LAST_BG                     =   '9'
-LAST_CONTACT                =   '10'
-JOINED                      =   '11'
-SUBSCRIPTION                =   '12'
-EXPIRES                     =   '13'
-TYPE                        =   '14'
-A1C                         =   '15'
-AGE                         =   '16'
+SMBG_ADH                    =   '4'
+BG_CONTROL                  =   '5'
+PRACTICE_NAME               =   '6'
+NEXT_APPT                   =   '7'
+LAST_APPT                   =   '8'
+STATUS                      =   '9'
+LAST_BG                     =   '10'
+LAST_CONTACT                =   '11'
+JOINED                      =   '12'
+SUBSCRIPTION                =   '13'
+EXPIRES                     =   '14'
+TYPE                        =   '15'
+A1C                         =   '16'
+AGE                         =   '17'
 
 # Sign up steps name
 SIGN_UP_CONFIRM_INFO        =   'Confirm info'
@@ -702,7 +703,7 @@ PR_DIRECTORY_FIRST_PATIENT                  =   '//table[@id="directory_table"]/
 PR_DIRECTORY_PATIENT_ENTRY                  =   'a[href="/provider/patient/%s"]'
 PR_DIRECTORY_PATIENT_DELETE                 =   '//tr/td/a[@href="/provider/patient/%s"]/../../td[last()]/a'
 PR_DIRECTORY_PATIENT_NEXT_APPT              =   '//tr/td/a[@href="/provider/patient/%s"]/../..//div[@class="appointments add button blue"]'
-PR_DIRECTORY_PATIENT_LAST_APPT              =   '//tr/td/a[@href="/provider/patient/%s"]/../../td[6]'
+PR_DIRECTORY_PATIENT_LAST_APPT              =   '//tr/td/a[@href="/provider/patient/%s"]/../../td[7]'
 PR_DIRECTORY_LAST_NAME                      =   '#directory_table>tbody>tr>td:nth-child(%s)>a' %LAST
 PR_DIRECTORY_FIRST_NAME                     =   '#directory_table>tbody>tr>td:nth-child(%s)>a' %FIRST
 PR_DIRECTORY_MED_ADH                        =   '#directory_table>tbody>tr>td:nth-child(%s)' %MED_ADH
@@ -1024,9 +1025,164 @@ DM_AND_TUTORIAL_NEXT_BUTTON_4               =   'nextStep4'
 # Medication change confirmation page
 DM_AND_MED_CHANGE_DECLINE_BUTTON            =   'medconf_decline_button'
 DM_AND_MED_CHANGE_CONFIRM_BUTTON            =   'medconf_continue_button'
+DM_AND_MED_CHANGE_MED_INFO                  =   'insulin_line_text'
 
 # Goals list page
 DM_AND_GOAL_DATE                            =   'dateInfo'
+DM_AND_GOAL_STATE_INFO                      =   'goalStateInfo'
+DM_AND_GOAL_PREVIOUS_DAY_BTN                =   'button_prev'
+DM_AND_GOAL_NEXT_DAY_BTN                    =   'button_next'
+DM_AND_GOAL_LAST_DAY_BTN                    =   'button_last'
+DM_AND_GOAL_EMPTY_MESSAGE                   =   'txtErrorMsg'
+EM_AND_GOAL_EMPTY_MESSAGE                   =   "Your doctor hasn't added any goals yet.\n\nYou can ask your doctor about this in Chat.\n"
+DM_AND_GOAL_GO_TO_CHAT_BTN                  =   'btnGoToChat'
+DM_AND_GOAL_SAD_FACE                        =   'imgHeadPortrait'
+DM_AND_GOAL_LIST                            =   'goalsList'
+DM_AND_GOAL_ITEM                            =   'goalrow_view_frame'
+DM_AND_GOAL_GROUP_TIME                      =   'groupDataBox'
+DM_AND_GOAL_GROUP_TIME_TEXT                 =   'groupName'
+DM_AND_GOAL_UNCOMPLETED_STATUS              =   'goalrow_status_uncompleted'
+DM_AND_GOAL_COMPLETED_STATUS                =   'goalrow_status_completed'
+DM_AND_GOAL_HINT_LOG_EDIT                   =   'goalrow_edit_log_text'
+DM_AND_GOAL_NAME                            =   'goalrow_subtext'
+DM_AND_GOAL_DOSAGE_OR_UNIT                  =   'goalrow_info'
+DM_AND_GOAL_VALUE                           =   'goalrow_bg'
+DM_AND_GOAL_SELF_LOG_HINT                   =   'goalrow_edit_log_text_self_log'
+
+# BG edit page
+DM_AND_GOAL_EDIT_DATE                       =   'entry_date_tv'
+DM_AND_GOAL_EDIT_MEAL_TIME                  =   'entry_when_ms'
+DM_AND_GOAL_EDIT_MEAL_TIME_TEXT             =   '//android.widget.Spinner[@resource-id="com.gatherhealth.gatherdm:id/entry_when_ms"]/android.widget.TextView'
+DM_AND_GOAL_EDIT_TIME                       =   'entry_time_tv'
+DM_AND_GOAL_EDIT_MED_NAME                   =   '//android.widget.Spinner[@resource-id="com.gatherhealth.gatherdm:id/entry_med_ms"]/android.widget.TextView'
+DM_AND_GOAL_EDIT_VALUE_FIELD                =   'entry_reading_et'
+DM_AND_GOAL_EDIT_UNIT                       =   'entry_reading_unit_tv'
+DM_AND_GOAL_EDIT_LOG_BTN                    =   'submit_btn'
+DM_AND_GOAL_EDIT_DELETE_BTN                 =   'delete_btn'
+DM_AND_GOAL_EDIT_DATE_PREVIEW               =   'alertTitle'
+DM_AND_GOAL_EDIT_DATE_MONTH                 =   DM_AND_PERSONAL_INFO_DATE_MONTH
+DM_AND_GOAL_EDIT_DATE_DAY                   =   DM_AND_PERSONAL_INFO_DATE_DAY
+DM_AND_GOAL_EDIT_DATE_YEAR                  =   DM_AND_PERSONAL_INFO_DATE_YEAR
+DM_AND_GOAL_EDIT_DATE_CANCEL_BTN            =   'button2'
+DM_AND_GOAL_EDIT_DATE_SET_BTN               =   DM_AND_PERSONAL_INFO_DATE_SET_BTN
+DM_AND_GOAL_EDIT_MEAL_TIME_PRE_BRK          =   'Pre-breakfast'
+DM_AND_GOAL_EDIT_MEAL_TIME_POST_BRK         =   'Post-breakfast'
+DM_AND_GOAL_EDIT_MEAL_TIME_PRE_LUN          =   'Pre-lunch'
+DM_AND_GOAL_EDIT_MEAL_TIME_POST_LUN         =   'Post-lunch'
+DM_AND_GOAL_EDIT_MEAL_TIME_PRE_DIN          =   'Pre-dinner'
+DM_AND_GOAL_EDIT_MEAL_TIME_POST_DIN         =   'Post-dinner'
+DM_AND_GOAL_EDIT_MEAL_TIME_NIGHT            =   'Night'
+DM_AND_GOAL_EDIT_MEAL_TIME_OTHER            =   'Other'
+DM_AND_GOAL_EDIT_TIME_PREVIEW               =   'alertTitle'
+DM_AND_GOAL_EDIT_TIME_HOUR                  =   DM_AND_SET_MEALTIME_HOUR
+DM_AND_GOAL_EDIT_TIME_MINUTE                =   DM_AND_SET_MEALTIME_MINUTE
+DM_AND_GOAL_EDIT_TIME_APM                   =   DM_AND_SET_MEALTIME_APM
+DM_AND_GOAL_EDIT_TIME_CANCEL_BTN            =   DM_AND_GOAL_EDIT_DATE_CANCEL_BTN
+DM_AND_GOAL_EDIT_TIME_SET_BTN               =   DM_AND_PERSONAL_INFO_DATE_SET_BTN
+DM_AND_GOAL_EDIT_LOW_BG_ALERT_TITLE         =   'alertTitle'
+DM_AND_GOAL_EDIT_LOW_BG_ALERT_MESSAGE       =   'message'
+DM_AND_GOAL_EDIT_LOW_BG_ALERT_CANCEL_BTN    =   'button2'
+DM_AND_GOAL_EDIT_LOW_BG_ALERT_LOG_BTN       =   'button1'
+VALUE_AND_GOAL_EDIT_LOW_BG_ALERT_MESSAGE    =   'You have entered a blood sugar of %s. This is a very low reading. Please make sure this value is correct before submitting.'
+VALUE_AND_GOAL_EDIT_LOW_BG_ALERT_TITLE      =   'Is this value correct?'
+DM_AND_GOAL_EDIT_HIGH_BG_ALERT_TITLE        =   'alertTitle'
+DM_AND_GOAL_EDIT_HIGH_BG_ALERT_MESSAGE      =   'message'
+DM_AND_GOAL_EDIT_HIGH_BG_ALERT_CANCEL_BTN   =   'button2'
+DM_AND_GOAL_EDIT_HIGH_BG_ALERT_LOG_BTN      =   'button1'
+VALUE_AND_GOAL_EDIT_HIGH_BG_ALERT_MESSAGE   =   'You have entered a blood sugar of %s. This is a very high reading. Please make sure this value is correct before submitting.'
+VALUE_AND_GOAL_EDIT_HIGH_BG_ALERT_TITLE     =   'Is this value correct?'
+DM_AND_GOAL_EDIT_SURVEY_WHY                 =   'survey_why_tv'
+VALUE_AND_GOAL_EDIT_SURVEY_WHY_HIGH         =   'Why is your reading high?'
+VALUE_AND_GOAL_EDIT_SURVEY_WHY_LOW          =   'Why is your reading low?'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_1       =   'I ate a large portion'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_2       =   'I ate sugary food'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_3       =   'I ate a high carb meal'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_4       =   'I ate some new food'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_5       =   'I ate early'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_6       =   'I ate less than usual'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_7       =   'I skipped a meal'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_8       =   'I ate late'
+DM_AND_GOAL_EDIT_SURVEY_REASON_MED_1        =   'Too little medication'
+DM_AND_GOAL_EDIT_SURVEY_REASON_MED_2        =   'Incorrect med dosage'
+DM_AND_GOAL_EDIT_SURVEY_REASON_MED_3        =   'Forgot to take medication'
+DM_AND_GOAL_EDIT_SURVEY_REASON_MED_4        =   'Too much medication'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_1       =   'Feeling excited'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_2       =   'Feeling happy'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_3       =   'Feeling upset'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_4       =   'Feeling stressed out'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_5       =   'Feeling anxious'
+DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_6       =   'Feeling ill'
+DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_1       =   'Too little exercise'
+DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_2       =   'New exercise'
+DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_3       =   'Too much exercise'
+DM_AND_GOAL_EDIT_SURVEY_HIGH_REASONS        =   [
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_1, DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_2,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_3, DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_4,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_5, DM_AND_GOAL_EDIT_SURVEY_REASON_MED_1,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_MED_2, DM_AND_GOAL_EDIT_SURVEY_REASON_MED_3,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_1, DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_2,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_3, DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_4,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_5, DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_6,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_1, DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_2,
+                                                ]
+DM_AND_GOAL_EDIT_SURVEY_LOW_REASONS         =   [
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_6, DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_7,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_4, DM_AND_GOAL_EDIT_SURVEY_REASON_FOOD_8,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_MED_4, DM_AND_GOAL_EDIT_SURVEY_REASON_MED_2,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_1, DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_2,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_3, DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_4,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_5, DM_AND_GOAL_EDIT_SURVEY_REASON_FEEL_6,
+                                                DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_3, DM_AND_GOAL_EDIT_SURVEY_REASON_EXEC_2,
+                                                ]
+
+# Edit BP page
+DM_AND_BP_EDIT_DATE                         =   DM_AND_GOAL_EDIT_DATE
+DM_AND_BP_EDIT_TIME                         =   DM_AND_GOAL_EDIT_TIME
+DM_AND_BP_EDIT_SYSTOLIC_FIELD               =   DM_AND_GOAL_EDIT_VALUE_FIELD
+DM_AND_BP_EDIT_SYSTOLIC_UNIT                =   DM_AND_GOAL_EDIT_UNIT
+DM_AND_BP_EDIT_DIASTOLIC_FIELD              =   'entry_reading2_et'
+DM_AND_BP_EDIT_DISSTOLIC_UNIT               =   'entry_reading_unit2_tv'
+DM_AND_BP_EDIT_LOG_BTN                      =   DM_AND_GOAL_EDIT_LOG_BTN
+DM_AND_BP_EDIT_DELETE_BTN                   =   DM_AND_GOAL_EDIT_DELETE_BTN
+DM_AND_BP_EDIT_ABNORMAL_ALERT_TITLE         =   'alertTitle'
+DM_AND_BP_EDIT_ABNORMAL_ALERT_MESSAGE       =   'message'
+DM_AND_BP_EDIT_ABNORMAL_ALERT_CANCEL_BTN    =   'button2'
+DM_AND_BP_EDIT_ABNORMAL_ALERT_LOG_BTN       =   'button1'
+VALUE_AND_BP_EDIT_ABNORMAL_ALERT_TITLE      =   'Is this value correct?'
+VALUE_AND_BP_EDIT_ABNORMAL_ALERT_MESSAGE    =   'You have entered a blood pressure of %s. This is a very abnormal reading. Please make sure this value is correct before submitting.'
+DM_AND_BP_EDIT_REVERSE_ALERT_TITLE          =   'alertTitle'
+DM_AND_BP_EDIT_REVERSE_ALERT_MESSAGE        =   'message'
+DM_AND_BP_EDIT_REVERSE_ALERT_CANCEL_BTN     =   'button2'
+DM_AND_BP_EDIT_REVERSE_ALERT_LOG_BTN        =   'button1'
+VALUE_AND_BP_EDIT_REVERSE_ALERT_TITLE       =   'Is this value correct?'
+VALUE_AND_BP_EDIT_REVERSE_ALERT_MESSAGE     =   'Your diastolic reading is higher than your systolic reading. Are you sure you want to log this measurement?'
+
+# Edit weight page
+DM_AND_WEIGHT_EDIT_DATE                     =   DM_AND_GOAL_EDIT_DATE
+DM_AND_WEIGHT_EDIT_TIME                     =   DM_AND_GOAL_EDIT_TIME
+DM_AND_WEIGHT_EDIT_FIELD                    =   DM_AND_GOAL_EDIT_VALUE_FIELD
+DM_AND_WEIGHT_EDIT_UNIT                     =   DM_AND_GOAL_EDIT_UNIT
+DM_AND_WEIGHT_EDIT_LOG_BTN                  =   DM_AND_GOAL_EDIT_LOG_BTN
+DM_AND_WEIGHT_EDIT_DELETE_BTN               =   DM_AND_GOAL_EDIT_DELETE_BTN
+
+# Bottom buttons
+DM_AND_BOTTOM_GOALS                         =   'main_button0_box'
+DM_AND_BOTTOM_CHAT                          =   'main_button1_box'
+DM_AND_BOTTOM_GAMES                         =   'main_button5_box'
+DM_AND_BOTTOM_DATA                          =   'main_button2_box'
+DM_AND_BOTTOM_LOG                           =   'main_button3_box'
+
+# Self log menu
+DM_AND_SELF_LOG_TITLE                       =   'add_title'
+DM_AND_SELF_LOG_CLOSE                       =   'log_close_rl'
+DM_AND_SELF_LOG_BG                          =   'addBG'
+DM_AND_SELF_LOG_MED                         =   'addMed'
+DM_AND_SELF_LOG_BP                          =   'addBP'
+DM_AND_SELF_LOG_WEIGHT                      =   'weight_tv'
+
+# Chat page
+DM_AND_CHAT_FIELD                           =   'chat_compose'
+DM_AND_CHAT_SEND_BTN                        =   'chat_send'
 
 # Options menu
 DM_AND_OPTIONS_MENU_BTN                     =   'home'
