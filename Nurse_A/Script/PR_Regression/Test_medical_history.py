@@ -219,7 +219,7 @@ class Medical_history(Case):
                 
     def data_sync_check(self, gender, dob, dia_type, year):
         gender_str = {
-                      '0':'Male', '1':'Female', '2':'Not specified',
+                      '0':'Male', '1':'Female', '2':'Gender N/A',
                      }
         type_str = {
                     '0':'Pre-diabetic', '1':'Type 1', '2':'Type 2', '3':'Other', '4':'Gestational',
@@ -243,10 +243,7 @@ class Medical_history(Case):
         self.pr.verify(data.PR_INFO_PATIENT_DATA)
         patient_info = self.pr.text(data.PR_INFO_PATIENT_DATA)
         patient_info = patient_info.split(',')
-        if gender == '2':
-            self.assertTrue('N/A' in patient_info[0])
-        else:
-            self.assertTrue(gender_str[gender] in patient_info[0])
+        self.assertTrue(gender_str[gender] in patient_info[0])
         self.assertTrue(age in patient_info[1])
         self.assertTrue(type_str[dia_type] in patient_info[2])
         if dia_type != '3':
