@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from time import sleep, time
+from time import sleep, time, strftime
+import commands
 from appium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.touch_action import TouchAction
@@ -15,6 +16,30 @@ class MOB(object):
             self.driver.quit()
         else:
             return
+
+    def scroll_action(self, action, direction=0, times=5):
+        # Do the "action", if failed, scroll the screen at the "direction", and do it again.
+        # Max scroll time is "times"
+        # "direction":
+        #       0: scroll up
+        #       1: scroll down
+        #       2: scroll right
+        #       3: scroll left
+        while(times>0):
+            try:
+                result = action()
+                return result
+            except:
+                if direction==0:
+                    self.swipe_up()
+                elif direction==1:
+                    self.swipe_down()
+                elif direction==2:
+                    self.swipe_right()
+                elif direction==3:
+                    self.swipe_left()
+                times-=1
+        raise NoSuchElementException
 
     def click(self, what, count = 1):
         # Click an element, for double-click, just pass in count=2
@@ -99,6 +124,10 @@ class MOB(object):
         # Vertically swipe
         self.swipe(self.X/2, start_y, self.X/2, end_y)
 
+    def hswipe(self, start_x=None, end_x=None):
+        # Horizontal swipe
+        self.swipe(start_x, self.Y/2, end_x, self.Y/2)
+
     def swipe_up(self):
         # Vertically swipe up
         start_y = self.Y/2 + self.Y/5
@@ -110,6 +139,18 @@ class MOB(object):
         start_y = self.Y/2 - self.Y/5
         end_y = self.Y/2 + self.Y/5
         self.vswipe(start_y, end_y)
+
+    def swipe_right(self):
+        # Horizontal swipe right
+        start_x = self.X/2 - self.X/5
+        end_x = self.X/2 + self.X/5
+        self.hswipe(start_x, end_x)
+
+    def swipe_left(self):
+        # Horizontal swipe left
+        start_x = self.X/2 + self.X/5
+        end_x = self.X/2 - self.X/5
+        self.hswipe(start_x, end_x)
 
     def zoom_in(self, element = None, percent = 200, steps = 50):
         # Zoom in
@@ -199,4 +240,11 @@ class MOB(object):
     def wait_until_not_present(self, element):
         # Wait until element not present
         self.wait_until_not(lambda: self.is_element_present(element))
+
+    def hide_keyboard(self):
+        # Just hide soft keyboard
+        try:
+            self.driver.hide_keyboard()
+        except:
+            return
 

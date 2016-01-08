@@ -874,31 +874,28 @@ PR_LOGIN_FORGOT_PASSWORD                    =   '.forgotpw'
 ### Patient App elements
 ## Android
 
-# Welcome page
-DM_AND_WELCOME_ENTER                        =   'intro_skip_button'
-DM_AND_WELCOME_MES_1                        =   'Better health\nin the flow of your life'
-DM_AND_WELCOME_MES_2                        =   'Easy logging of your\nhealth data'
-DM_AND_WELCOME_MES_3                        =   'Friends and family\nkeep you motivated'
-DM_AND_WELCOME_MES_4                        =   'Your doctor and nurse\nsupport you anywhere'
-
 # Sign in page
-DM_AND_SIGN_IN_TITLE                        =   'Sign In'
-DM_AND_SIGN_IN_BACK                         =   'back_rl'
-DM_AND_SIGN_IN_FIELD                        =   'login_email_et'
+#DM_AND_SIGN_IN_TITLE                        =   'Sign In'
+#DM_AND_SIGN_IN_BACK                         =   'back_rl'
+DM_AND_SIGN_IN_LOGO                         =   'logo_iv'
+DM_AND_SIGN_IN_WELCOME                      =   'sign_up_welcome_tv'
+DM_AND_SIGN_IN_HINT                         =   'hint_tv'
+DM_AND_SIGN_IN_NO_SPAM_HINT                 =   'not_spam_tv'
+DM_AND_SIGN_IN_FIELD                        =   'email_et'
 DM_AND_SIGN_IN_ERROR                        =   'error_tv'
 EM_DM_SIGN_IN_INVALID_EMAIL                 =   'Please enter a valid email address.'
-EM_DM_SIGN_IN_NOT_REGISTER_EMAIL            =   "Are you sure you entered the correct e-mail address? We couldn't find this one in our records."
-DM_AND_SIGN_IN_BUTTON                       =   'next_button'
+#EM_DM_SIGN_IN_NOT_REGISTER_EMAIL            =   "Are you sure you entered the correct e-mail address? We couldn't find this one in our records."
+DM_AND_SIGN_IN_BUTTON                       =   'next_btn'
 
 # Enter password page
 DM_AND_PASSWORD_TITLE                       =   'Enter password'
-DM_AND_PASSWORD_BACK                        =   'back_rl'
-DM_AND_PASSWORD_FIELD                       =   'login_pwd_et'
+DM_AND_PASSWORD_BACK                        =   'back_iv'
+DM_AND_PASSWORD_FIELD                       =   'input_pwd_et'
 DM_AND_PASSWORD_ERROR                       =   'error_tv'
 EM_DM_PASSWORD_NOT_MATCH                    =   'The password you entered does not match the e-mail address. Please double-check it.'
 EM_DM_PASSWORD_INVALID_INPUT                =   "Sorry, we can't accept the password you entered. Please use only letters, numbers, and underscores."
-DM_AND_PASSWORD_FORGOT_PW                   =   'login_reset'
-DM_AND_PASSWORD_SIGN_IN_BTN                 =   'next_button'
+DM_AND_PASSWORD_FORGOT_PW                   =   'reset_tv'
+DM_AND_PASSWORD_SIGN_IN_BTN                 =   'next_btn'
 
 # Forgot password dialog
 DM_AND_FORGOT_PW_FIELD                      =   'resetpw_email'
@@ -913,18 +910,27 @@ DM_AND_PW_RESET_SUCCESS_BTN                 =   'button1'
 
 # Set password page
 DM_AND_SET_PASSWORD_TITLE                   =   'Create A Password'
-DM_AND_SET_PASSWORD_BACK                    =   'back_rl'
+DM_AND_SET_PASSWORD_BACK                    =   'back_iv'
 DM_AND_SET_PASSWORD_PASSWORD_FIELD          =   'enter_pwd_et'
 DM_AND_SET_PASSWORD_CONFIRM_FIELD           =   'reenter_pwd_et'
-DM_AND_SET_PASSWORD_FIRST_FIELD_ERROR       =   'pwd_error_tv'
-DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR      =   'repwd_error_tv'
+#DM_AND_SET_PASSWORD_FIRST_FIELD_ERROR       =   'pwd_error_tv'
+#DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR      =   'repwd_error_tv'
+DM_AND_SET_PASSWORD_ERROR                   =   'error_tv'
 EM_DM_SET_PASSWORD_SHORT_ERROR              =   'Please choose a password with a minimum length of 6 characters.'
 EM_DM_SET_PASSWORD_NOT_MATCH                =   'The passwords you entered do not match. Please double-check them.'
-DM_AND_SET_PASSWORD_BUTTON                  =   'next_button'
+DM_AND_SET_PASSWORD_DTC_HINT                =   'dtc_hint_tv'
+DM_AND_SET_PASSWORD_TERM                    =   'terms_tv'
+DM_AND_SET_PASSWORD_BUTTON                  =   'next_btn'
+
+# Terms page
+DM_AND_TERM_TITLE                           =   'alertTitle'
+VALUE_AND_TERM_TITLE                        =   'User Agreement'
+DM_AND_TERM_CONTENT                         =   'content_tv'
+DM_AND_TERM_BUTTON                          =   'button1'
 
 # Personal info page
-DM_AND_PERSONAL_INFO_TITLE                  =   'Personal Info'
-DM_AND_PERSONAL_INFO_BACK                   =   'back_rl'
+DM_AND_PERSONAL_INFO_TITLE                  =   'My Info'
+DM_AND_PERSONAL_INFO_BACK                   =   'back_iv'
 DM_AND_PERSONAL_INFO_COUNTRY_CODE           =   'country_code_ccs'
 DM_AND_PERSONAL_INFO_COUNTRY_CODE_TEXT      =   '//android.widget.RelativeLayout[@resource-id="com.gatherhealth.gatherdm:id/country_code_ccs"]//android.widget.TextView'
 DM_AND_PERSONAL_INFO_COUNTRY_HK             =   'Hong Kong (+852)'
@@ -953,9 +959,18 @@ DM_AND_PERSONAL_INFO_DATE_SET_BTN           =   'button1'
 DM_AND_PERSONAL_INFO_CHOOSE_PHOTO_BUTTON    =   'select_pic_btn'
 DM_AND_PERSONAL_INFO_BUTTON                 =   'next_button'
 
+# Loved one list
+DM_AND_LOVED_ONE_LIST_TITLE                 =   'My Loved Ones'
+DM_AND_LOVED_ONE_LIST_ADD_ICON              =   'actionbar_lo_plus_iv'
+DM_AND_LOVED_ONE_LIST_DESCRIPTION           =   'A Loved One is a family member or a close friend who can support you in managing your diabetes.'
+DM_AND_LOVED_ONE_LIST_ADD_BTN               =   'lo_empty_btn'
+DM_AND_LOVED_ONE_LIST_NAME                  =   'lo_name_tv'
+DM_AND_LOVED_ONE_LIST_PENDING_MARK          =   'pending_mark_tv'
+
 # Loved one info
-DM_AND_LOVED_ONE_TITLE                      =   'Loved One Info'
-DM_AND_LOVED_ONE_BACK                       =   'back_rl'
+DM_AND_LOVED_ONE_ADD_TITLE                  =   'Add a Loved One'
+DM_AND_LOVED_ONE_DELETE_TITLE               =   "Loved One's Info"
+DM_AND_LOVED_ONE_CLOSE_ICON                 =   'close_iv'
 DM_AND_LOVED_ONE_LAST_NAME                  =   'last_name_et'
 DM_AND_LOVED_ONE_FIRST_NAME                 =   'first_name_et'
 DM_AND_LOVED_ONE_EMAIL                      =   'email_et'
@@ -970,57 +985,34 @@ DM_AND_LOVED_ONE_CELL_NUMBER                =   'cell_number_et'
 DM_AND_LOVED_ONE_CELL_ERROR                 =   'lo_cell_error_tv'
 EM_DM_LOVED_ONE_INVALID_NUMBER              =   'Please enter a valid phone number.'
 EM_DM_LOVED_ONE_CONFLICT_NUMBER             =   'You are already using this number as your personal phone number. Please enter a different phone number.'
-DM_AND_LOVED_ONE_NEXT_BUTTON                =   'next_button'
-DM_AND_LOVED_ONE_SKIP_BUTTON                =   'skip_button'
+DM_AND_LOVED_ONE_INVITE_BTN                 =   'invite_btn'
+DM_AND_LOVED_ONE_DELETE_BTN                 =   'delete_btn'
 
-# Set mealtimes page
-DM_AND_SET_MEALTIME_TITLE                   =   'Set Mealtimes'
-DM_AND_SET_MEALTIME_BACK                    =   'back_rl'
-DM_AND_SET_MEALTIME_BRK                     =   'breakfast_ms'
-DM_AND_SET_MEALTIME_BRK_ERROR               =   'breakfast_error_tv'
-EM_DM_SET_MEALTIME_BRK_AFTER_LUN            =   'Breakfast cannot be after lunch.'
-EM_DM_SET_MEALTIME_BRK_AFTER_DIN            =   'Breakfast cannot be after dinner.'
-EM_DM_SET_MEALTIME_BRK_AFTER_NIG            =   'Breakfast cannot be after night.'
-DM_AND_SET_MEALTIME_HOUR                    =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.NumberPicker[1]/android.widget.EditText'
-DM_AND_SET_MEALTIME_MINUTE                  =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.NumberPicker[2]/android.widget.EditText'
-DM_AND_SET_MEALTIME_APM                     =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.NumberPicker/android.widget.EditText'
-DM_AND_SET_MEALTIME_SET_BTN                 =   'button1'
-DM_AND_SET_MEALTIME_LUN                     =   'lunch_ms'
-DM_AND_SET_MEALTIME_LUN_ERROR               =   'lunch_error_tv'
-EM_DM_SET_MEALTIME_LUN_AFTER_DIN            =   'Lunch cannot be after dinner.'
-EM_DM_SET_MEALTIME_LUN_AFTER_NIG            =   'Lunch cannot be after night.'
-DM_AND_SET_MEALTIME_DIN                     =   'dinner_ms'
-DM_AND_SET_MEALTIME_DIN_ERROR               =   'dinner_error_tv'
-EM_DM_SET_MEALTIME_DIN_AFTER_NIG            =   'Dinner cannot be after night.'
-DM_AND_SET_MEALTIME_NIG                     =   'night_ms'
-DM_AND_SET_MEALTIME_NEXT_BUTTON             =   'next_button'
-VALUE_DM_SET_MEALTIME_BRK_IN                =   '8:00 AM'
-VALUE_DM_SET_MEALTIME_LUN_IN                =   '1:30 PM'
-VALUE_DM_SET_MEALTIME_DIN_IN                =   '9:00 PM'
-VALUE_DM_SET_MEALTIME_NIG_IN                =   '11:30 PM'
-
-# User agreement page
-DM_AND_USER_AGREE_TITLE                     =   'User Agreement'
-DM_AND_USER_AGREE_BACK                      =   'back_rl'
-DM_AND_USER_AGREE_CHECK_BOX                 =   'checkbox__ll'
-DM_AND_USER_AGREE_SIGN_IN_BUTTON            =   'next_button'
-DM_AND_SOMETHING_WENT_WRONG_DIALOG_MES      =   'Something went wrong. Please try again later.'
-DM_AND_SOMETHING_WENT_WRONG_DIALOG_OK       =   'button2'
-DM_AND_SOMETHING_WENT_WRONG_DIALOG_CANCEL   =   'button1'
-
-# Tutorial page
-DM_AND_TUTORIAL_TITLE_1                     =   'titleStep1'
-DM_AND_TUTORIAL_DESC_1                      =   'descStep1'
-DM_AND_TUTORIAL_NEXT_BUTTON_1               =   'nextStep1'
-DM_AND_TUTORIAL_TITLE_2                     =   'titleStep2'
-DM_AND_TUTORIAL_DESC_2                      =   'descStep2'
-DM_AND_TUTORIAL_NEXT_BUTTON_2               =   'nextStep2'
-DM_AND_TUTORIAL_TITLE_3                     =   'titleStep3'
-DM_AND_TUTORIAL_DESC_3                      =   'descStep3'
-DM_AND_TUTORIAL_NEXT_BUTTON_3               =   'nextStep3'
-DM_AND_TUTORIAL_TITLE_4                     =   'titleStep4'
-DM_AND_TUTORIAL_DESC_4                      =   'descStep4'
-DM_AND_TUTORIAL_NEXT_BUTTON_4               =   'nextStep4'
+# Set alert time page
+DM_AND_SET_ALERT_TITLE                      =   'Alert Times'
+DM_AND_SET_ALERT_BACK                       =   'back_iv'
+DM_AND_SET_ALERT_BRK                        =   'breakfast_ms'
+DM_AND_SET_ALERT_BRK_ERROR                  =   'breakfast_error_tv'
+EM_DM_SET_ALERT_BRK_AFTER_LUN               =   'Breakfast cannot be after lunch.'
+EM_DM_SET_ALERT_BRK_AFTER_DIN               =   'Breakfast cannot be after dinner.'
+EM_DM_SET_ALERT_BRK_AFTER_NIG               =   'Breakfast cannot be after night.'
+DM_AND_SET_ALERT_HOUR                       =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.NumberPicker[1]/android.widget.EditText'
+DM_AND_SET_ALERT_MINUTE                     =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.NumberPicker[2]/android.widget.EditText'
+DM_AND_SET_ALERT_APM                        =   '//android.widget.TimePicker/android.widget.LinearLayout/android.widget.NumberPicker/android.widget.EditText'
+DM_AND_SET_ALERT_SET_BTN                    =   'button1'
+DM_AND_SET_ALERT_LUN                        =   'lunch_ms'
+DM_AND_SET_ALERT_LUN_ERROR                  =   'lunch_error_tv'
+EM_DM_SET_ALERT_LUN_AFTER_DIN               =   'Lunch cannot be after dinner.'
+EM_DM_SET_ALERT_LUN_AFTER_NIG               =   'Lunch cannot be after night.'
+DM_AND_SET_ALERT_DIN                        =   'dinner_ms'
+DM_AND_SET_ALERT_DIN_ERROR                  =   'dinner_error_tv'
+EM_DM_SET_ALERT_DIN_AFTER_NIG               =   'Dinner cannot be after night.'
+DM_AND_SET_ALERT_NIG                        =   'night_ms'
+DM_AND_SET_ALERT_NEXT_BUTTON                =   'next_button'
+VALUE_DM_SET_ALERT_BRK_IN                   =   '8:00 AM'
+VALUE_DM_SET_ALERT_LUN_IN                   =   '1:30 PM'
+VALUE_DM_SET_ALERT_DIN_IN                   =   '9:00 PM'
+VALUE_DM_SET_ALERT_NIG_IN                   =   '11:30 PM'
 
 # Medication change confirmation page
 DM_AND_MED_CHANGE_DECLINE_BUTTON            =   'medconf_decline_button'
@@ -1034,9 +1026,12 @@ DM_AND_GOAL_PREVIOUS_DAY_BTN                =   'button_prev'
 DM_AND_GOAL_NEXT_DAY_BTN                    =   'button_next'
 DM_AND_GOAL_LAST_DAY_BTN                    =   'button_last'
 DM_AND_GOAL_EMPTY_MESSAGE                   =   'txtErrorMsg'
-EM_AND_GOAL_EMPTY_MESSAGE                   =   "Your doctor hasn't added any goals yet.\n\nYou can ask your doctor about this in Chat.\n"
+EM_AND_GOAL_EMPTY_MESSAGE                   =   "You currently don't have any goals\n\nDaily goals can help remind you when it's time to take your medication or measure your blood sugar. Ask your coach to set goals for you.\n"
 DM_AND_GOAL_GO_TO_CHAT_BTN                  =   'btnGoToChat'
-DM_AND_GOAL_SAD_FACE                        =   'imgHeadPortrait'
+DM_AND_GOAL_NO_NETWORK_MESSAGE              =   'txtErrorMsg'
+EM_AND_GOAL_NO_NETWORK_MESSAGE              =   "We couldn't load your goals.\n\nYour device is not connected to the internet. Please connect to Wi-Fi or try again later.\n"
+DM_AND_GOAL_NO_NETWORK_MORE_INFO            =   'txtMoreInfo'
+#DM_AND_GOAL_SAD_FACE                        =   'imgHeadPortrait'
 DM_AND_GOAL_LIST                            =   'goalsList'
 DM_AND_GOAL_ITEM                            =   'goalrow_view_frame'
 DM_AND_GOAL_GROUP_TIME                      =   'groupDataBox'
@@ -1074,9 +1069,9 @@ DM_AND_GOAL_EDIT_MEAL_TIME_POST_DIN         =   'Post-dinner'
 DM_AND_GOAL_EDIT_MEAL_TIME_NIGHT            =   'Night'
 DM_AND_GOAL_EDIT_MEAL_TIME_OTHER            =   'Other'
 DM_AND_GOAL_EDIT_TIME_PREVIEW               =   'alertTitle'
-DM_AND_GOAL_EDIT_TIME_HOUR                  =   DM_AND_SET_MEALTIME_HOUR
-DM_AND_GOAL_EDIT_TIME_MINUTE                =   DM_AND_SET_MEALTIME_MINUTE
-DM_AND_GOAL_EDIT_TIME_APM                   =   DM_AND_SET_MEALTIME_APM
+DM_AND_GOAL_EDIT_TIME_HOUR                  =   DM_AND_SET_ALERT_HOUR
+DM_AND_GOAL_EDIT_TIME_MINUTE                =   DM_AND_SET_ALERT_MINUTE
+DM_AND_GOAL_EDIT_TIME_APM                   =   DM_AND_SET_ALERT_APM
 DM_AND_GOAL_EDIT_TIME_CANCEL_BTN            =   DM_AND_GOAL_EDIT_DATE_CANCEL_BTN
 DM_AND_GOAL_EDIT_TIME_SET_BTN               =   DM_AND_PERSONAL_INFO_DATE_SET_BTN
 DM_AND_GOAL_EDIT_LOW_BG_ALERT_TITLE         =   'alertTitle'
@@ -1183,18 +1178,91 @@ DM_AND_SELF_LOG_WEIGHT                      =   'weight_tv'
 # Chat page
 DM_AND_CHAT_FIELD                           =   'chat_compose'
 DM_AND_CHAT_SEND_BTN                        =   'chat_send'
+DM_AND_CHAT_ICON_LEFT                       =   'chat_icon_left'
+DM_AND_CHAT_ICON_RIGHT                      =   'chat_icon_right'
+DM_AND_CHAT_CONTENT                         =   'chat_content'
+DM_AND_CHAT_ERROR_RETRY                     =   'chat_error_retry'
 
 # Options menu
 DM_AND_OPTIONS_MENU_BTN                     =   'home'
 DM_AND_OPTIONS_MY_DATA                      =   'patientInfo'
 DM_AND_OPTIONS_MANAGE_LO                    =   'Manage my Loved Ones'
-DM_AND_OPTIONS_TUTORIAL                     =   'Tutorial'
 DM_AND_OPTIONS_FAQ                          =   'FAQ'
 DM_AND_OPTIONS_APP_SUPPORT                  =   'App Support'
 DM_AND_OPTIONS_SETTINGS                     =   'Settings'
 
+# FAQ page
+DM_AND_FAQ_QUESTION                         =   'faq_questiontitle'
+DM_AND_FAQ_ANSWER                           =   'faq_answercontent'
+DM_AND_FAQ_QUES_1                           =   'Should I use the Gather app in an emergency?'
+DM_AND_FAQ_QUES_2                           =   'How were my goals created?'
+DM_AND_FAQ_QUES_3                           =   'How do I change my goals?'
+DM_AND_FAQ_QUES_4                           =   'How do I complete a goal?'
+DM_AND_FAQ_QUES_5                           =   u'How do I log a blood sugar test, medication dose or blood pressure measurement that isn\u2019t one of my goals?'
+DM_AND_FAQ_QUES_6                           =   'How do I log goals from a previous day?'
+DM_AND_FAQ_QUES_7                           =   'How do I send my doctor a message?'
+DM_AND_FAQ_QUES_8                           =   'How long will it take my doctor to respond?'
+DM_AND_FAQ_QUES_9                           =   'How do I see a history of my blood sugar data?'
+DM_AND_FAQ_QUES_10                          =   'Can I print data on the blood sugar or blood pressure tables?'
+DM_AND_FAQ_QUES_11                          =   'How do I change notification settings, measurement units or other settings?'
+DM_AND_FAQ_QUES_12                          =   'How do I change my phone number, gender or date of birth?'
+DM_AND_FAQ_QUES_13                          =   'How do I log out?'
+DM_AND_FAQ_QUES_14                          =   'Why does the app require permissions to run?'
+DM_AND_FAQ_QUES_15                          =   'How do I change my email, picture or language?'
+DM_AND_FAQ_QUES_16                          =   'Why should I invite a loved one?'
+DM_AND_FAQ_QUES_17                          =   u"How do I change my loved one\u2019s phone number, email address or other details?"
+DM_AND_FAQ_QUES_18                          =   u"I can\u2019t connect to Gather Health!"
+DM_AND_FAQ_QUES_19                          =   'What do I do if the app freezes or crashes?'
+DM_AND_FAQ_QUES_20                          =   'How do I contact the Gather Health team with my problem or suggestion?'
+DM_AND_FAQ_QUES_LIST                        =   [
+                                                DM_AND_FAQ_QUES_1, DM_AND_FAQ_QUES_2, DM_AND_FAQ_QUES_3, DM_AND_FAQ_QUES_4, DM_AND_FAQ_QUES_5, DM_AND_FAQ_QUES_6,
+                                                DM_AND_FAQ_QUES_7, DM_AND_FAQ_QUES_8, DM_AND_FAQ_QUES_9, DM_AND_FAQ_QUES_10, DM_AND_FAQ_QUES_11, DM_AND_FAQ_QUES_12,
+                                                DM_AND_FAQ_QUES_13, DM_AND_FAQ_QUES_14, DM_AND_FAQ_QUES_15, DM_AND_FAQ_QUES_16, DM_AND_FAQ_QUES_17, DM_AND_FAQ_QUES_18,
+                                                DM_AND_FAQ_QUES_19, DM_AND_FAQ_QUES_20
+                                                ]
+DM_AND_FAQ_SUPPORT_BTN                      =   'sendOtherQuestion'
+
+# Freshdesk page
+DM_AND_FRESHDESK_TITLE                      =   'action_bar_title'
+DM_AND_FRESHDESK_CONTACT_US_BTN             =   'mobihelp_menu_item_contact_us'
+DM_AND_FRESHDESK_DESCRIPTION                =   "Send questions, problems and feedback to the Gather Health technical support team.\n\nTap here to send a message."
+DM_AND_FRESHDESK_SUBMIT_BTN                 =   'mobihelp_menu_item_submit'
+DM_AND_FRESHDESK_INPUT_FIELD                =   'mobihelp_feedback_problem_description'
+
+# Patient ID dialog
+DM_AND_PATIENT_ID_TITLE                     =   'Your Patient ID is:'
+DM_AND_PATIENT_ID_CONTENT                   =   'patient_id_tv'
+DM_AND_PATIENT_ID_BUTTON                    =   'ok_btn'
+
+# Language settings
+DM_AND_LANGUAGE_TITLE                       =   'alertTitle'
+VALUE_DM_LANGUAGE_TITLE                     =   'Language'
+DM_AND_LANGUAGE_EN                          =   'en_rb'
+DM_AND_LANGUAGE_ZH                          =   'zh_rb'
+DM_AND_LANGUAGE_HI                          =   'hi_rb'
+DM_AND_LANGUAGE_CANCEL_BTN                  =   'set_localetype_cancel'
+DM_AND_LANGUAGE_SAVE_BTN                    =   'set_localetype_save'
+
+# No network alert
+DM_AND_NO_NETWORK_TITLE                     =   'No internet connection'
+DM_AND_NO_NETWORK_CONTENT                   =   'To send messages, please connect to Wi-Fi or try again later.'
+DM_AND_NO_NETWORK_OK_BTN                    =   'button2'
+DM_AND_NO_NETWORK_HELP_BTN                  =   'button1'
+DM_AND_NO_NETWORK_HELP_TITLE                =   'No connection'
+DM_AND_NO_NETWORK_HELP_CLOSE_BTN            =   'btnClose'
+DM_AND_NO_NETWORK_HELP_CONTENT_TITLE        =   'Your device is not connected to the internet.'
+DM_AND_NO_NETWORK_BAR                       =   'relNotNetBanner'
+DM_AND_NO_NETWORK_BAR_TEXT                  =   'txtNote'
+DM_AND_NO_NETWORK_BAR_CLOSE_BTN             =   'imgCloseBanner'
+
 # Settings page
 DM_AND_SETTINGS_LOG_OUT                     =   'Log out'
+DM_AND_SETTINGS_ALERTTIME_TITLE             =   'SET NOTIFICATIONS TIMES'
+DM_AND_SETTINGS_ALERTTIME                   =   '//android.widget.ListView/android.widget.LinearLayout[4]//android.widget.TextView'
+DM_AND_SETTINGS_MY_INFO                     =   'My Info'
+DM_AND_SETTINGS_LANGUAGE                    =   'Language'
+DM_AND_SETTINGS_PATIENT_ID                  =   'Patient ID'
+DM_AND_SETTINGS_USER_AGREEMENT              =   'User Agreement'
 
 # Server settings dialog
 DM_AND_SERVER_ADDRESS                       =   'debugserver_uri'

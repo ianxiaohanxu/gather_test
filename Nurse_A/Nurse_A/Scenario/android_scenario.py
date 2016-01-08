@@ -7,11 +7,11 @@ import datetime
 import simplejson as json
 from selenium.common.exceptions import NoSuchElementException
 from appium import webdriver
-from Nurse_A.Settings import data, setup, mobile_setup
+from Nurse_A.Settings import data, setup, mobile_setup, constant
 
 class ANDROID(AND):
     
-    def __init__(self, PORT = '4723', PKG = 'com.gatherhealth.gatherdm', ACT = '.activity.MainActivity'):
+    def __init__(self, PORT = '4723', PKG = 'com.gatherhealth.gatherdm', ACT = '.activity.LaunchActivity'):
         # Create a new session with passed in Port, package and activity
         address = 'http://localhost:'+PORT+'/wd/hub'
         caps = {
@@ -32,59 +32,45 @@ class ANDROID(AND):
     def login(self, username, password = '123456'):
         # Log in with an exist patient account
         # If APP not logged in
-        if self.is_element_present(data.DM_AND_WELCOME_ENTER):
-            self.click(data.DM_AND_WELCOME_ENTER)
+        self.hide_keyboard()
         self.verify(data.DM_AND_SIGN_IN_FIELD)
         self.enter(username, data.DM_AND_SIGN_IN_FIELD)
+        self.hide_keyboard()
         self.click(data.DM_AND_SIGN_IN_BUTTON)
         self.verify(data.DM_AND_PASSWORD_TITLE)
         self.enter(password, data.DM_AND_PASSWORD_FIELD)
+        self.hide_keyboard()
         self.click(data.DM_AND_PASSWORD_SIGN_IN_BTN)
-        self.verify(data.DM_AND_GOAL_DATE)
+        self.verify(data.DM_AND_BOTTOM_GOALS)
             
     def logout(self):
-        self.close_app()
-        self.launch_app()
+        self.restart()
         if self.is_element_present(data.DM_AND_MED_CHANGE_DECLINE_BUTTON):
             self.click(data.DM_AND_MED_CHANGE_DECLINE_BUTTON)
+            self.verify(data.DM_AND_CHAT_SEND_BTN)
         # And Gather icon invisible
         if not self.is_element_present(data.DM_AND_OPTIONS_MENU_BTN):
-            self.do_until_true(lambda: self.press('Back'), lambda: self.is_element_present(data.DM_AND_OPTIONS_MENU_BTN) or self.is_element_present(data.DM_AND_WELCOME_ENTER))
-        if self.is_element_present(data.DM_AND_WELCOME_ENTER):
+            self.do_until_true(lambda: self.press('Back'), lambda: self.is_element_present(data.DM_AND_OPTIONS_MENU_BTN) or self.is_element_present(data.DM_AND_SIGN_IN_NO_SPAM_HINT))
+        if self.is_element_present(data.DM_AND_SIGN_IN_NO_SPAM_HINT):
             return
         self.do_until_true(lambda: self.click(data.DM_AND_OPTIONS_MENU_BTN), lambda: self.is_element_present(data.DM_AND_OPTIONS_SETTINGS))
         self.click(data.DM_AND_OPTIONS_SETTINGS)
         self.do_until_true(lambda: self.swipe_up(), lambda: self.is_element_present(data.DM_AND_SETTINGS_LOG_OUT))
         self.click(data.DM_AND_SETTINGS_LOG_OUT)
-        self.verify(data.DM_AND_WELCOME_ENTER)
+        self.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
 
     def signup(self, email):
         # Finish a simple sign up for the given email
-        if self.is_element_present(data.DM_AND_WELCOME_ENTER):
-            self.click(data.DM_AND_WELCOME_ENTER)
         self.verify(data.DM_AND_SIGN_IN_FIELD)
         self.enter(email, data.DM_AND_SIGN_IN_FIELD)
+        self.hide_keyboard()
         self.click(data.DM_AND_SIGN_IN_BUTTON)
         self.verify(data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
         self.enter('123456', data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
         self.enter('123456', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
+        self.hide_keyboard()
         self.click(data.DM_AND_SET_PASSWORD_BUTTON)
-        self.verify(data.DM_AND_PERSONAL_INFO_CELL_NUMBER)
-        self.click(data.DM_AND_PERSONAL_INFO_BUTTON)
-        self.verify(data.DM_AND_LOVED_ONE_SKIP_BUTTON)
-        self.click(data.DM_AND_LOVED_ONE_SKIP_BUTTON)
-        self.verify(data.DM_AND_SET_MEALTIME_BRK)
-        self.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.verify(data.DM_AND_USER_AGREE_CHECK_BOX)
-        self.click(data.DM_AND_USER_AGREE_CHECK_BOX)
-        self.click(data.DM_AND_USER_AGREE_SIGN_IN_BUTTON)
-        try:
-            self.verify(data.DM_AND_TUTORIAL_TITLE_1)
-            self.press('Back')
-            return
-        except NoSuchElementException:
-            self.verify(data.DM_AND_MED_CHANGE_DECLINE_BUTTON)
-            return
+        self.verify(data.DM_AND_BOTTOM_GOALS)
         
     def get_new_patient_account(self, practice_id=setup.demo_data[1], email=None, state=2,
             name=None, country_code='91', number='1234567890', billing=True,
@@ -107,30 +93,30 @@ class ANDROID(AND):
 
     def accept_med_change(self):
         # Accept the medication change
-        self.press('Home')
-        self.start_app()
+        self.restart()
+        self.verify(data.DM_AND_BOTTOM_GOALS)
+        self.click(data.DM_AND_BOTTOM_GOALS)
         self.wait_until_present(data.DM_AND_MED_CHANGE_CONFIRM_BUTTON)
         self.click(data.DM_AND_MED_CHANGE_CONFIRM_BUTTON)
-        try:
-            self.verify(data.DM_AND_GOAL_DATE)
-        except NoSuchElementException:
-            self.verify(data.DM_AND_TUTORIAL_TITLE_1)
-            self.press('Back')
-            self.verify(data.DM_AND_GOAL_DATE)
+        self.verify(data.DM_AND_GOAL_DATE)
         self.press('Back', 2)
         self.start_app()
-        self.verify(data.DM_AND_GOAL_DATE)
+        self.verify(data.DM_AND_BOTTOM_GOALS)
 
     '''
     Rewrite this method to set_server automatically
     '''
     def set_server(self, server='http://192.168.0.135:8000'):
-        self.verify(data.DM_AND_WELCOME_ENTER)
+        self.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
         self.press('Back')
         self.verify(data.DM_AND_SERVER_ADDRESS)
         self.clear(data.DM_AND_SERVER_ADDRESS)
         self.enter(server, data.DM_AND_SERVER_ADDRESS)
         self.click(data.DM_AND_SERVER_SUBMIT)
-        self.verify(data.DM_AND_WELCOME_ENTER)
+        self.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
         self.teardown()
+
+    def restart(self):
+        self.close_app()
+        self.launch_app()
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from mobile import MOB
-from time import sleep
+from time import sleep, strftime, time
+import commands
 from appium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from Nurse_A.Settings import keycode, constant
@@ -72,17 +73,17 @@ class AND(MOB):
             item = self.driver.find_element_by_android_uiautomator('text("%s")' %what)
             return item
         except NoSuchElementException:
-            pass            
+            pass
         try:
             item = self.driver.find_element_by_android_uiautomator('description("%s")' %what)
             return item
         except NoSuchElementException:
-            pass               
+            pass
         try:
             item = self.driver.find_element_by_android_uiautomator('textContains("%s")' %what)
             return item
         except NoSuchElementException:
-            pass           
+            pass
         try:
             item = self.driver.find_element_by_android_uiautomator('descriptionContains("%s")' %what)
             return item
@@ -93,7 +94,7 @@ class AND(MOB):
             return item
         except NoSuchElementException:
             raise NoSuchElementException('Element not found by "%s"' %what)
-            
+
     def find(self, what):
         # Find elements by what
         items = self.driver.find_elements_by_id(self.package_name+':id/'+what)
@@ -118,7 +119,7 @@ class AND(MOB):
         if not len(items) == 0:
             return items
         raise NoSuchElementException('Element not found by "%s"' %what)
-        
+
     def is_enabled(self, what):
         # Judge if an element is enabled
         element = self.focus(what)
@@ -239,3 +240,34 @@ class AND(MOB):
     def close_app(self):
         # Close test app
         self.driver.close_app()
+
+    def reset_time(self):
+        # Set the date and time to current point
+        current_time = strftime("%Y%m%d.%H%M%S")
+        result = commands.getstatusoutput('adb shell date -s "%s"' %current_time)
+        if result[0] != 0:
+            raise Exception("Reset time failed!")
+
+    def set_time(self, time_str):
+        # Set date and time 
+        result = commands.getstatusoutput('adb shell date -s "%s"' %time_str)
+        if result[0] != 0:
+            raise Exception("Set time failed!")
+
+    def turn_off_wifi(self):
+        # Turn off wifi
+        result = commands.getstatusoutput('adb shell svc wifi disable')
+        assert not result[0], "Fail to turn wifi off"
+
+    def turn_on_wifi(self, WAITTIME=20):
+        # Turn on wifi
+        result = commands.getstatusoutput('adb shell svc wifi enable')
+        assert not result[0], "Fail to turn wifi on"
+        expire_time = time() + WAITTIME
+        while (time() < expire_time):
+            result = commands.getoutput('adb shell ifconfig wlan0')
+            result += commands.getoutput('adb shell ifconfig eth1')
+            if  'ip' in result:
+                return
+        raise Exception("Fail to turn wifi on")
+

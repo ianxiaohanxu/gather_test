@@ -80,33 +80,25 @@ class Sign_up(Case):
         '''
         This is the test for 'Validation check for email and password in log in process'
         '''
-        self.phone.verify(data.DM_AND_WELCOME_ENTER)
-        self.phone.click(data.DM_AND_WELCOME_ENTER)
+        self.phone.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
+        self.phone.clear(data.DM_AND_SIGN_IN_FIELD)
+        self.phone.hide_keyboard()
         self.assertFalse(self.phone.is_enabled(data.DM_AND_SIGN_IN_BUTTON))
         
         # Validation check for invalid email address
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
         self.phone.enter('abc', data.DM_AND_SIGN_IN_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
         self.phone.verify(data.DM_AND_SIGN_IN_ERROR)
         self.assertEqual(data.EM_DM_SIGN_IN_INVALID_EMAIL, self.phone.text(data.DM_AND_SIGN_IN_ERROR))
         self.phone.clear(data.DM_AND_SIGN_IN_FIELD)
-
-        # Validation check for non-registered email
-        self.phone.enter('1111j@kkk.cc3', data.DM_AND_SIGN_IN_FIELD)
-        self.assertFalse(self.phone.is_element_present(data.DM_AND_SIGN_IN_ERROR))
-        self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
-        self.phone.verify(data.DM_AND_SIGN_IN_ERROR)
-        self.assertEqual(data.EM_DM_SIGN_IN_NOT_REGISTER_EMAIL, self.phone.text(data.DM_AND_SIGN_IN_ERROR))
-
-        self.phone.clear(data.DM_AND_SIGN_IN_FIELD)
         self.phone.enter(mobile_setup.patient_clean['email'], data.DM_AND_SIGN_IN_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
-        self.phone.verify(data.DM_AND_PASSWORD_TITLE)
-        self.assertFalse(self.phone.is_enabled(data.DM_AND_PASSWORD_SIGN_IN_BTN))
 
         # Validation check for invalid password
         self.phone.enter('   ', data.DM_AND_PASSWORD_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_PASSWORD_SIGN_IN_BTN)
         self.phone.verify(data.DM_AND_PASSWORD_ERROR)
         self.assertEqual(data.EM_DM_PASSWORD_INVALID_INPUT, self.phone.text(data.DM_AND_PASSWORD_ERROR))
@@ -115,6 +107,7 @@ class Sign_up(Case):
         # Validation check for non-match password
         self.phone.enter('aaaxxx', data.DM_AND_PASSWORD_FIELD)
         self.assertFalse(self.phone.is_element_present(data.DM_AND_PASSWORD_ERROR))
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_PASSWORD_SIGN_IN_BTN)
         self.phone.verify(data.DM_AND_PASSWORD_ERROR)
         self.assertEqual(data.EM_DM_PASSWORD_NOT_MATCH, self.phone.text(data.DM_AND_PASSWORD_ERROR))
@@ -124,184 +117,66 @@ class Sign_up(Case):
         This is the test for 'Validation check for sign up process'
         '''
         patient = self.phone.get_new_patient_account()
-        self.phone.verify(data.DM_AND_WELCOME_ENTER)
-        self.phone.click(data.DM_AND_WELCOME_ENTER)
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
+        self.phone.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
         self.phone.enter(patient['email'], data.DM_AND_SIGN_IN_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
         self.phone.verify(data.DM_AND_SET_PASSWORD_TITLE)
 
         # Validation check for short password
         self.phone.enter('aa', data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
-        self.phone.click(data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
-        self.phone.verify(data.DM_AND_SET_PASSWORD_FIRST_FIELD_ERROR)
-        self.assertEqual(data.EM_DM_SET_PASSWORD_SHORT_ERROR, self.phone.text(data.DM_AND_SET_PASSWORD_FIRST_FIELD_ERROR))
+        self.phone.enter('aa', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
+        self.phone.verify(data.DM_AND_SET_PASSWORD_ERROR)
+        self.assertEqual(data.EM_DM_SET_PASSWORD_SHORT_ERROR, self.phone.text(data.DM_AND_SET_PASSWORD_ERROR))
         self.phone.clear(data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
         self.phone.enter('123456', data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
-        self.phone.enter('aa', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
-        self.phone.click(data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
-        self.phone.verify(data.DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR)
-        self.assertEqual(data.EM_DM_SET_PASSWORD_SHORT_ERROR, self.phone.text(data.DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR))
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
+        self.phone.verify(data.DM_AND_SET_PASSWORD_ERROR)
+        self.assertEqual(data.EM_DM_SET_PASSWORD_SHORT_ERROR, self.phone.text(data.DM_AND_SET_PASSWORD_ERROR))
 
         # Validation check for unmatch password
         self.phone.clear(data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
         self.phone.enter('123455', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
-        self.phone.verify(data.DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR)
-        self.assertEqual(data.EM_DM_SET_PASSWORD_NOT_MATCH, self.phone.text(data.DM_AND_SET_PASSWORD_SECOND_FIELD_ERROR))
-        self.phone.clear(data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
-        self.phone.enter('123456', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
-        self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
+        self.phone.verify(data.DM_AND_SET_PASSWORD_ERROR)
+        self.assertEqual(data.EM_DM_SET_PASSWORD_NOT_MATCH, self.phone.text(data.DM_AND_SET_PASSWORD_ERROR))
+        self.phone.click(data.DM_AND_SET_PASSWORD_TERM)
+        self.phone.verify(data.DM_AND_TERM_TITLE)
+        self.assertEqual(data.VALUE_AND_TERM_TITLE, self.phone.text(data.DM_AND_TERM_TITLE))
+        self.phone.click(data.DM_AND_TERM_BUTTON)
 
-        # Validation check for patient number 
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
-        self._validation_check_for_number(data.DM_AND_PERSONAL_INFO_COUNTRY_US, 10,
-                                          data.DM_AND_PERSONAL_INFO_COUNTRY_CODE,
-                                          data.DM_AND_PERSONAL_INFO_CELL_NUMBER,
-                                          data.DM_AND_PERSONAL_INFO_CELL_ERROR,
-                                          data.DM_AND_PERSONAL_INFO_BUTTON
-                                          )
-        self._validation_check_for_number(data.DM_AND_PERSONAL_INFO_COUNTRY_IN, 10,
-                                          data.DM_AND_PERSONAL_INFO_COUNTRY_CODE,
-                                          data.DM_AND_PERSONAL_INFO_CELL_NUMBER,
-                                          data.DM_AND_PERSONAL_INFO_CELL_ERROR,
-                                          data.DM_AND_PERSONAL_INFO_BUTTON
-                                          )
-        self._validation_check_for_number(data.DM_AND_PERSONAL_INFO_COUNTRY_CH, 11,
-                                          data.DM_AND_PERSONAL_INFO_COUNTRY_CODE,
-                                          data.DM_AND_PERSONAL_INFO_CELL_NUMBER,
-                                          data.DM_AND_PERSONAL_INFO_CELL_ERROR,
-                                          data.DM_AND_PERSONAL_INFO_BUTTON
-                                          )
-        self._validation_check_for_number(data.DM_AND_PERSONAL_INFO_COUNTRY_HK, 8,
-                                          data.DM_AND_PERSONAL_INFO_COUNTRY_CODE,
-                                          data.DM_AND_PERSONAL_INFO_CELL_NUMBER,
-                                          data.DM_AND_PERSONAL_INFO_CELL_ERROR,
-                                          data.DM_AND_PERSONAL_INFO_BUTTON
-                                          )
-        self.phone.clear(data.DM_AND_PERSONAL_INFO_CELL_NUMBER)
-        self.phone.enter('12345678', data.DM_AND_PERSONAL_INFO_CELL_NUMBER)
-        self.phone.click(data.DM_AND_PERSONAL_INFO_BUTTON)
-
-        # Validation check for lo email
-        self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
-        self.assertFalse(self.phone.is_enabled(data.DM_AND_LOVED_ONE_NEXT_BUTTON))
-        self.phone.enter('last', data.DM_AND_LOVED_ONE_LAST_NAME)
-        self.phone.enter('first', data.DM_AND_LOVED_ONE_FIRST_NAME)
-        self.phone.click(data.DM_AND_LOVED_ONE_COUNTRY_CODE)
-        self.phone.verify(data.DM_AND_LOVED_ONE_COUNTRY_HK)
-        self.phone.verify(data.DM_AND_LOVED_ONE_COUNTRY_IN)
-        self.phone.click(data.DM_AND_LOVED_ONE_COUNTRY_IN)
-        self.phone.enter('1234567899', data.DM_AND_LOVED_ONE_CELL_NUMBER)
-        self.phone.enter('email', data.DM_AND_LOVED_ONE_EMAIL)
-        self.phone.click(data.DM_AND_LOVED_ONE_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_LOVED_ONE_EMAIL_ERROR)
-        self.assertEqual(data.EM_DM_LOVED_ONE_INVALID_EMAIL, self.phone.text(data.DM_AND_LOVED_ONE_EMAIL_ERROR))
-        self.phone.clear(data.DM_AND_LOVED_ONE_EMAIL)
-        self.phone.enter('lo@test.com', data.DM_AND_LOVED_ONE_EMAIL)
-        
-        # Validation check for lo cell number
-        self._validation_check_for_number(data.DM_AND_LOVED_ONE_COUNTRY_US, 10,
-                                          data.DM_AND_LOVED_ONE_COUNTRY_CODE,
-                                          data.DM_AND_LOVED_ONE_CELL_NUMBER,
-                                          data.DM_AND_LOVED_ONE_CELL_ERROR,
-                                          data.DM_AND_LOVED_ONE_NEXT_BUTTON
-                                          )
-        self._validation_check_for_number(data.DM_AND_LOVED_ONE_COUNTRY_IN, 10,
-                                          data.DM_AND_LOVED_ONE_COUNTRY_CODE,
-                                          data.DM_AND_LOVED_ONE_CELL_NUMBER,
-                                          data.DM_AND_LOVED_ONE_CELL_ERROR,
-                                          data.DM_AND_LOVED_ONE_NEXT_BUTTON
-                                          )
-        self._validation_check_for_number(data.DM_AND_LOVED_ONE_COUNTRY_CH, 11,
-                                          data.DM_AND_LOVED_ONE_COUNTRY_CODE,
-                                          data.DM_AND_LOVED_ONE_CELL_NUMBER,
-                                          data.DM_AND_LOVED_ONE_CELL_ERROR,
-                                          data.DM_AND_LOVED_ONE_NEXT_BUTTON
-                                          )
-        self._validation_check_for_number(data.DM_AND_LOVED_ONE_COUNTRY_HK, 8,
-                                          data.DM_AND_LOVED_ONE_COUNTRY_CODE,
-                                          data.DM_AND_LOVED_ONE_CELL_NUMBER,
-                                          data.DM_AND_LOVED_ONE_CELL_ERROR,
-                                          data.DM_AND_LOVED_ONE_NEXT_BUTTON
-                                          )
-        self.phone.clear(data.DM_AND_LOVED_ONE_CELL_NUMBER)
-        self.phone.enter('12345678', data.DM_AND_LOVED_ONE_CELL_NUMBER)
-        self.phone.click(data.DM_AND_LOVED_ONE_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_LOVED_ONE_CELL_ERROR)
-        self.assertEqual(data.EM_DM_LOVED_ONE_CONFLICT_NUMBER, self.phone.text(data.DM_AND_LOVED_ONE_CELL_ERROR))
-        self.phone.clear(data.DM_AND_LOVED_ONE_CELL_NUMBER)
-        self.phone.enter('12345677', data.DM_AND_LOVED_ONE_CELL_NUMBER)
-        self.phone.click(data.DM_AND_LOVED_ONE_NEXT_BUTTON)
-
-        # Validation for mealtimes
-        self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
-        self._fill_time(data.DM_AND_SET_MEALTIME_LUN, hour=3, apm='AM')
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_BRK_ERROR)
-        self.assertEqual(data.EM_DM_SET_MEALTIME_BRK_AFTER_LUN, self.phone.text(data.DM_AND_SET_MEALTIME_BRK_ERROR))
-        self._fill_time(data.DM_AND_SET_MEALTIME_LUN, hour=1, apm='PM')
-
-        self._fill_time(data.DM_AND_SET_MEALTIME_DIN, hour=3, apm='AM')
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_BRK_ERROR)
-        self.assertEqual(data.EM_DM_SET_MEALTIME_BRK_AFTER_DIN, self.phone.text(data.DM_AND_SET_MEALTIME_BRK_ERROR))
-        self._fill_time(data.DM_AND_SET_MEALTIME_DIN, hour=9, apm='PM')
-
-        self._fill_time(data.DM_AND_SET_MEALTIME_NIG, hour=3, apm='AM')
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_BRK_ERROR)
-        self.assertEqual(data.EM_DM_SET_MEALTIME_BRK_AFTER_NIG, self.phone.text(data.DM_AND_SET_MEALTIME_BRK_ERROR))
-        self._fill_time(data.DM_AND_SET_MEALTIME_NIG, hour=11, apm='PM')
-
-        self._fill_time(data.DM_AND_SET_MEALTIME_DIN, hour=12, apm='PM')
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_LUN_ERROR)
-        self.assertEqual(data.EM_DM_SET_MEALTIME_LUN_AFTER_DIN, self.phone.text(data.DM_AND_SET_MEALTIME_LUN_ERROR))
-        self._fill_time(data.DM_AND_SET_MEALTIME_DIN, hour=9, apm='PM')
-
-        self._fill_time(data.DM_AND_SET_MEALTIME_NIG, hour=12, apm='PM')
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_LUN_ERROR)
-        self.assertEqual(data.EM_DM_SET_MEALTIME_LUN_AFTER_NIG, self.phone.text(data.DM_AND_SET_MEALTIME_LUN_ERROR))
-        self._fill_time(data.DM_AND_SET_MEALTIME_NIG, hour=11, apm='PM')
-
-        self._fill_time(data.DM_AND_SET_MEALTIME_NIG, hour=8, apm='PM')
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_DIN_ERROR)
-        self.assertEqual(data.EM_DM_SET_MEALTIME_DIN_AFTER_NIG, self.phone.text(data.DM_AND_SET_MEALTIME_DIN_ERROR))
-        self._fill_time(data.DM_AND_SET_MEALTIME_NIG, hour=11, apm='PM')
-        
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-
-    def test_normal_sign_up_prefilled_data(self):
-        '''
-        This is the test for 'Prefilled data check in sign up process'
-        '''
-        patient = self.phone.get_new_patient_account()
-        self.phone.click(data.DM_AND_WELCOME_ENTER)
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
-        self.phone.enter(patient['email'], data.DM_AND_SIGN_IN_FIELD)
-        self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
-        self.phone.verify(data.DM_AND_SET_PASSWORD_TITLE)
-        self.phone.enter('123456', data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
-        self.phone.enter('123456', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
-        self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_COUNTRY_IN)
-        self.phone.verify('1234567890')
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_MALE)
-        self.phone.verify('1965-09-12')
-        self.phone.click(data.DM_AND_PERSONAL_INFO_BUTTON)
-        self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
-        self.phone.verify(data.DM_AND_LOVED_ONE_COUNTRY_IN)
-        self.phone.verify('1234567891')
-        self.phone.click(data.DM_AND_LOVED_ONE_SKIP_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
-        self.phone.verify(data.VALUE_DM_SET_MEALTIME_BRK_IN)
-        self.phone.verify(data.VALUE_DM_SET_MEALTIME_LUN_IN)
-        self.phone.verify(data.VALUE_DM_SET_MEALTIME_DIN_IN)
-        self.phone.verify(data.VALUE_DM_SET_MEALTIME_NIG_IN)
+    # def test_normal_sign_up_prefilled_data(self):
+    #     '''
+    #     This is the test for 'Prefilled data check in sign up process'
+    #     '''
+    #     patient = self.phone.get_new_patient_account()
+    #     self.phone.click(data.DM_AND_WELCOME_ENTER)
+    #     self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
+    #     self.phone.enter(patient['email'], data.DM_AND_SIGN_IN_FIELD)
+    #     self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
+    #     self.phone.verify(data.DM_AND_SET_PASSWORD_TITLE)
+    #     self.phone.enter('123456', data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
+    #     self.phone.enter('123456', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
+    #     self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
+    #     self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
+    #     self.phone.verify(data.DM_AND_PERSONAL_INFO_COUNTRY_IN)
+    #     self.phone.verify('1234567890')
+    #     self.phone.verify(data.DM_AND_PERSONAL_INFO_MALE)
+    #     self.phone.verify('1965-09-12')
+    #     self.phone.click(data.DM_AND_PERSONAL_INFO_BUTTON)
+    #     self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
+    #     self.phone.verify(data.DM_AND_LOVED_ONE_COUNTRY_IN)
+    #     self.phone.verify('1234567891')
+    #     self.phone.click(data.DM_AND_LOVED_ONE_SKIP_BUTTON)
+    #     self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
+    #     self.phone.verify(data.VALUE_DM_SET_MEALTIME_BRK_IN)
+    #     self.phone.verify(data.VALUE_DM_SET_MEALTIME_LUN_IN)
+    #     self.phone.verify(data.VALUE_DM_SET_MEALTIME_DIN_IN)
+    #     self.phone.verify(data.VALUE_DM_SET_MEALTIME_NIG_IN)
 
     def test_normal_sign_up_go_back(self):
         '''
@@ -309,58 +184,25 @@ class Sign_up(Case):
         This is the test for 'Interrupt sign up progress'
         '''
         patient = self.phone.get_new_patient_account()
-        self.phone.click(data.DM_AND_WELCOME_ENTER)
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
+        self.phone.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
         self.phone.enter(patient['email'], data.DM_AND_SIGN_IN_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
         self.phone.verify(data.DM_AND_SET_PASSWORD_TITLE)
+        self.phone.hide_keyboard()
         self.phone.press('Back')
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
-        self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
-        self.phone.verify(data.DM_AND_SET_PASSWORD_TITLE)
-        self.phone.click(data.DM_AND_SIGN_IN_BACK)
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
+        self.phone.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
+        self.phone.restart()
+        self.phone.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
+        self.phone.enter(patient['email'], data.DM_AND_SIGN_IN_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
         self.phone.verify(data.DM_AND_SET_PASSWORD_TITLE)
         self.phone.enter('123456', data.DM_AND_SET_PASSWORD_PASSWORD_FIELD)
         self.phone.enter('123456', data.DM_AND_SET_PASSWORD_CONFIRM_FIELD)
-        self.phone.click(data.DM_AND_SET_PASSWORD_BUTTON)
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
-        self.phone.click(data.DM_AND_PERSONAL_INFO_BUTTON)
-        self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
-        self.phone.click(data.DM_AND_LOVED_ONE_SKIP_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_USER_AGREE_TITLE)
-        self.phone.click(data.DM_AND_USER_AGREE_BACK)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
-        self.phone.click(data.DM_AND_SET_MEALTIME_BACK)
-        self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
-        self.phone.click(data.DM_AND_LOVED_ONE_BACK)
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
-        self.phone.click(data.DM_AND_PERSONAL_INFO_BUTTON)
-        self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
-        self.phone.click(data.DM_AND_LOVED_ONE_SKIP_BUTTON)
-        self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
-        self.phone.click(data.DM_AND_SET_MEALTIME_NEXT_BUTTON)
-        self.phone.verify(data.DM_AND_USER_AGREE_TITLE)
-        self.phone.press('Back')
-        self.phone.verify(data.DM_AND_SET_MEALTIME_TITLE)
-        self.phone.press('Back')
-        self.phone.verify(data.DM_AND_LOVED_ONE_TITLE)
-        self.phone.press('Back')
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
-        self.phone.close_app()
-        self.phone.launch_app()
-        self.phone.verify(data.DM_AND_WELCOME_ENTER)
-        self.phone.click(data.DM_AND_WELCOME_ENTER)
-        self.phone.verify(data.DM_AND_SIGN_IN_TITLE)
-        self.phone.enter(patient['email'], data.DM_AND_SIGN_IN_FIELD)
-        self.phone.click(data.DM_AND_SIGN_IN_BUTTON)
-        self.phone.verify(data.DM_AND_PASSWORD_TITLE)
-        self.phone.enter('123456', data.DM_AND_PASSWORD_FIELD)
+        self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_PASSWORD_SIGN_IN_BTN)
-        self.phone.verify(data.DM_AND_PERSONAL_INFO_TITLE)
+        self.phone.verify(data.DM_AND_BOTTOM_GOALS)
 
 if __name__ == '__main__':
     unittest.main()
