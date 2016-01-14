@@ -99,15 +99,13 @@ class ANDROID(AND):
         self.wait_until_present(data.DM_AND_MED_CHANGE_CONFIRM_BUTTON)
         self.click(data.DM_AND_MED_CHANGE_CONFIRM_BUTTON)
         self.verify(data.DM_AND_GOAL_DATE)
-        self.press('Back', 2)
-        self.start_app()
-        self.verify(data.DM_AND_BOTTOM_GOALS)
 
     '''
     Rewrite this method to set_server automatically
     '''
     def set_server(self, server='http://192.168.0.135:8000'):
         self.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
+        self.hide_keyboard()
         self.press('Back')
         self.verify(data.DM_AND_SERVER_ADDRESS)
         self.clear(data.DM_AND_SERVER_ADDRESS)

@@ -285,7 +285,9 @@ def get_new_patient_account(practice_id=setup.demo_data[1], email=None, state=2,
 
 patient_clean = get_new_patient_account(name='patient_clean', after_sign_up=True)
 patient_bg = get_new_patient_account(name='patient_bg', bg=0b1000000, after_sign_up=True)
-patient_med = get_new_patient_account(name='patient_med', med=0b100, after_sign_up=True)
+patient_med_insulin = get_new_patient_account(name='patient_med_insulin', med=0b100, after_sign_up=True)
+patient_med_oral = get_new_patient_account(name='patient_med_oral', med=0b10, after_sign_up=True)
+patient_med_other = get_new_patient_account(name='patient_med_other', med=0b1, after_sign_up=True)
 patient_bg_med = get_new_patient_account(name='patient_bg_med', bg=0b1000000, med=0b100, after_sign_up=True)
 patient_smed = get_new_patient_account(name='patient_smed', med=0b1000, after_sign_up=True)
 

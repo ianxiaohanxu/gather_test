@@ -132,6 +132,7 @@ class Goals(Case):
         '''
         self.test_urgent_log_normal_bg()
         self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertEqual('123', self.phone.text(data.DM_AND_GOAL_EDIT_VALUE_FIELD))
         self.phone.scroll_action(lambda: self.phone.verify(data.DM_AND_GOAL_EDIT_DELETE_BTN))
@@ -165,6 +166,7 @@ class Goals(Case):
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_MED_NAME))
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_MEAL_TIME))
+        self.phone.hide_keyboard()
         self.phone.scroll_action(lambda: self.phone.click(data.DM_AND_GOAL_EDIT_LOG_BTN))
         self.phone.verify(data.DM_AND_GOAL_ITEM)
         self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
@@ -219,6 +221,7 @@ class Goals(Case):
         self.phone.click(data.DM_AND_GOAL_ITEM)
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_TIME))
+        self.phone.hide_keyboard()
         self.phone.scroll_action(lambda: self.phone.click(data.DM_AND_GOAL_EDIT_DELETE_BTN))
         sleep(constant.INTERVAL_10)     # Wait animation finish
         self.phone.verify(data.DM_AND_GOAL_ITEM)
@@ -346,6 +349,7 @@ class Goals(Case):
         self.assertEqual(time_shown_str_today, self.phone.text(data.DM_AND_GOAL_DATE))
         self.phone.verify(data.DM_AND_GOAL_ITEM)
         self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_MED_NAME))
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_MEAL_TIME))
@@ -360,6 +364,7 @@ class Goals(Case):
         '''
         self.test_normal_log_history_bg_goal()
         self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertEqual('123', self.phone.text(data.DM_AND_GOAL_EDIT_VALUE_FIELD))
         self.phone.clear(data.DM_AND_GOAL_EDIT_VALUE_FIELD)
@@ -377,6 +382,7 @@ class Goals(Case):
         '''
         self.test_normal_log_history_bg_goal()
         self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertEqual('123', self.phone.text(data.DM_AND_GOAL_EDIT_VALUE_FIELD))
         self.phone.scroll_action(lambda: self.phone.verify(data.DM_AND_GOAL_EDIT_DELETE_BTN))
@@ -392,6 +398,7 @@ class Goals(Case):
         '''
         self.test_normal_log_history_insulin_goal()
         self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_TIME))
         self.phone.clear(data.DM_AND_GOAL_EDIT_VALUE_FIELD)
@@ -410,6 +417,7 @@ class Goals(Case):
         '''
         self.test_normal_log_history_oral_med_goal()
         self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_TIME))
         self.phone.scroll_action(lambda: self.phone.click(data.DM_AND_GOAL_EDIT_DELETE_BTN))
@@ -970,6 +978,7 @@ class Goals(Case):
         '''
         self.test_urgent_self_log_non_goal_oral_med()
         self.phone.find(data.DM_AND_GOAL_ITEM)[1].click()
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_TIME))
         self.phone.click(data.DM_AND_GOAL_EDIT_DELETE_BTN)
@@ -1000,6 +1009,7 @@ class Goals(Case):
         '''
         self.test_urgent_self_log_non_goal_insulin()
         self.phone.find(data.DM_AND_GOAL_ITEM)[1].click()
+        self.phone.hide_keyboard()
         self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
         self.assertFalse(self.phone.is_enabled(data.DM_AND_GOAL_EDIT_TIME))
         self.phone.click(data.DM_AND_GOAL_EDIT_DELETE_BTN)
