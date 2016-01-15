@@ -534,6 +534,55 @@ class Add_new_patient(Case):
         country_code_2 = self.pr.text(data.PR_ADD_PATIENT_P_COUNTRY_CODE)
         self.assertFalse(country_code_1 == country_code_2)
               
+    def test_normal_invite_patient_with_bp_weight_goals(self):
+        '''
+        This test is for "Invite a patient with BP goals"
+        '''
+        self.pr.login(data.DOCTOR, self.demo[0])
+        self.pr.click(data.PR_NAV_ADD_PATIENT)
+        self.pr.verify(data.PR_ADD_PATIENT_SURNAME)
+        INFO = self.pr.generate_info()
+        self.pr.enter(INFO['surname'], data.PR_ADD_PATIENT_SURNAME)
+        self.pr.enter(INFO['givename'], data.PR_ADD_PATIENT_GIVENAME)
+        self.pr.click(data.PR_ADD_PATIENT_GENDER_MALE)
+        self.pr.select('1', data.PR_ADD_PATIENT_P_COUNTRY_CODE)
+        self.pr.enter(INFO['us_cell'], data.PR_ADD_PATIENT_P_NUMBER)
+        self.pr.click(data.PR_ADD_PATIENT_APP_PATIENT)
+        self.pr.verify(data.PR_ADD_PATIENT_EMAIL)
+        email = INFO['email']
+        self.pr.enter(email, data.PR_ADD_PATIENT_EMAIL)
+        self.pr.select('en', data.PR_ADD_PATIENT_LANGUAGE)
+        if self.pr.is_element_present(data.PR_ADD_PATIENT_PREMIUM_TRIAL):
+            self.pr.click(data.PR_ADD_PATIENT_PREMIUM_TRIAL)
+        self.pr.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
+        self.pr.verify(data.PR_ADD_PATIENT_PATIENT_TYPE)
+        self.pr.select('1', data.PR_ADD_PATIENT_PATIENT_TYPE)
+        self.pr.driver.execute_script('document.getElementsByName("diagnosis_date")[0].value="2010-01-01"')
+        self.pr.enter('abc', data.PR_ADD_PATIENT_PATIENT_NOTES)
+        self.pr.select('80', data.PR_ADD_PATIENT_PRE_LOWER_LIMIT)
+        self.pr.select('140', data.PR_ADD_PATIENT_PRE_UPPER_LIMIT)
+        self.pr.select('80', data.PR_ADD_PATIENT_POST_LOWER_LIMIT)
+        self.pr.select('140', data.PR_ADD_PATIENT_POST_UPPER_LIMET)
+        self.pr.select(data.VALUE_AND_PATIENT_BPWEIGHT_FREQUENCY_DAILY, data.PR_ADD_PATIENT_BP_FREQUENCY)
+        self.pr.verify(data.PR_ADD_PATIENT_BP_DAILY_TABLE)
+        self.pr.click(data.PR_ADD_PATIENT_BP_EVERY_PRE_BRK)
+        self.pr.click(data.PR_ADD_PATIENT_BP_EVERY_NIGHT)
+        self.pr.enter('70', data.PR_ADD_PATIENT_WEIGHT_TARGET)
+        self.pr.select(data.VALUE_AND_PATIENT_BPWEIGHT_FREQUENCY_DAILY, data.PR_ADD_PATIENT_WEIGHT_FREQUENCY)
+        self.pr.verify(data.PR_ADD_PATIENT_WEIGHT_DAILY_TABLE)
+        self.pr.select(data.VALUE_AND_PATIENT_BPWEIGHT_FREQUENCY_2WEEK, data.PR_ADD_PATIENT_WEIGHT_FREQUENCY)
+        self.pr.select(data.WEEKDAY[0], data.PR_ADD_PATIENT_WEIGHT_WEEKDAY)
+        self.assertTrue('Monday' in self.pr.text(data.PR_ADD_PATIENT_WEIGHT_NEXT_MEASURE_DAY))
+        self.pr.verify(data.PR_ADD_PATIENT_FINAL_BUTTON)
+        self.pr.click(data.PR_ADD_PATIENT_FINAL_BUTTON)
+        self.pr.verify(data.PR_PATIENT_RECORD_ID, 20)
+        self.pr.click(data.PR_PATIENT_RECORD_INFO)
+        self.pr.verify(data.PR_PATIENT_RECORD_BP_COUNTER)
+        self.assertEqual(data.VALUE_PATIENT_RECORD_BPWEIGHT_FREQUENCY_1 %'14', self.pr.text(data.PR_PATIENT_RECORD_BP_COUNTER))
+        self.assertEqual('70', self.pr.text(data.PR_PATIENT_RECORD_WEIGHT_TARGET))
+        self.assertEqual(data.VALUE_PATIENT_RECORD_BPWEIGHT_FREQUENCY_2, self.pr.text(data.PR_PATIENT_RECORD_WEIGHT_COUNTER))
+
+
         
 if __name__ == '__main__':
     unittest.main()
