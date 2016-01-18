@@ -402,7 +402,18 @@ PR_PATIENT_RECORD_CHAT_SECOND_MES           	=   '.scroller-content li:nth-child
 PR_PATIENT_RECORD_CHAT_LATEST_MES           	=   '.scroller-content li:nth-last-child(3) div.text'
 PR_PATIENT_RECORD_SMBG                      	=   '.smbg'
 PR_PATIENT_RECORD_SMBG_COUNTER              	=   '.smbg_counter'
+VALUE_PATIENT_RECORD_SMBG_COUNTER_TEXT          =   'Measure %s times weekly'
 PR_PATIENT_RECORD_SMBG_TITLE                	=   '.smbg_goals h3'
+PR_PATIENT_RECORD_EVERY_PRE_BRK                	=   'every_pre_brk'
+PR_PATIENT_RECORD_EVERY_POST_BRK               	=   'every_post_brk'
+PR_PATIENT_RECORD_EVERY_PRE_LUN                	=   'every_pre_lun'
+PR_PATIENT_RECORD_EVERY_POST_LUN               	=   'every_post_lun'
+PR_PATIENT_RECORD_EVERY_PRE_DIN                	=   'every_pre_din'
+PR_PATIENT_RECORD_EVERY_POST_DIN               	=   'every_post_din'
+PR_PATIENT_RECORD_EVERY_NIGHT                  	=   'every_night'
+PR_PATIENT_RECORD_EVERY                         =   [PR_PATIENT_RECORD_EVERY_PRE_BRK, PR_PATIENT_RECORD_EVERY_POST_BRK, PR_PATIENT_RECORD_EVERY_PRE_LUN,
+                                                     PR_PATIENT_RECORD_EVERY_POST_LUN, PR_PATIENT_RECORD_EVERY_PRE_DIN, PR_PATIENT_RECORD_EVERY_POST_DIN,
+                                                     PR_PATIENT_RECORD_EVERY_NIGHT,]
 PR_PATIENT_RECORD_BP_NONE                   	=   'div.bp li.none'
 PR_PATIENT_RECORD_BP_COUNTER                	=   'li.bp_counter'
 PR_PATIENT_RECORD_BP_DIALOG                 	=   'div.bp_goals'

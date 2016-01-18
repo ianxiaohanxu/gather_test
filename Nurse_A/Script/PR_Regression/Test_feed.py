@@ -82,7 +82,7 @@ class Feed(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_SMBG)
         self.pr.click(data.PR_PATIENT_RECORD_SMBG)
         self.pr.verify(data.PR_PATIENT_RECORD_SMBG_TITLE)
-        map(self.pr.click, data.PR_ADD_PATIENT_EVERY)
+        map(self.pr.click, data.PR_PATIENT_RECORD_EVERY)
         self.pr.click(data.PR_BG_GOALS_SAVE_BUTTON)
         self.pr.wait_until_not_present(data.PR_PATIENT_RECORD_SMBG_TITLE)
         # Check the feed event
