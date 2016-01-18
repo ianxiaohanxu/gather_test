@@ -248,3 +248,10 @@ class MOB(object):
         except:
             return
 
+    def get_server_ip(self):
+        # Get server ip
+        COMMAND = 'ip_str=$(ifconfig | grep 192.168.0.);if [[ $ip_str =~ ":" ]];then ip_str=$(echo $ip_str | awk -F ":" "{print \$2}");else ip_str=$(echo $ip_str | awk "{print \$2}");fi;ip_str="${ip_str}:8000";echo $ip_str'
+        return commands.getoutput(COMMAND)
+       
+
+
