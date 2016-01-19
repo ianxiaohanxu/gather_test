@@ -104,7 +104,7 @@ class ANDROID(AND):
     Rewrite this method to set_server automatically
     '''
     def set_server(self):
-        server = self.get_server_ip()
+        server = 'http://' + self.get_server_ip()
         self.verify(data.DM_AND_SIGN_IN_NO_SPAM_HINT)
         self.hide_keyboard()
         self.press('Back')
