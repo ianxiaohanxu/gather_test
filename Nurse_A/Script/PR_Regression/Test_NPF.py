@@ -344,13 +344,13 @@ class Add_new_patient(Case):
         
         # Empty check
         self.pr.click(data.PR_ADD_PATIENT_INVITE_BUTTON)
-        self.pr.verify(data.PR_ADD_PATIENT_BASIC_ERROR)
-        errors = self.pr.find(data.PR_ADD_PATIENT_BASIC_ERROR)
-        self.assertEqual(len(errors), 1)
-        self.assertEqual(data.EM_PR_NPF_EMPTY_EMAIL, errors[0].text)
+        #self.pr.verify(data.PR_ADD_PATIENT_BASIC_ERROR)
+        #errors = self.pr.find(data.PR_ADD_PATIENT_BASIC_ERROR)
+        #self.assertEqual(len(errors), 1)
+        #self.assertEqual(data.EM_PR_NPF_EMPTY_EMAIL, errors[0].text)
         self.pr.verify(data.PR_ADD_PATIENT_BILL_RATE_ERROR)
         self.assertEqual(data.EM_PR_NPF_EMPTY_MONTHLY_RATE, self.pr.text(data.PR_ADD_PATIENT_BILL_RATE_ERROR))
-        self.assertTrue('invalid' in self.pr.focus(data.PR_ADD_PATIENT_EMAIL).get_attribute('class'))
+        #self.assertTrue('invalid' in self.pr.focus(data.PR_ADD_PATIENT_EMAIL).get_attribute('class'))
         self.assertTrue('invalid' in self.pr.focus(data.PR_ADD_PATIENT_BILL_RATE).get_attribute('class'))
         
         # Email format check

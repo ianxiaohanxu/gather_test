@@ -32,6 +32,26 @@ def set_bg_goal(goals, patient_id, ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data
             response = setup.request_interface('/api/v1/patients/%s/goals/bg.json' %patient_id, 'POST', DATA=goals_data, security=security_key)
             assert(response.status_code == 201),'Response status code is %d' %response.status_code
 
+def set_bp_goal(patient_id, ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0]):
+    security_key = setup.generate_security_key(ACCOUNT, PASSWORD)
+    goals_data = {
+                    "goal_task":    "4",
+                    "frequency":    "0",
+                    "meal_time":    "1"
+                 }
+    response = setup.request_interface('/api/v1/patients/%s/goals/bp.json' %patient_id, 'POST', DATA=goals_data, security=security_key)
+    assert(response.status_code == 201),'Response status code is %d' %response.status_code
+
+def set_weight_goal(patient_id, ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0]):
+    security_key = setup.generate_security_key(ACCOUNT, PASSWORD)
+    goals_data = {
+                    "goal_task":    "6",
+                    "frequency":    "0",
+                    "meal_time":    "1"
+                 }
+    response = setup.request_interface('/api/v1/patients/%s/goals/weight.json' %patient_id, 'POST', DATA=goals_data, security=security_key)
+    assert(response.status_code == 201),'Response status code is %d' %response.status_code
+
 def set_med_goal(goals, patient_id, ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0]):
     security_key = setup.generate_security_key(ACCOUNT, PASSWORD)
     if goals % 2:
@@ -224,7 +244,7 @@ def set_meal_times(patient_id, ACCOUNT, PASSWORD, brk_time='08:00:00', lun_time=
 
 def get_new_patient_account(practice_id=setup.demo_data[1], email=None, state=2,
         name=None, country_code='91', number='1234567890', billing=True,
-        ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0], bg=None, med=None, after_sign_up=False
+        ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0], bg=None, med=None, bp=None, weight=None, after_sign_up=False
 ):
     # Create a new patient and return the email
     random_str = str(int(time())) + str(random.randint(0,1000))
@@ -277,6 +297,10 @@ def get_new_patient_account(practice_id=setup.demo_data[1], email=None, state=2,
         set_bg_goal(bg, patient['id'], ACCOUNT=ACCOUNT, PASSWORD=PASSWORD)
     if med != None:
         set_med_goal(med, patient['id'], ACCOUNT=ACCOUNT, PASSWORD=PASSWORD)
+    if bp != None:
+        set_bp_goal(patient['id'], ACCOUNT=ACCOUNT, PASSWORD=PASSWORD)
+    if weight != None:
+        set_weight_goal(patient['id'], ACCOUNT=ACCOUNT, PASSWORD=PASSWORD)
     if after_sign_up:
         set_password(patient['email'], data.PASSWORD)
         set_meal_times(patient['id'], patient['email'], data.PASSWORD)

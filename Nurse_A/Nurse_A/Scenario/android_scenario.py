@@ -74,12 +74,12 @@ class ANDROID(AND):
         
     def get_new_patient_account(self, practice_id=setup.demo_data[1], email=None, state=2,
             name=None, country_code='91', number='1234567890', billing=True,
-            ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0], bg=None, med=None, after_sign_up=False
+            ACCOUNT=data.DOCTOR, PASSWORD=setup.demo_data[0], bg=None, med=None, bp=None, weight=None, after_sign_up=False
     ):
         # Create a new patient and return the email
         patient = mobile_setup.get_new_patient_account(practice_id=practice_id, email=email, state=state,
                 name=name, country_code=country_code, number=number, billing=billing,
-                ACCOUNT=ACCOUNT, PASSWORD=PASSWORD, bg=bg, med=med, after_sign_up=after_sign_up
+                ACCOUNT=ACCOUNT, PASSWORD=PASSWORD, bg=bg, med=med, bp=bp, weight=weight, after_sign_up=after_sign_up
                 )
         return patient
 

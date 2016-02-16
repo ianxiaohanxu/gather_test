@@ -37,13 +37,14 @@ class Chat(Case):
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)
+        self.pr.verify(data.PR_PATIENT_RECORD_CHAT_LATEST_MES)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_QUICK_BUTTON)
         self.pr.click(data.PR_PATIENT_RECORD_CHAT_QUICK_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_QUICK_MES_BIG_SUCCESS)
         self.pr.click(data.PR_PATIENT_RECORD_QUICK_MES_BIG_SUCCESS)
         self.pr.click(data.PR_PATIENT_RECORD_QUICK_MES_SEND)
-        self.pr.verify(data.PR_PATIENT_RECORD_CHAT_SECOND_MES)
-        self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_SECOND_MES), data.MES_CONTENT_BIGGEST_SUCCESS)
+        sleep(constant.INTERVAL_10)
+        self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_LATEST_MES), data.MES_CONTENT_BIGGEST_SUCCESS)
         
     def test_urgent_send_message_to_patient(self):
         '''
@@ -55,11 +56,13 @@ class Chat(Case):
         self.pr.login(data.DOCTOR, self.demo[0])
         INFO = self.pr.create_new_patient()
         self.pr.click(data.PR_PATIENT_RECORD_CHAT)
+        self.pr.verify(data.PR_PATIENT_RECORD_CHAT_LATEST_MES)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_TEXTAREA)
         self.pr.enter(MES, data.PR_PATIENT_RECORD_CHAT_TEXTAREA)
         self.pr.click(data.PR_PATIENT_RECORD_CHAT_SEND_BUTTON)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_SECOND_MES)
-        self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_SECOND_MES), MES)
+        sleep(constant.INTERVAL_10)
+        self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_LATEST_MES), MES)
         
                 
 if __name__ == '__main__':

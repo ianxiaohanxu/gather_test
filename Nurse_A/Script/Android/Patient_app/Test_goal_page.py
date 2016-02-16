@@ -872,6 +872,170 @@ class Goals(Case):
         self.phone.click(data.DM_AND_BP_EDIT_DELETE_BTN)
         self.phone.verify(data.DM_AND_GOAL_EMPTY_MESSAGE)
 
+    def test_urgent_log_bp_goal(self):
+        '''
+        This is the test for "Log BP goal"
+        '''
+        patient = mobile_setup.get_new_patient_account(bp=1, after_sign_up=True)
+        self.phone.login(patient['email'])
+        self.phone.verify(data.DM_AND_BOTTOM_GOALS)
+        self.phone.click(data.DM_AND_BOTTOM_GOALS)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_BP_EDIT_DATE))
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_BP_EDIT_MEAL_TIME))
+        self.phone.enter('120', data.DM_AND_BP_EDIT_SYSTOLIC_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.enter('80', data.DM_AND_BP_EDIT_DIASTOLIC_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_BP_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('120-80', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+    def test_urgent_log_bp_goal_with_pulse(self):
+        '''
+        This is the test for "Log BP goal with pulse"
+        '''
+        patient = mobile_setup.get_new_patient_account(bp=1, after_sign_up=True)
+        self.phone.login(patient['email'])
+        self.phone.verify(data.DM_AND_BOTTOM_GOALS)
+        self.phone.click(data.DM_AND_BOTTOM_GOALS)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_BP_EDIT_DATE))
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_BP_EDIT_MEAL_TIME))
+        self.phone.enter('120', data.DM_AND_BP_EDIT_SYSTOLIC_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.enter('80', data.DM_AND_BP_EDIT_DIASTOLIC_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.enter('70', data.DM_AND_BP_EDIT_PULSE)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_BP_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('120-80 (70)', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+    def test_urgent_edit_bp_goals(self):
+        '''
+        This is the test for "Edit BP goal"
+        '''
+        self.test_urgent_log_bp_goal_with_pulse()
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_BP_EDIT_TIME))
+        self.phone.clear(data.DM_AND_BP_EDIT_PULSE)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_BP_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('120-80', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.phone.enter('60', data.DM_AND_BP_EDIT_PULSE)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_BP_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('120-80 (60)', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.phone.clear(data.DM_AND_BP_EDIT_SYSTOLIC_FIELD)
+        self.phone.enter('110', data.DM_AND_BP_EDIT_SYSTOLIC_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.clear(data.DM_AND_BP_EDIT_DIASTOLIC_FIELD)
+        self.phone.enter('70', data.DM_AND_BP_EDIT_DIASTOLIC_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.clear(data.DM_AND_BP_EDIT_PULSE)
+        self.phone.enter('70', data.DM_AND_BP_EDIT_PULSE)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_BP_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('110-70 (70)', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+    def test_urgent_delete_bp_goal(self):
+        '''
+        This is the test for "Delete BP goal"
+        '''
+        self.test_urgent_log_bp_goal_with_pulse()
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_BP_EDIT_TIME))
+        self.phone.click(data.DM_AND_BP_EDIT_DELETE_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_UNCOMPLETED_STATUS)
+        self.assertEqual('log', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+    def test_urgent_log_weight_goal(self):
+        '''
+        This is the test for "Log weight goal"
+        '''
+        patient = mobile_setup.get_new_patient_account(weight=1, after_sign_up=True)
+        self.phone.login(patient['email'])
+        self.phone.verify(data.DM_AND_BOTTOM_GOALS)
+        self.phone.click(data.DM_AND_BOTTOM_GOALS)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_DATE))
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_MEAL_TIME))
+        self.phone.enter('70', data.DM_AND_WEIGHT_EDIT_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_WEIGHT_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('70.0', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
+    def test_urgent_edit_weight_goal(self):
+        '''
+        This is the test for "Edit weight goal"
+        '''
+        self.test_urgent_log_weight_goal()
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_TIME))
+        self.phone.clear(data.DM_AND_WEIGHT_EDIT_FIELD)
+        self.phone.enter('60', data.DM_AND_WEIGHT_EDIT_FIELD)
+        self.phone.hide_keyboard()
+        self.phone.click(data.DM_AND_WEIGHT_EDIT_LOG_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.assertEqual('60.0', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.phone.verify(data.DM_AND_GOAL_COMPLETED_STATUS)
+        self.assertEqual('edit', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+        
+    def test_urgent_delete_weight_goal(self):
+        '''
+        This is the test for "Delete weight goal"
+        '''
+        self.test_urgent_log_weight_goal()
+        self.phone.click(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_EDIT_DATE)
+        self.phone.hide_keyboard()
+        self.assertFalse(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_TIME))
+        self.phone.click(data.DM_AND_WEIGHT_EDIT_DELETE_BTN)
+        self.phone.verify(data.DM_AND_GOAL_ITEM)
+        self.phone.verify(data.DM_AND_GOAL_UNCOMPLETED_STATUS)
+        self.assertEqual('log', self.phone.text(data.DM_AND_GOAL_HINT_LOG_EDIT))
+
     def test_urgent_log_weight(self):
         '''
         This is the test for "Log weight"
@@ -886,13 +1050,13 @@ class Goals(Case):
         self.phone.click(data.DM_AND_SELF_LOG_WEIGHT)
         self.phone.verify(data.DM_AND_WEIGHT_EDIT_DATE)
         self.phone.hide_keyboard()
-        self.assertFalse(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_DATE))
-        self.assertFalse(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_TIME))
+        self.assertTrue(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_DATE))
+        self.assertTrue(self.phone.is_enabled(data.DM_AND_WEIGHT_EDIT_TIME))
         self.phone.enter('67', data.DM_AND_WEIGHT_EDIT_FIELD)
         self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_WEIGHT_EDIT_LOG_BTN)
         self.phone.verify(data.DM_AND_GOAL_ITEM)
-        self.assertEqual('67', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.assertEqual('67.0', self.phone.text(data.DM_AND_GOAL_VALUE))
 
     def test_urgent_edit_weight(self):
         '''
@@ -909,7 +1073,7 @@ class Goals(Case):
         self.phone.hide_keyboard()
         self.phone.click(data.DM_AND_WEIGHT_EDIT_LOG_BTN)
         self.phone.verify(data.DM_AND_GOAL_ITEM)
-        self.assertEqual('77', self.phone.text(data.DM_AND_GOAL_VALUE))
+        self.assertEqual('77.0', self.phone.text(data.DM_AND_GOAL_VALUE))
 
     def test_urgent_delete_weight(self):
         '''
