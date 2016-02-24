@@ -42,6 +42,7 @@ class Feed(Case):
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_TEXTAREA)
         self.pr.enter(MES, data.PR_PATIENT_RECORD_CHAT_TEXTAREA)
         self.pr.click(data.PR_PATIENT_RECORD_CHAT_SEND_BUTTON)
+        sleep(constant.INTERVAL_10)
         self.pr.verify(data.PR_PATIENT_RECORD_CHAT_LATEST_MES)
         self.assertEqual(self.pr.text(data.PR_PATIENT_RECORD_CHAT_LATEST_MES), MES)
         # Check the feed event
